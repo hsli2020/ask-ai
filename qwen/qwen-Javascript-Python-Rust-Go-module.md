@@ -1,4 +1,4 @@
-对比Javascript，Python，Rust，Go语言的模块机制的特点和差异
+# 🤵 对比Javascript，Python，Rust，Go语言的模块机制的特点和差异
 
 JavaScript、Python、Rust 和 Go 是四种广泛使用的编程语言，它们在模块机制的设计和实现上各有特点。
 下面从模块定义、导入导出方式、模块解析、包管理、运行时行为等方面进行对比，帮助理解它们的差异

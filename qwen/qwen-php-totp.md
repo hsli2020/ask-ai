@@ -1,4 +1,4 @@
-编写一个PHP函数，生成TOTP(Time-based one-time password)，生成的TOTP必须能得到Google Authenticator的确认
+# 🤵 编写一个PHP函数，生成TOTP(Time-based one-time password)，生成的TOTP必须能得到Google Authenticator的确认
 
 你可以使用 PHP 编写一个符合 RFC 6238 标准的 TOTP（基于时间的一次性密码）生成函数，使其与 Google Authenticator 兼容。Google Authenticator 使用 SHA-1 哈希算法、30 秒的时间步长和 6 位数字的密码长度。
 

@@ -1,4 +1,4 @@
-请用PHP语言编写一个Pagination类
+# 🤵 请用PHP语言编写一个Pagination类
 
 Qwen3-235B-A22B-2507 3:31 pm
 下面是一个使用 PHP 编写的 Pagination 类，用于生成分页链接和相关信息，适用于 Web 分页显示场景。 
