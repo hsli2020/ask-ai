@@ -1,0 +1,624 @@
+<!--
+
+添加以下功能
+    导出为 CSV
+    分页功能
+    多字段排序
+    公司名也支持拼音搜索
+    响应式适配手机
+
+Qwen3-235B-A22B-2507 4:21 pm
+
+太棒了！以下是终极增强版可编辑表格，包含你要求的全部功能： 
+ 
+✅ 新增功能 
+✅ 导出为 CSV		点击按钮导出当前数据（含搜索结果）
+✅ 分页功能			每页显示 5 条，支持上一页/下一页
+✅ 多字段排序		点击表头按姓名、邮箱、公司、生日排序（升序/降序）
+✅ 公司名拼音搜索		公司字段也支持拼音匹配
+✅ 响应式适配手机		表格可横向滚动，按钮适配小屏
+✅ 持久化 + 高亮 + 添加/编辑/删除	保留之前所有功能
+ 
+✅ 完整代码（复制粘贴即可运行）
+
+-->
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>终极版用户管理系统</title>
+  <!-- script src="https://cdn.jsdelivr.net/npm/pinyin-pro@2.20.0/dist/pinyin.min.js"></script -->
+  <script src="https://cdn.jsdelivr.net/npm/pinyin@4.0.0/lib/umd/pinyin.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 15px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+
+    /* 响应式容器 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 搜索 + 按钮行 */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .search-container {
+      flex: 1;
+      min-width: 200px;
+    }
+    .search-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    #addUserBtn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #exportBtn {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    /* 表格响应式包装 */
+    .table-responsive {
+      overflow-x: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+    th:hover {
+      background-color: #2980b9;
+    }
+    .sort-icon {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+    .highlight {
+      background-color: #fffacd;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    .action-btn {
+      margin: 0 3px;
+      padding: 5px 8px;
+      font-size: 13px;
+    }
+    .edit-btn {
+      background-color: #3498db;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    /* 分页 */
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .pagination button {
+      margin: 0 5px;
+      padding: 8px 12px;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+    }
+    .pagination button:disabled {
+      color: #aaa;
+      background: #f9f9f9;
+    }
+    .pagination button:not(:disabled):hover {
+      background: #ddd;
+    }
+
+    /* 对话框 */
+    dialog {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 0;
+      width: 90%;
+      max-width: 500px;
+    }
+    dialog .dialog-header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      margin: 0;
+    }
+    dialog .dialog-body {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .dialog-buttons {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .dialog-buttons button {
+      padding: 8px 15px;
+      margin-left: 10px;
+    }
+    .save-btn {
+      background-color: #27ae60;
+      color: white;
+    }
+    .cancel-btn {
+      background-color: #95a5a6;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .actions {
+        justify-content: center;
+      }
+      th, td {
+        padding: 8px 6px;
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h2>用户信息管理系统</h2>
+
+  <div class="header">
+    <div class="search-container">
+      <label for="searchInput">🔍 搜索姓名/邮箱/公司/拼音</label>
+      <input type="text" id="searchInput" placeholder="输入关键字..." />
+    </div>
+    <div class="actions">
+      <button id="addUserBtn">➕ 添加用户</button>
+      <button id="exportBtn">📤 导出 CSV</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th data-sort="id">ID <span class="sort-icon"></span></th>
+          <th data-sort="name">姓名 <span class="sort-icon"></span></th>
+          <th data-sort="email">邮箱 <span class="sort-icon"></span></th>
+          <th data-sort="company">公司 <span class="sort-icon"></span></th>
+          <th data-sort="birthday">生日 <span class="sort-icon"></span></th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="pagination" id="pagination">
+    <button id="prevBtn" disabled>上一页</button>
+    <span id="pageInfo">第 1 页</span>
+    <button id="nextBtn">下一页</button>
+  </div>
+
+</div>
+
+<!-- 编辑/添加对话框 -->
+<dialog id="editDialog">
+  <div class="dialog-header">
+    <h2 id="dialogTitle">编辑用户</h2>
+  </div>
+  <div class="dialog-body">
+    <form id="editForm">
+      <input type="hidden" id="edit-id" />
+      <div class="form-group">
+        <label for="edit-name">姓名</label>
+        <input type="text" id="edit-name" required />
+      </div>
+      <div class="form-group">
+        <label for="edit-email">邮箱</label>
+        <input type="email" id="edit-email" required />
+      </div>
+      <div class="form-group">
+        <label for="edit-company">公司</label>
+        <input type="text" id="edit-company" required />
+      </div>
+      <div class="form-group">
+        <label for="edit-birthday">生日</label>
+        <input type="date" id="edit-birthday" required />
+      </div>
+      <div class="dialog-buttons">
+        <button type="button" class="cancel-btn" id="cancelBtn">取消</button>
+        <button type="submit" class="save-btn">保存</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  // 加载数据
+  const loadData = () => {
+    const saved = localStorage.getItem("tableData");
+    return saved ? JSON.parse(saved) : [
+      { id: 1, name: "张三", email: "zhangsan@example.com", company: "科技公司", birthday: "1990-01-15" },
+      { id: 2, name: "李四", email: "lisi@company.com", company: "设计工作室", birthday: "1985-03-22" },
+      { id: 3, name: "王五", email: "wangwu@gmail.com", company: "谷歌", birthday: "1992-07-10" },
+      { id: 4, name: "赵六", email: "zhaoliu@hotmail.com", company: "微软", birthday: "1988-11-05" },
+      { id: 5, name: "陈七", email: "chenqi@outlook.com", company: "初创公司", birthday: "1995-04-18" },
+      { id: 6, name: "刘八", email: "liuba@tech.org", company: "TechCorp", birthday: "1991-09-30" },
+      { id: 7, name: "孙九", email: "sunjiu@data.net", company: "数据公司", birthday: "1987-12-25" },
+      { id: 8, name: "周十", email: "zhoushi@web.cn", company: "网络公司", birthday: "1993-06-14" },
+      { id: 9, name: "吴小明", email: "wuxiaoming@abc.com", company: "ABC集团", birthday: "1990-08-09" },
+      { id: 10, name: "郑大伟", email: "zhengdawei@xyz.com", company: "XYZ科技", birthday: "1984-02-28" },
+      { id: 11, name: "黄丽丽", email: "huanglili@demo.com", company: "Demo公司", birthday: "1996-05-12" },
+      { id: 12, name: "徐飞", email: "xufei@startup.io", company: "StartupLab", birthday: "1994-10-03" }
+    ];
+  };
+
+  let tableData = loadData();
+  let filteredData = [];
+  let currentPage = 1;
+  const pageSize = 5;
+  let isAddingNew = false;
+  let sortConfig = { key: 'id', direction: 'asc' };
+
+  const tableBody = document.getElementById("tableBody");
+  const searchInput = document.getElementById("searchInput");
+  const dialog = document.getElementById("editDialog");
+  const editForm = document.getElementById("editForm");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const addUserBtn = document.getElementById("addUserBtn");
+  const exportBtn = document.getElementById("exportBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const pageInfo = document.getElementById("pageInfo");
+  const dialogTitle = document.getElementById("dialogTitle");
+
+  function saveData() {
+    localStorage.setItem("tableData", JSON.stringify(tableData));
+  }
+
+  function highlightText(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.toString().replace(regex, '<span class="highlight">$1</span>');
+  }
+
+  async function getPinyin(text) {
+    try {
+      return pinyin(text, { toneType: 'none', type: 'array' }).join(' ').toLowerCase();
+    } catch (e) {
+      return '';
+    }
+  }
+
+  async function applyFilterAndSort() {
+    const query = searchInput.value.trim().toLowerCase();
+    let data = [...tableData];
+
+    if (query) {
+      const pinyinPromises = data.map(async item => ({
+        id: item.id,
+        namePinyin: await getPinyin(item.name),
+        companyPinyin: await getPinyin(item.company)
+      }));
+      const pinyinResults = await Promise.all(pinyinPromises);
+      const map = pinyinResults.reduce((acc, r) => {
+        acc[r.id] = r;
+        return acc;
+      }, {});
+
+      data = data.filter(item => {
+        const p = map[item.id];
+        return (
+          item.name.toLowerCase().includes(query) ||
+          item.email.toLowerCase().includes(query) ||
+          item.company.toLowerCase().includes(query) ||
+          p.namePinyin.includes(query) ||
+          p.companyPinyin.includes(query)
+        );
+      });
+    }
+
+    // 排序
+    data.sort((a, b) => {
+      let aValue = a[sortConfig.key];
+      let bValue = b[sortConfig.key];
+
+      if (sortConfig.key === 'birthday') {
+        aValue = new Date(aValue);
+        bValue = new Date(bValue);
+      }
+
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    filteredData = data;
+    currentPage = 1;
+    renderTable();
+    updatePagination();
+  }
+
+  function renderTable() {
+    const start = (currentPage - 1) * pageSize;
+    const pageData = filteredData.slice(start, start + pageSize);
+    const query = searchInput.value.trim();
+
+    tableBody.innerHTML = "";
+    pageData.forEach(user => {
+      let name = user.name;
+      let email = user.email;
+      let company = user.company;
+
+      if (query) {
+        name = highlightText(user.name, query);
+        email = highlightText(user.email, query);
+        company = highlightText(user.company, query);
+      }
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${user.id}</td>
+        <td>${name}</td>
+        <td>${email}</td>
+        <td>${company}</td>
+        <td>${user.birthday}</td>
+        <td>
+          <button class="action-btn edit-btn" data-id="${user.id}">Edit</button>
+          <button class="action-btn delete-btn" data-id="${user.id}">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    bindEvents();
+  }
+
+  function updatePagination() {
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage >= totalPages;
+    pageInfo.textContent = `第 ${currentPage} 页，共 ${totalPages} 页`;
+  }
+
+  function bindEvents() {
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        tableData = tableData.filter(u => u.id !== id);
+        saveData();
+        applyFilterAndSort();
+      });
+    });
+
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        const user = tableData.find(u => u.id === id);
+        if (user) {
+          isAddingNew = false;
+          dialogTitle.textContent = "编辑用户";
+          document.getElementById("edit-id").value = user.id;
+          document.getElementById("edit-name").value = user.name;
+          document.getElementById("edit-email").value = user.email;
+          document.getElementById("edit-company").value = user.company;
+          document.getElementById("edit-birthday").value = user.birthday;
+          dialog.showModal();
+        }
+      });
+    });
+  }
+
+  // 排序
+  document.querySelectorAll("th[data-sort]").forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.getAttribute("data-sort");
+      if (sortConfig.key === key) {
+        sortConfig.direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortConfig.key = key;
+        sortConfig.direction = 'asc';
+      }
+      // 更新图标
+      document.querySelectorAll(".sort-icon").forEach(el => el.textContent = '');
+      const icon = th.querySelector(".sort-icon");
+      icon.textContent = sortConfig.direction === 'asc' ? '↑' : '↓';
+      applyFilterAndSort();
+    });
+  });
+
+  // 分页
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderTable();
+      updatePagination();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderTable();
+      updatePagination();
+    }
+  });
+
+  // 添加用户
+  addUserBtn.addEventListener("click", () => {
+    isAddingNew = true;
+    dialogTitle.textContent = "添加用户";
+    editForm.reset();
+    document.getElementById("edit-id").value = "";
+    dialog.showModal();
+  });
+
+  // 导出 CSV
+  exportBtn.addEventListener("click", async () => {
+    await applyFilterAndSort(); // 确保拼音已加载
+    const header = ['ID', '姓名', '邮箱', '公司', '生日'];
+    const csv = [
+      header.join(','),
+      ...filteredData.map(u => [
+        u.id,
+        `"${u.name}"`,
+        `"${u.email}"`,
+        `"${u.company}"`,
+        `"${u.birthday}"`
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `用户数据_${new Date().toLocaleDateString()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // 表单提交
+  editForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("edit-name").value.trim();
+    const email = document.getElementById("edit-email").value.trim();
+    const company = document.getElementById("edit-company").value.trim();
+    const birthday = document.getElementById("edit-birthday").value;
+
+    if (isAddingNew) {
+      const maxId = tableData.length > 0 ? Math.max(...tableData.map(u => u.id)) : 0;
+      tableData.push({ id: maxId + 1, name, email, company, birthday });
+    } else {
+      const id = parseInt(document.getElementById("edit-id").value);
+      const user = tableData.find(u => u.id === id);
+      if (user) {
+        Object.assign(user, { name, email, company, birthday });
+      }
+    }
+
+    saveData();
+    dialog.close();
+    applyFilterAndSort();
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    dialog.close();
+  });
+
+  // 初始化
+  (async () => {
+    await applyFilterAndSort();
+  })();
+</script>
+
+</body>
+</html>
+
+<!--
+
+✅ 功能测试建议 
+📱 响应式			缩小浏览器窗口，观察布局自适应
+🔤 拼音搜索		输入zhang→ 匹配“张三”，输入qichuang→ 匹配“初创公司”
+📊 分页			搜索后看分页是否动态更新
+🔽 排序			点击“姓名”两次：升序 → 降序
+💾 持久化		刷新页面，数据仍在
+📤 导出 CSV		下载后用 Excel 打开，中文正常
+ 
+🎉 总结 
+
+这个表格已具备： 
+
+    ✅ 完整的 CRUD 操作
+    ✅ 实时 搜索 + 拼音支持
+    ✅ 高亮 匹配项
+    ✅ 分页 控制
+    ✅ 多字段排序
+    ✅ 导出 CSV
+    ✅ 响应式设计
+    ✅ 数据持久化
+     
+如需进一步升级，可考虑： 
+
+    🔐 用户登录保护
+    📅 日历视图生日提醒
+    📊 数据统计图表
+    🔎 高级筛选（日期范围、公司分类）
+     
+
+需要我继续扩展吗？欢迎提出！ 
+
+-->

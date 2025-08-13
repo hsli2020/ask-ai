@@ -1,0 +1,131 @@
+// 用golang语言编写一个函数，对于给定的任意json格式的数据，将其转换成一维的K-V结构，Key是用点(.)分开的字段名构成的路径
+
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+)
+
+// flattenJSON 将JSON数据转换为点号分隔的键值对映射
+func flattenJSON(data interface{}, prefix string) (map[string]interface{}, error) {
+    result := make(map[string]interface{})
+    
+    // 处理对象类型
+    objMap, isMap := data.(map[string]interface{})
+    if isMap {
+        for key, value := range objMap {
+            newPrefix := prefix
+            if prefix != "" {
+                newPrefix += "." + key
+            } else {
+                newPrefix = key
+            }
+            
+            // 递归处理子对象
+            flatResult, err := flattenJSON(value, newPrefix)
+            if err != nil {
+                return nil, fmt.Errorf("处理字段 '%s' 时出错: %w", key, err)
+            }
+            
+            // 合并结果
+            for k, v := range flatResult {
+                result[k] = v
+            }
+        }
+        return result, nil
+    }
+    
+    // 处理数组类型
+    arr, isArray := data.([]interface{})
+    if isArray {
+        for i, value := range arr {
+            newPrefix := prefix + fmt.Sprintf("[%d]", i)
+            
+            // 递归处理数组元素
+            flatResult, err := flattenJSON(value, newPrefix)
+            if err != nil {
+                return nil, fmt.Errorf("处理数组索引 '%s' 时出错: %w", newPrefix, err)
+            }
+            
+            // 合并结果
+            for k, v := range flatResult {
+                result[k] = v
+            }
+        }
+        return result, nil
+    }
+    
+    // 处理基本类型
+    if prefix != "" {
+        result[prefix] = data
+    } else {
+        return nil, fmt.Errorf("根节点必须是对象或数组类型")
+    }
+    
+    return result, nil
+}
+
+func main() {
+    // 测试数据
+    testData := map[string]interface{}{
+        "name": "张三",
+        "age": 25,
+        "address": map[string]interface{}{
+            "city": "北京",
+            "street": "朝阳路123号",
+        },
+        "hobbies": []interface{}{
+            "阅读",
+            "运动",
+            map[string]interface{}{
+                "sport": "篮球",
+                "level": "中级",
+            },
+        },
+    }
+
+    // 执行扁平化转换
+    flatMap, err := flattenJSON(testData, "")
+    if err != nil {
+        fmt.Printf("错误: %v\n", err)
+        return
+    }
+
+    // 打印结果
+    b, _ := json.MarshalIndent(flatMap, "", "\t")
+    fmt.Println(string(b))
+}
+/*
+这个实现的主要特点：
+
+    支持任意深度的嵌套结构
+    使用点号(.)作为路径分隔符
+    对数组元素使用方括号[]标记索引
+    包含完整的错误处理机制
+
+示例输出：
+
+{
+    "name": "张三",
+    "age": 25,
+    "address.city": "北京",
+    "address.street": "朝阳路123号",
+    "hobbies[0]": "阅读",
+    "hobbies[1]": "运动",
+    "hobbies[2].sport": "篮球",
+    "hobbies[2].level": "中级"
+}
+
+使用方法：
+
+// 将JSON字符串转换为interface{}
+var data interface{}
+err := json.Unmarshal(jsonBytes, &data)
+
+// 执行扁平化转换
+flatMap, err := flattenJSON(data, "")
+
+这个实现可以处理大多数常见的JSON结构，包括嵌套对象和数组。如果遇到复杂的数据结构或特殊需求，可以根据需要进行相应的调整。
+
+*/

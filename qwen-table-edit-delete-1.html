@@ -1,0 +1,226 @@
+<!--
+编写一个网页，网页中包含一个table，table有若干数据，每一行都有“Edit”和"Delete"两个按钮，当点击Delete按钮时, 删除对应的行，当点击Edit按钮时，弹出一个对话框，提供一个Form让用户进行修改，修改完毕，更新对应的行，纯前端，不设计后端
+
+Qwen3-235B-A22B-2507 3:59 pm
+
+下面是一个纯前端实现的网页示例，包含一个表格（<table>），每行有“Edit”和“Delete”按钮： 
+
+  - 点击 Delete 按钮：删除当前行。
+  - 点击 Edit 按钮：弹出一个模态对话框（使用 dialog 元素），显示一个表单，允许用户编辑该行数据，保存后更新表格。
+
+✅ 技术栈：HTML + CSS + JavaScript（无后端） 
+
+-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>可编辑表格</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .action-btn {
+      margin: 0 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    dialog {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 400px;
+    }
+    dialog h2 {
+      margin-top: 0;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .dialog-buttons {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .dialog-buttons button {
+      padding: 8px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+    .save-btn {
+      background-color: #2196F3;
+      color: white;
+    }
+    .cancel-btn {
+      background-color: #9e9e9e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>用户信息表</h2>
+
+<table id="dataTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>姓名</th>
+      <th>邮箱</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 初始数据行 -->
+  </tbody>
+</table>
+
+<!-- 编辑对话框 -->
+<dialog id="editDialog">
+  <h2>编辑用户</h2>
+  <form id="editForm">
+    <input type="hidden" id="edit-id" />
+    <div class="form-group">
+      <label for="edit-name">姓名</label>
+      <input type="text" id="edit-name" required />
+    </div>
+    <div class="form-group">
+      <label for="edit-email">邮箱</label>
+      <input type="email" id="edit-email" required />
+    </div>
+    <div class="dialog-buttons">
+      <button type="button" class="cancel-btn" id="cancelBtn">取消</button>
+      <button type="submit" class="save-btn">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  // 初始数据
+  let tableData = [
+    { id: 1, name: "张三", email: "zhangsan@example.com" },
+    { id: 2, name: "李四", email: "lisi@example.com" },
+    { id: 3, name: "王五", email: "wangwu@example.com" }
+  ];
+
+  const tableBody = document.querySelector("#dataTable tbody");
+  const dialog = document.getElementById("editDialog");
+  const editForm = document.getElementById("editForm");
+  const cancelBtn = document.getElementById("cancelBtn");
+
+  // 渲染表格
+  function renderTable() {
+    tableBody.innerHTML = "";
+    tableData.forEach(user => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${user.id}</td>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>
+          <button class="action-btn edit-btn" data-id="${user.id}">Edit</button>
+          <button class="action-btn delete-btn" data-id="${user.id}">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    // 绑定事件
+    bindEvents();
+  }
+
+  // 绑定按钮事件
+  function bindEvents() {
+    // 删除按钮
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        tableData = tableData.filter(user => user.id !== id);
+        renderTable(); // 重新渲染
+      });
+    });
+
+    // 编辑按钮
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        const user = tableData.find(u => u.id === id);
+        if (user) {
+          document.getElementById("edit-id").value = user.id;
+          document.getElementById("edit-name").value = user.name;
+          document.getElementById("edit-email").value = user.email;
+          dialog.showModal(); // 显示对话框
+        }
+      });
+    });
+  }
+
+  // 表单提交：保存编辑
+  editForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById("edit-id").value);
+    const name = document.getElementById("edit-name").value.trim();
+    const email = document.getElementById("edit-email").value.trim();
+
+    const user = tableData.find(u => u.id === id);
+    if (user) {
+      user.name = name;
+      user.email = email;
+    }
+
+    dialog.close();
+    renderTable(); // 更新表格
+  });
+
+  // 取消按钮
+  cancelBtn.addEventListener("click", () => {
+    dialog.close();
+  });
+
+  // 初始化
+  renderTable();
+</script>
+
+</body>
+</html>

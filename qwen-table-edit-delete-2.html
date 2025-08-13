@@ -1,0 +1,468 @@
+<!--
+在table上方添加一个search框，用户输入内容后立即在表中显示搜索结果，为了验证各种搜索效果，请生成至少10行数据
+
+Qwen3-235B-A22B-2507 4:05 pm
+
+好的！以下是增强版网页代码，包含以下新功能： 
+
+✅ 在表格上方添加一个 实时搜索框（Search）
+✅ 生成 12 行示例数据（姓名、邮箱多样化，便于测试搜索）
+✅ 搜索支持：姓名 + 邮箱 的模糊匹配（不区分大小写）
+✅ 输入时立即过滤显示结果（无需按回车）
+✅ 纯前端实现，不依赖后端 
+
+✅ 完整 HTML 代码（含搜索 + 12 条数据）
+-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>可编辑带搜索的表格</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .search-container {
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+    .search-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .action-btn {
+      margin: 0 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    dialog {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 400px;
+    }
+    dialog h2 {
+      margin-top: 0;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .dialog-buttons {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .dialog-buttons button {
+      padding: 8px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+    .save-btn {
+      background-color: #2196F3;
+      color: white;
+    }
+    .cancel-btn {
+      background-color: #9e9e9e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>用户信息表</h2>
+
+<!-- 搜索框 -->
+<div class="search-container">
+  <label for="searchInput">搜索姓名或邮箱</label>
+  <input type="text" id="searchInput" placeholder="输入关键字..." />
+</div>
+
+<table id="dataTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>姓名</th>
+      <th>邮箱</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- 数据由 JavaScript 渲染 -->
+  </tbody>
+</table>
+
+<!-- 编辑对话框 -->
+<dialog id="editDialog">
+  <h2>编辑用户</h2>
+  <form id="editForm">
+    <input type="hidden" id="edit-id" />
+    <div class="form-group">
+      <label for="edit-name">姓名</label>
+      <input type="text" id="edit-name" required />
+    </div>
+    <div class="form-group">
+      <label for="edit-email">邮箱</label>
+      <input type="email" id="edit-email" required />
+    </div>
+    <div class="dialog-buttons">
+      <button type="button" class="cancel-btn" id="cancelBtn">取消</button>
+      <button type="submit" class="save-btn">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  // 生成 12 条测试数据
+  let tableData = [
+    { id: 1, name: "张三", email: "zhangsan@example.com" },
+    { id: 2, name: "李四", email: "lisi@company.com" },
+    { id: 3, name: "王五", email: "wangwu@gmail.com" },
+    { id: 4, name: "赵六", email: "zhaoliu@hotmail.com" },
+    { id: 5, name: "陈七", email: "chenqi@outlook.com" },
+    { id: 6, name: "刘八", email: "liuba@tech.org" },
+    { id: 7, name: "孙九", email: "sunjiu@data.net" },
+    { id: 8, name: "周十", email: "zhoushi@web.cn" },
+    { id: 9, name: "吴小明", email: "wuxiaoming@abc.com" },
+    { id: 10, name: "郑大伟", email: "zhengdawei@xyz.com" },
+    { id: 11, name: "黄丽丽", email: "huanglili@demo.com" },
+    { id: 12, name: "徐飞", email: "xufei@startup.io" }
+  ];
+
+  const tableBody = document.getElementById("tableBody");
+  const searchInput = document.getElementById("searchInput");
+  const dialog = document.getElementById("editDialog");
+  const editForm = document.getElementById("editForm");
+  const cancelBtn = document.getElementById("cancelBtn");
+
+  // 渲染表格（支持过滤后的数据）
+  function renderTable(dataToRender) {
+    tableBody.innerHTML = "";
+    dataToRender.forEach(user => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${user.id}</td>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>
+          <button class="action-btn edit-btn" data-id="${user.id}">Edit</button>
+          <button class="action-btn delete-btn" data-id="${user.id}">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    // 重新绑定事件
+    bindEvents();
+  }
+
+  // 绑定按钮事件
+  function bindEvents() {
+    // 删除按钮
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        tableData = tableData.filter(user => user.id !== id);
+        applySearch(); // 重新应用搜索过滤
+      });
+    });
+
+    // 编辑按钮
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        const user = tableData.find(u => u.id === id);
+        if (user) {
+          document.getElementById("edit-id").value = user.id;
+          document.getElementById("edit-name").value = user.name;
+          document.getElementById("edit-email").value = user.email;
+          dialog.showModal();
+        }
+      });
+    });
+  }
+
+  // 实时搜索处理
+  function applySearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    let filteredData = tableData;
+
+    if (query) {
+      filteredData = tableData.filter(user =>
+        user.name.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query)
+      );
+    }
+
+    renderTable(filteredData);
+  }
+
+  // 监听搜索输入（实时搜索）
+  searchInput.addEventListener("input", applySearch);
+
+  // 表单提交：保存编辑
+  editForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById("edit-id").value);
+    const name = document.getElementById("edit-name").value.trim();
+    const email = document.getElementById("edit-email").value.trim();
+
+    const user = tableData.find(u => u.id === id);
+    if (user) {
+      user.name = name;
+      user.email = email;
+    }
+
+    dialog.close();
+    applySearch(); // 重新渲染（保留搜索状态）
+  });
+
+  // 取消按钮
+  cancelBtn.addEventListener("click", () => {
+    dialog.close();
+  });
+
+  // 初始化：首次渲染全部数据
+  applySearch();
+</script>
+
+</body>
+</html>
+
+<!--
+profile
+Qwen3-235B-A22B-2507 4:05 pm
+
+好的！以下是增强版网页代码，包含以下新功能： 
+
+✅ 在表格上方添加一个 实时搜索框（Search）
+✅ 生成 12 行示例数据（姓名、邮箱多样化，便于测试搜索）
+✅ 搜索支持：姓名 + 邮箱 的模糊匹配（不区分大小写）
+✅ 输入时立即过滤显示结果（无需按回车）
+✅ 纯前端实现，不依赖后端 
+ 
+✅ 完整 HTML 代码（含搜索 + 12 条数据） 
+html
+ 
+ 
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+⌄
+⌄
+⌄
+⌄
+⌄
+⌄
+⌄
+⌄
+  <style>
+        tableData = tableData.filter(user => user.id !== id);
+        applySearch(); // 重新应用搜索过滤
+      });
+    });
+
+    // 编辑按钮
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.getAttribute("data-id"));
+        const user = tableData.find(u => u.id === id);
+        if (user) {
+          document.getElementById("edit-id").value = user.id;
+          document.getElementById("edit-name").value = user.name;
+          document.getElementById("edit-email").value = user.email;
+          dialog.showModal();
+        }
+      });
+    });
+  }
+
+  // 实时搜索处理
+  function applySearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    let filteredData = tableData;
+
+    if (query) {
+      filteredData = tableData.filter(user =>
+        user.name.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query)
+      );
+    }
+
+    renderTable(filteredData);
+  }
+
+  // 监听搜索输入（实时搜索）
+  searchInput.addEventListener("input", applySearch);
+
+  // 表单提交：保存编辑
+  editForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById("edit-id").value);
+    const name = document.getElementById("edit-name").value.trim();
+    const email = document.getElementById("edit-email").value.trim();
+
+    const user = tableData.find(u => u.id === id);
+    if (user) {
+      user.name = name;
+      user.email = email;
+    }
+
+    dialog.close();
+    applySearch(); // 重新渲染（保留搜索状态）
+  });
+
+  // 取消按钮
+  cancelBtn.addEventListener("click", () => {
+    dialog.close();
+  });
+
+  // 初始化：首次渲染全部数据
+  applySearch();
+</script>
+
+</body>
+</html>
+ 
+ 
+ 
+✅ 功能演示建议（你可以测试这些场景）： 
+张		显示“张三”
+li		匹配“李四”、“刘八”、“黄丽丽”等名字含 li 的
+@gmail	显示“wangwu@gmail.com”
+tech	显示“liuba@tech.org”
+不存在	显示空表（清空）
+		显示全部 12 条数据
+ 
+ 
+ 
+🔍 技术亮点 
+
+  - 实时搜索：使用 input 事件，输入时立即响应。
+  - 模糊匹配：支持姓名和邮箱的任意部分匹配。
+  - 大小写不敏感：.toLowerCase() 处理。
+  - 删除/编辑后保留搜索状态：调用 applySearch() 保持上下文。
+  - 可扩展性强：后续可加排序、分页、高亮等。
+     
+
+需要我加上以下功能吗？
+✅ 搜索高亮关键词
+✅ 添加新用户按钮
+✅ 数据持久化（localStorage）
+✅ 支持中文拼音搜索 
+
+欢迎继续提问！ 
+ 
+-->
