@@ -1,0 +1,665 @@
+
+C:\Laragon\www
+λ gemini
+
+ ███            █████████  ██████████ ██████   ██████ █████ ██████   █████ █████
+░░░███         ███░░░░░███░░███░░░░░█░░██████ ██████ ░░███ ░░██████ ░░███ ░░███
+  ░░░███      ███     ░░░  ░███  █ ░  ░███░█████░███  ░███  ░███░███ ░███  ░███
+    ░░░███   ░███          ░██████    ░███░░███ ░███  ░███  ░███░░███░███  ░███
+     ███░    ░███    █████ ░███░░█    ░███ ░░░  ░███  ░███  ░███ ░░██████  ░███
+   ███░      ░░███  ░░███  ░███ ░   █ ░███      ░███  ░███  ░███  ░░█████  ░███
+ ███░         ░░█████████  ██████████ █████     █████ █████ █████  ░░█████ █████
+░░░            ░░░░░░░░░  ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░
+
+
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. Create GEMINI.md files to customize your interactions with Gemini.
+4. /help for more information.
+
+
+╭───────────╮
+│  > /quit  │
+╰───────────╯
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                            │
+│  Agent powering down. Goodbye!                                                                                                                             │
+│                                                                                                                                                            │
+│  Performance                                                                                                                                               │
+│  Wall Time:                  37.6s                                                                                                                         │
+│  Agent Active:               0s                                                                                                                            │
+│    » API Time:               0s (0.0%)                                                                                                                     │
+│    » Tool Time:              0s (0.0%)                                                                                                                     │
+│                                                                                                                                                            │
+│                                                                                                                                                            │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+C:\Laragon\www
+λ ll
+total 437
+-rw-r--r-- 1 hsli 197609    489 Mar 24  2024  a1.html
+-rw-r--r-- 1 hsli 197609   3020 Mar 24  2024  a2.html
+-rw-r--r-- 1 hsli 197609   5297 May  4  2024 'a3 - Copy.html'
+-rw-r--r-- 1 hsli 197609   8759 May 11  2024  a3.html
+-rw-r--r-- 1 hsli 197609   3039 May 11  2024  a4.html
+-rw-r--r-- 1 hsli 197609    804 May 11  2024  a5.html
+-rw-r--r-- 1 hsli 197609    983 May 11  2024  a6.html
+-rw-r--r-- 1 hsli 197609   1576 May 11  2024  a7.html
+-rw-r--r-- 1 hsli 197609   2424 May 11  2024  a8.html
+-rw-r--r-- 1 hsli 197609   1210 May 11  2024  a9.html
+drwxr-xr-x 1 hsli 197609      0 Jan 22  2024  chathtmx
+drwxr-xr-x 1 hsli 197609      0 Jun 24  2023  flarum
+drwxr-xr-x 1 hsli 197609      0 Nov 25  2023  ideas
+-rw-r--r-- 1 hsli 197609   1296 Jun 24  2023  index.php
+drwxr-xr-x 1 hsli 197609      0 Nov 27  2023  jiebang
+drwxr-xr-x 1 hsli 197609      0 Nov 26  2023  l3fs
+drwxr-xr-x 1 hsli 197609      0 Jun 24  2023  larax
+drwxr-xr-x 1 hsli 197609      0 Nov 25  2023  paper
+drwxr-xr-x 1 hsli 197609      0 Jun 10  2024  play
+-rw-r--r-- 1 hsli 197609 352238 Apr  5  2024  pymaceuticals_1.ipynb
+-rw-r--r-- 1 hsli 197609   1261 Dec  2  2023  server.php
+
+C:\Laragon\www
+λ cd play
+
+C:\Laragon\www\play
+λ gemini
+
+ ███            █████████  ██████████ ██████   ██████ █████ ██████   █████ █████
+░░░███         ███░░░░░███░░███░░░░░█░░██████ ██████ ░░███ ░░██████ ░░███ ░░███
+  ░░░███      ███     ░░░  ░███  █ ░  ░███░█████░███  ░███  ░███░███ ░███  ░███
+    ░░░███   ░███          ░██████    ░███░░███ ░███  ░███  ░███░░███░███  ░███
+     ███░    ░███    █████ ░███░░█    ░███ ░░░  ░███  ░███  ░███ ░░██████  ░███
+   ███░      ░░███  ░░███  ░███ ░   █ ░███      ░███  ░███  ░███  ░░█████  ░███
+ ███░         ░░█████████  ██████████ █████     █████ █████ █████  ░░█████ █████
+░░░            ░░░░░░░░░  ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░
+
+
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. Create GEMINI.md files to customize your interactions with Gemini.
+4. /help for more information.
+
+
+╭───────────────────────────────────────────────────────────────────────────╮
+│  > 编写一个php脚本，把指定的mysql表的结构，转换成Laravel Immigration文件  │
+╰───────────────────────────────────────────────────────────────────────────╯
+
+✦ 好的，很乐意为您效劳。将现有 MySQL 表转换为 Laravel Migration (通常翻译为“迁移”而不是“Immigration”) 文件是一个常见的需求。
+
+  下面我将提供一个 PHP 脚本，您可以直接运行它来生成迁移文件的内容。
+
+  工作原理
+
+
+  这个脚本会：
+   1. 连接到您指定的 MySQL 数据库。
+   2. 使用 SHOW COLUMNS 和 SHOW INDEX 查询来获取表的完整结构信息。
+   3. 将 MySQL 的数据类型（如 VARCHAR, INT, TIMESTAMP）映射为 Laravel Schema 构建器对应的方法（如 string(), integer(), timestamp()）。
+   4. 处理字段的属性，例如 nullable, default, unsigned, auto_increment 等。
+   5. 识别主键、唯一键和普通索引，并生成相应的代码。
+   6. 将所有生成好的代码组装到一个标准的 Laravel 迁移文件模板中。
+
+  ---
+
+  PHP 脚本
+
+  您可以将以下代码保存为一个 PHP 文件（例如 generate_migration.php），然后通过命令行 php generate_migration.php 来运行它。
+
+
+
+     1 <?php
+     2
+     3 // --- 1. 配置区域 ---
+     4 // --- 请在这里修改您的数据库连接信息和目标表名 ---
+     5 $dbConfig = [
+     6     'host' => '127.0.0.1',
+     7     'port' => 3306,
+     8     'database' => 'test',
+     9     'username' => 'root',
+    10     'password' => '',
+    11     'table' => 'users', // <--- 您想要转换的表名
+    12 ];
+    13 // --- 配置区域结束 ---
+    14
+    15
+    16 /**
+    17  * 将下划线命名转换为驼峰命名（首字母大写）
+    18  * @param string $str
+    19  * @return string
+    20  */
+    21 function toCamelCase(string $str): string
+    22 {
+    23     $str = ucwords(str_replace(['_', '-'], ' ', $str));
+    24     return str_replace(' ', '', $str);
+    25 }
+    26
+    27 /**
+    28  * 主要的生成函数
+    29  * @param array $config
+    30  * @return string
+    31  */
+    32 function generateMigration(array $config): string
+    33 {
+    34     $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['database']};charset=utf8mb4";
+    35     $options = [
+    36         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    37         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    38     ];
+    39
+    40     try {
+    41         $pdo = new PDO($dsn, $config['username'], $config['password'], $options);
+    42     } catch (PDOException $e) {
+    43         return "数据库连接失败: " . $e->getMessage();
+    44     }
+    45
+    46     $tableName = $config['table'];
+    47
+    48     // 1. 获取字段信息
+    49     $stmt = $pdo->query("SHOW FULL COLUMNS FROM `{$tableName}`");
+    50     $columns = $stmt->fetchAll();
+    51
+    52     // 2. 获取索引信息
+    53     $stmt = $pdo->query("SHOW INDEX FROM `{$tableName}`");
+    54     $indexes = $stmt->fetchAll();
+    55
+    56     $schema = [];
+    57     $primaryKeys = [];
+    58     $processedIndexes = [];
+    59
+    60     // 检查是否有 created_at 和 updated_at 用于 timestamps()
+    61     $hasCreatedAt = false;
+    62     $hasUpdatedAt = false;
+    63     foreach ($columns as $column) {
+    64         if ($column['Field'] === 'created_at') $hasCreatedAt = true;
+    65         if ($column['Field'] === 'updated_at') $hasUpdatedAt = true;
+    66     }
+    67
+    68     // 3. 转换字段
+    69     foreach ($columns as $column) {
+    70         $field = $column['Field'];
+    71         $type = $column['Type'];
+    72         $nullable = $column['Null'] === 'YES';
+    73         $default = $column['Default'];
+    74         $extra = $column['Extra'];
+    75         $comment = $column['Comment'];
+    76
+    77         // 优化 timestamps
+    78         if (($field === 'created_at' || $field === 'updated_at') && $hasCreatedAt && $hasUpdatedAt) {
+    79             if (!in_array('$table->timestamps();', $schema)) {
+    80                  $schema[] = '$table->timestamps();';
+    81             }
+    82             continue;
+    83         }
+    84
+    85         // 优化 softDeletes
+    86         if ($field === 'deleted_at' && strpos($type, 'timestamp') !== false) {
+    87             $schema[] = '$table->softDeletes();';
+    88             continue;
+    89         }
+    90
+    91         $line = '$table->';
+    92
+    93         // 处理类型
+    94         if (preg_match('/(bigint)/', $type)) {
+    95             $line .= ($extra === 'auto_increment') ? "bigIncrements('{$field}')" : "bigInteger('{$field}')";
+    96             if (strpos($type, 'unsigned') !== false) $line .= '->unsigned()';
+    97         } elseif (preg_match('/(int|integer|smallint|tinyint|mediumint)/', $type)) {
+    98              if ($extra === 'auto_increment') {
+    99                 $line .= "increments('{$field}')";
+   100              } elseif ($type === 'tinyint(1)') {
+   101                 $line .= "boolean('{$field}')";
+   102              } else {
+   103                 $line .= "integer('{$field}')";
+   104              }
+   105              if (strpos($type, 'unsigned') !== false) $line .= '->unsigned()';
+   106         } elseif (preg_match('/(varchar)\((\d+)\)/', $type, $matches)) {
+   107             $line .= "string('{$field}', {$matches[2]})";
+   108         } elseif (preg_match('/(char)\((\d+)\)/', $type, $matches)) {
+   109             $line .= "char('{$field}', {$matches[2]})";
+   110         } elseif (preg_match('/(text|longtext|mediumtext|tinytext)/', $type)) {
+   111             $line .= "text('{$field}')";
+   112         } elseif (preg_match('/(datetime|timestamp)/', $type)) {
+   113             $line .= "dateTime('{$field}')";
+   114         } elseif (preg_match('/(date)/', $type)) {
+   115             $line .= "date('{$field}')";
+   116         } elseif (preg_match('/(decimal|float|double)\((\d+),(\d+)\)/', $type, $matches)) {
+   117             $line .= "decimal('{$field}', {$matches[2]}, {$matches[3]})";
+   118         } elseif (preg_match('/(enum)\((.*)\)/', $type, $matches)) {
+   119             $line .= "enum('{$field}', [{$matches[2]}])";
+   120         } else {
+   121             $line .= "string('{$field}')"; // 默认类型
+   122         }
+   123
+   124         // 处理属性
+   125         if ($nullable) {
+   126             $line .= '->nullable()';
+   127         }
+   128         if ($default !== null) {
+   129             $defaultString = is_string($default) ? "'{$default}'" : $default;
+   130             $line .= "->default({$defaultString})";
+   131         }
+   132         if (!empty($comment)) {
+   133             $line .= "->comment('{$comment}')";
+   134         }
+   135
+   136         $schema[] = $line . ';';
+   137     }
+   138
+   139     // 4. 转换索引
+   140     $indexMap = [];
+   141     foreach ($indexes as $index) {
+   142         $indexMap[$index['Key_name']][] = $index['Column_name'];
+   143     }
+   144
+   145     foreach ($indexMap as $keyName => $columns) {
+   146         $indexInfo = null;
+   147         foreach ($indexes as $index) {
+   148             if ($index['Key_name'] === $keyName) {
+   149                 $indexInfo = $index;
+   150                 break;
+   151             }
+   152         }
+   153
+   154         $columnsStr = count($columns) > 1 ? "['" . implode("', '", $columns) . "']" : "'{$columns[0]}'";
+   155
+   156         if ($keyName === 'PRIMARY') {
+   157             // increments() 或 bigIncrements() 已经隐式创建了主键，所以通常不需要再添加
+   158             // 但如果主键不是自增ID，则需要添加
+   159             $isAutoIncrementPK = false;
+   160             foreach($columns as $col){
+   161                 if(strpos($schema[array_search('$table->increments(\''.$col.'\');', $schema)] ?? '', 'increments') !== false){
+   162                     $isAutoIncrementPK = true;
+   163                     break;
+   164                 }
+   165             }
+   166             if(!$isAutoIncrementPK){
+   167                  $processedIndexes[] = "\$table->primary({$columnsStr});";
+   168             }
+   169         } elseif ($indexInfo['Non_unique'] == 0) {
+   170             $processedIndexes[] = "\$table->unique({$columnsStr}, '{$keyName}');";
+   171         } else {
+   172             $processedIndexes[] = "\$table->index({$columnsStr}, '{$keyName}');";
+   173         }
+   174     }
+   175
+   176     // 5. 组装迁移文件
+   177     $className = 'Create' . toCamelCase($tableName) . 'Table';
+   178     $migrationFileName = date('Y_m_d_His') . '_create_' . $tableName . '_table.php';
+   179
+   180     $output = "<?php\n\n";
+   181     $output .= "use Illuminate\Database\Migrations\Migration;\n";
+   182     $output .= "use Illuminate\Database\Schema\Blueprint;\n";
+   183     $output .= "use Illuminate\Support\Facades\Schema;\n\n";
+   184     $output .= "class {$className} extends Migration\n";
+   185     $output .= "{\n";
+   186     $output .= "    /**\n";
+   187     $output .= "     * Run the migrations.\n";
+   188     $output .= "     *\n";
+   189     $output .= "     * @return void\n";
+   190     $output .= "     */\n";
+   191     $output .= "    public function up()\n";
+   192     $output .= "    {\n";
+   193     $output .= "        Schema::create('{$tableName}', function (Blueprint \$table) {\n";
+   194
+   195     foreach ($schema as $line) {
+   196         $output .= "            {$line}\n";
+   197     }
+   198     if (!empty($processedIndexes)) {
+   199         $output .= "\n";
+   200         foreach ($processedIndexes as $line) {
+   201             $output .= "            {$line}\n";
+   202         }
+   203     }
+   204
+   205     $output .= "        });\n";
+   206     $output .= "    }\n\n";
+   207     $output .= "    /**\n";
+   208     $output .= "     * Reverse the migrations.\n";
+   209     $output .= "     *\n";
+   210     $output .= "     * @return void\n";
+   211     $output .= "     */\n";
+   212     $output .= "    public function down()\n";
+   213     $output .= "    {\n";
+   214     $output .= "        Schema::dropIfExists('{$tableName}');\n";
+   215     $output .= "    }\n";
+   216     $output .= "}\n";
+   217
+   218     return "/**\n * 建议的文件名: {$migrationFileName}\n */\n\n" . $output;
+   219 }
+   220
+   221 // 执行并打印结果
+   222 echo generateMigration($dbConfig);
+
+
+  如何使用
+
+
+   1. 保存脚本: 将上面的代码保存到你的电脑上，命名为 generate_migration.php。
+   2. 修改配置: 打开该文件，在顶部的 $dbConfig 数组中，填入你的 MySQL 主机、端口、数据库名、用户名、密码以及你想要转换的 表名。
+   3. 运行脚本: 打开命令行工具（Terminal, CMD, PowerShell等），进入到你保存文件的目录，然后运行：
+
+   1     php generate_migration.php
+
+   4. 复制输出: 脚本会直接在命令行中打印出完整的 Laravel 迁移文件内容。它看起来会像这样：
+
+
+
+    1     /**
+    2      * 建议的文件名: 2025_08_18_123456_create_users_table.php
+    3      */
+    4
+    5     <?php
+    6
+    7     use Illuminate\Database\Migrations\Migration;
+    8     use Illuminate\Database\Schema\Blueprint;
+    9     use Illuminate\Support\Facades\Schema;
+   10
+   11     class CreateUsersTable extends Migration
+   12     {
+   13         /**
+   14          * Run the migrations.
+   15          *
+   16          * @return void
+   17          */
+   18         public function up()
+   19         {
+   20             Schema::create('users', function (Blueprint $table) {
+   21                 $table->bigIncrements('id');
+   22                 $table->string('name', 255);
+   23                 $table->string('email', 255);
+   24                 $table->dateTime('email_verified_at')->nullable();
+   25                 $table->string('password', 255);
+   26                 $table->string('remember_token', 100)->nullable();
+   27                 $table->timestamps();
+   28
+   29                 $table->unique('email', 'users_email_unique');
+   30             });
+   31         }
+   32
+   33         /**
+   34          * Reverse the migrations.
+   35          *
+   36          * @return void
+   37          */
+   38         public function down()
+   39         {
+   40             Schema::dropIfExists('users');
+   41         }
+   42     }
+
+
+
+   5. 在 Laravel 项目中使用:
+       * 在你的 Laravel 项目中，创建一个新的迁移文件。你可以使用 artisan 命令来做这件事，这样可以确保文件名和类名符合 Laravel 的规范。
+
+
+   1         php artisan make:migration create_your_table_name_table
+
+       * 找到 database/migrations/ 目录下刚刚创建的文件。
+       * 将脚本生成的 up() 方法中的所有 Schema::create(...) 的内容，复制并替换 到新创建的迁移文件的 up() 方法中。
+
+
+  注意事项和局限性
+
+
+   * 外键 (Foreign Keys): 这个基础脚本没有处理外键约束。解析外键需要更复杂的 SHOW CREATE TABLE 查询和解析。如果您的表有外键，您需要手动在生成的
+     up() 方法中添加它们，例如：$table->foreign('user_id')->references('id')->on('users');
+   * 特殊类型: 一些非常特殊或不常见的 MySQL 数据类型可能无法被正确映射，脚本会默认将它们处理为 string 类型，您需要手动修正。
+   * 第三方包: 对于更复杂的需求，可以考虑使用一些社区开发的工具包，例如
+     kitloong/laravel-migration-generator，它们通常功能更全面。但对于快速生成基础结构，这个脚本非常方便。
+
+╭──────────────────────────────╮
+│  > 把以上的代码保存到文件中  │
+╰──────────────────────────────╯
+
+✦ 好的，已将上述PHP脚本保存到您当前目录下的 generate_migration.php 文件中。
+
+
+  您现在可以根据需要修改该文件中的数据库配置，然后直接运行它。
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to generate_migration.php                                                                                       │
+ │                                                                                                                                      │
+ │      1 <?php                                                                                                                         │
+ │      2                                                                                                                               │
+ │      3 // --- 1. 配置区域 ---                                                                                                        │
+ │      4 // --- 请在这里修改您的数据库连接信息和目标表名 ---                                                                           │
+ │      5 $dbConfig = [                                                                                                                 │
+ │      6     'host' => '127.0.0.1',                                                                                                    │
+ │      7     'port' => 3306,                                                                                                           │
+ │      8     'database' => 'test',                                                                                                     │
+ │      9     'username' => 'root',                                                                                                     │
+ │     10     'password' => '',                                                                                                         │
+ │     11     'table' => 'users', // <--- 您想要转换的表名                                                                              │
+ │     12 ];                                                                                                                            │
+ │     13 // --- 配置区域结束 ---                                                                                                       │
+ │     14                                                                                                                               │
+ │     15                                                                                                                               │
+ │     16 /**                                                                                                                           │
+ │     17  * 将下划线命名转换为驼峰命名（首字母大写）                                                                                   │
+ │     18  * @param string $str                                                                                                         │
+ │     19  * @return string                                                                                                             │
+ │     20  */                                                                                                                           │
+ │     21 function toCamelCase(string $str): string                                                                                     │
+ │     22 {                                                                                                                             │
+ │     23     $str = ucwords(str_replace(['_', '-'], ' ', $str));                                                                       │
+ │     24     return str_replace(' ', '', $str);                                                                                        │
+ │     25 }                                                                                                                             │
+ │     26                                                                                                                               │
+ │     27 /**                                                                                                                           │
+ │     28  * 主要的生成函数                                                                                                             │
+ │     29  * @param array $config                                                                                                       │
+ │     30  * @return string                                                                                                             │
+ │     31  */                                                                                                                           │
+ │     32 function generateMigration(array $config): string                                                                             │
+ │     33 {                                                                                                                             │
+ │     34     $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['database']};charset=utf8mb4";                │
+ │     35     $options = [                                                                                                              │
+ │     36         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,                                                                          │
+ │     37         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,                                                                     │
+ │     38     ];                                                                                                                        │
+ │     39                                                                                                                               │
+ │     40     try {                                                                                                                     │
+ │     41         $pdo = new PDO($dsn, $config['username'], $config['password'], $options);                                             │
+ │     42     } catch (PDOException $e) {                                                                                               │
+ │     43         return "数据库连接失败: " . $e->getMessage();                                                                         │
+ │     44     }                                                                                                                         │
+ │     45                                                                                                                               │
+ │     46     $tableName = $config['table'];                                                                                            │
+ │     47                                                                                                                               │
+ │     48     // 1. 获取字段信息                                                                                                        │
+ │     49     $stmt = $pdo->query("SHOW FULL COLUMNS FROM `{$tableName}`");                                                             │
+ │     50     $columns = $stmt->fetchAll();                                                                                             │
+ │     51                                                                                                                               │
+ │     52     // 2. 获取索引信息                                                                                                        │
+ │     53     $stmt = $pdo->query("SHOW INDEX FROM `{$tableName}`");                                                                    │
+ │     54     $indexes = $stmt->fetchAll();                                                                                             │
+ │     55                                                                                                                               │
+ │     56     $schema = [];                                                                                                             │
+ │     57     $primaryKeys = [];                                                                                                        │
+ │     58     $processedIndexes = [];                                                                                                   │
+ │     59                                                                                                                               │
+ │     60     // 检查是否有 created_at 和 updated_at 用于 timestamps()                                                                  │
+ │     61     $hasCreatedAt = false;                                                                                                    │
+ │     62     $hasUpdatedAt = false;                                                                                                    │
+ │     63     foreach ($columns as $column) {                                                                                           │
+ │     64         if ($column['Field'] === 'created_at') $hasCreatedAt = true;                                                          │
+ │     65         if ($column['Field'] === 'updated_at') $hasUpdatedAt = true;                                                          │
+ │     66     }                                                                                                                         │
+ │     67                                                                                                                               │
+ │     68     // 3. 转换字段                                                                                                            │
+ │     69     foreach ($columns as $column) {                                                                                           │
+ │     70         $field = $column['Field'];                                                                                            │
+ │     71         $type = $column['Type'];                                                                                              │
+ │     72         $nullable = $column['Null'] === 'YES';                                                                                │
+ │     73         $default = $column['Default'];                                                                                        │
+ │     74         $extra = $column['Extra'];                                                                                            │
+ │     75         $comment = $column['Comment'];                                                                                        │
+ │     76                                                                                                                               │
+ │     77         // 优化 timestamps                                                                                                    │
+ │     78         if (($field === 'created_at' || $field === 'updated_at') && $hasCreatedAt && $hasUpdatedAt) {                         │
+ │     79             if (!in_array('$table->timestamps();', $schema)) {                                                                │
+ │     80                  $schema[] = '$table->timestamps();';                                                                         │
+ │     81             }                                                                                                                 │
+ │     82             continue;                                                                                                         │
+ │     83         }                                                                                                                     │
+ │     84                                                                                                                               │
+ │     85         // 优化 softDeletes                                                                                                   │
+ │     86         if ($field === 'deleted_at' && strpos($type, 'timestamp') !== false) {                                                │
+ │     87             $schema[] = '$table->softDeletes();';                                                                             │
+ │     88             continue;                                                                                                         │
+ │     89         }                                                                                                                     │
+ │     90                                                                                                                               │
+ │     91         $line = '$table->';                                                                                                   │
+ │     92                                                                                                                               │
+ │     93         // 处理类型                                                                                                           │
+ │     94         if (preg_match('/(bigint)/', $type)) {                                                                                │
+ │     95             $line .= ($extra === 'auto_increment') ? "bigIncrements('{$field}')" : "bigInteger('{$field}')";                  │
+ │     96             if (strpos($type, 'unsigned') !== false) $line .= '->unsigned()';                                                 │
+ │     97         } elseif (preg_match('/(int|integer|smallint|tinyint|mediumint)/', $type)) {                                          │
+ │     98              if ($extra === 'auto_increment') {                                                                               │
+ │     99                 $line .= "increments('{$field}')";                                                                            │
+ │    100              } elseif ($type === 'tinyint(1)') {                                                                              │
+ │    101                 $line .= "boolean('{$field}')";                                                                               │
+ │    102              } else {                                                                                                         │
+ │    103                 $line .= "integer('{$field}')";                                                                               │
+ │    104              }                                                                                                                │
+ │    105              if (strpos($type, 'unsigned') !== false) $line .= '->unsigned()';                                                │
+ │    106         } elseif (preg_match('/(varchar)\((\d+)\)/', $type, $matches)) {                                                      │
+ │    107             $line .= "string('{$field}', {$matches[2]})";                                                                     │
+ │    108         } elseif (preg_match('/(char)\((\d+)\)/', $type, $matches)) {                                                         │
+ │    109             $line .= "char('{$field}', {$matches[2]})";                                                                       │
+ │    110         } elseif (preg_match('/(text|longtext|mediumtext|tinytext)/', $type)) {                                               │
+ │    111             $line .= "text('{$field}')";                                                                                      │
+ │    112         } elseif (preg_match('/(datetime|timestamp)/', $type)) {                                                              │
+ │    113             $line .= "dateTime('{$field}')";                                                                                  │
+ │    114         } elseif (preg_match('/(date)/', $type)) {                                                                            │
+ │    115             $line .= "date('{$field}')";                                                                                      │
+ │    116         } elseif (preg_match('/(decimal|float|double)\((\d+),(\d+)\)/', $type, $matches)) {                                   │
+ │    117             $line .= "decimal('{$field}', {$matches[2]}, {$matches[3]})";                                                     │
+ │    118         } elseif (preg_match('/(enum)\(.*\)/', $type, $matches)) {                                                            │
+ │    119             $line .= "enum('{$field}', [{$matches[2]}])";                                                                     │
+ │    120         } else {                                                                                                              │
+ │    121             $line .= "string('{$field}')"; // 默认类型                                                                        │
+ │    122         }                                                                                                                     │
+ │    123                                                                                                                               │
+ │    124         // 处理属性                                                                                                           │
+ │    125         if ($nullable) {                                                                                                      │
+ │    126             $line .= '->nullable()';                                                                                          │
+ │    127         }                                                                                                                     │
+ │    128         if ($default !== null) {                                                                                              │
+ │    129             $defaultString = is_string($default) ? "'{$default}'" : $default;                                                 │
+ │    130             $line .= "->default({$defaultString})";                                                                           │
+ │    131         }                                                                                                                     │
+ │    132         if (!empty($comment)) {                                                                                               │
+ │    133             $line .= "->comment('{$comment}')";                                                                               │
+ │    134         }                                                                                                                     │
+ │    135                                                                                                                               │
+ │    136         $schema[] = $line . ';';                                                                                              │
+ │    137     }                                                                                                                         │
+ │    138                                                                                                                               │
+ │    139     // 4. 转换索引                                                                                                            │
+ │    140     $indexMap = [];                                                                                                           │
+ │    141     foreach ($indexes as $index) {                                                                                            │
+ │    142         $indexMap[$index['Key_name']][] = $index['Column_name'];                                                              │
+ │    143     }                                                                                                                         │
+ │    144                                                                                                                               │
+ │    145     foreach ($indexMap as $keyName => $columns) {                                                                             │
+ │    146         $indexInfo = null;                                                                                                    │
+ │    147         foreach ($indexes as $index) {                                                                                        │
+ │    148             if ($index['Key_name'] === $keyName) {                                                                            │
+ │    149                 $indexInfo = $index;                                                                                          │
+ │    150                 break;                                                                                                        │
+ │    151             }                                                                                                                 │
+ │    152         }                                                                                                                     │
+ │    153                                                                                                                               │
+ │    154         $columnsStr = count($columns) > 1 ? "['" . implode("', '", $columns) . "']" : "'{$columns[0]}'";                      │
+ │    155                                                                                                                               │
+ │    156         if ($keyName === 'PRIMARY') {                                                                                         │
+ │    157             // increments() 或 bigIncrements() 已经隐式创建了主键，所以通常不需要再添加                                       │
+ │    158             // 但如果主键不是自增ID，则需要添加                                                                               │
+ │    159             $isAutoIncrementPK = false;                                                                                       │
+ │    160             foreach($columns as $col){                                                                                        │
+ │    161                 if(strpos($schema[array_search('$table->increments(\''.$col.'\');', $schema)] ?? '', 'increments') !== false  │
+ │        ){                                                                                                                            │
+ │    162                     $isAutoIncrementPK = true;                                                                                │
+ │    163                     break;                                                                                                    │
+ │    164                 }                                                                                                             │
+ │    165             }                                                                                                                 │
+ │    166             if(!$isAutoIncrementPK){                                                                                          │
+ │    167                  $processedIndexes[] = "\$table->primary({$columnsStr});";                                                    │
+ │    168             }                                                                                                                 │
+ │    169         } elseif ($indexInfo['Non_unique'] == 0) {                                                                            │
+ │    170             $processedIndexes[] = "\$table->unique({$columnsStr}, '{$keyName}');";                                            │
+ │    171         } else {                                                                                                              │
+ │    172             $processedIndexes[] = "\$table->index({$columnsStr}, '{$keyName}');";                                             │
+ │    173         }                                                                                                                     │
+ │    174     }                                                                                                                         │
+ │    175                                                                                                                               │
+ │    176     // 5. 组装迁移文件                                                                                                        │
+ │    177     $className = 'Create' . toCamelCase($tableName) . 'Table';                                                                │
+ │    178     $migrationFileName = date('Y_m_d_His') . '_create_' . $tableName . '_table.php';                                          │
+ │    179                                                                                                                               │
+ │    180     $output = "<?php\n\n";                                                                                                    │
+ │    181     $output .= "use Illuminate\\Database\\Migrations\\Migration;\n";                                                          │
+ │    182     $output .= "use Illuminate\\Database\\Schema\\Blueprint;\n";                                                              │
+ │    183     $output .= "use Illuminate\\Support\\Facades\\Schema;\n\n";                                                               │
+ │    184     $output .= "class {$className} extends Migration\n";                                                                      │
+ │    185     $output .= "{\n";                                                                                                         │
+ │    186     $output .= "    /**\n";                                                                                                   │
+ │    187     $output .= "     * Run the migrations.\n";                                                                                │
+ │    188     $output .= "     *\n";                                                                                                    │
+ │    189     $output .= "     * @return void\n";                                                                                       │
+ │    190     $output .= "     */\n";                                                                                                   │
+ │    191     $output .= "    public function up()\n";                                                                                  │
+ │    192     $output .= "    {\n";                                                                                                     │
+ │    193     $output .= "        Schema::create('{$tableName}', function (Blueprint \$table) {\n";                                     │
+ │    194                                                                                                                               │
+ │    195     foreach ($schema as $line) {                                                                                              │
+ │    196         $output .= "            {$line}\n";                                                                                   │
+ │    197     }                                                                                                                         │
+ │    198     if (!empty($processedIndexes)) {                                                                                          │
+ │    199         $output .= "\n";                                                                                                      │
+ │    200         foreach ($processedIndexes as $line) {                                                                                │
+ │    201             $output .= "            {$line}\n";                                                                               │
+ │    202         }                                                                                                                     │
+ │    203     }                                                                                                                         │
+ │    204                                                                                                                               │
+ │    205     $output .= "        });\n";                                                                                               │
+ │    206     $output .= "    }\n\n";                                                                                                   │
+ │    207     $output .= "    /**\n";                                                                                                   │
+ │    208     $output .= "     * Reverse the migrations.\n";                                                                            │
+ │    209     $output .= "     *\n";                                                                                                    │
+ │    210     $output .= "     * @return void\n";                                                                                       │
+ │    211     $output .= "     */\n";                                                                                                   │
+ │    212     $output .= "    public function down()\n";                                                                                │
+ │    213     $output .= "    {\n";                                                                                                     │
+ │    214     $output .= "        Schema::dropIfExists('{$tableName}');\n";                                                             │
+ │    215     $output .= "    }\n";                                                                                                     │
+ │    216     $output .= "}\n";                                                                                                         │
+ │    217                                                                                                                               │
+ │    218     return "/**\n * 建议的文件名: {$migrationFileName}\n */\n\n" . $output;                                                   │
+ │    219 }                                                                                                                             │
+ │    220                                                                                                                               │
+ │    221 // 执行并打印结果                                                                                                             │
+ │    222 echo generateMigration($dbConfig);                                                                                            │
+ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+ℹ ⚡ Slow response times detected. Automatically switching from gemini-2.5-pro to gemini-2.5-flash for faster responses for the remainder of
+  this session.
+  ⚡ To avoid this you can either upgrade to Standard tier. See: https://goo.gle/set-up-gemini-code-assist
+  ⚡ Or you can utilize a Gemini API Key. See: https://goo.gle/gemini-cli-docs-auth#gemini-api-key
+  ⚡ You can switch authentication methods by typing /auth
+✦ 文件 C:\Laragon\www\play\generate_migration.php 已成功创建。
+
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ >   Type your message or @path/to/file                                                                                                     │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+C:\Laragon\www\play               no sandbox (see /docs)                 gemini-2.5-flash (100% context left)| ✖ 1 error (ctrl+o for details)
+
