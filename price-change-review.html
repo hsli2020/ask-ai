@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily Price Change Alert (Merged)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{font-family:system-ui,Segoe UI,Arial,sans-serif;line-height:1.4;padding:16px}
+  .toolbar{margin:12px 0}
+  .btn{display:inline-block;padding:8px 12px;border:1px solid #ccc;border-radius:8px;cursor:pointer;background:#f7f7f7}
+  .btn+.btn{margin-left:8px}
+  .status{padding:10px;border-left:4px solid #4caf50;background:#f0fff0;margin:12px 0}
+  .error{padding:10px;border-left:4px solid #f44336;background:#fff0f0;margin:12px 0}
+  table{border-collapse:collapse;width:100%;margin-top:8px}
+  th,td{border:1px solid #e5e5e5;padding:6px 8px;font-size:13px;vertical-align:top}
+  th{background:#fafafa;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
+  .mono{font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace}
+  .nowrap{white-space:nowrap}
+  .sort-ind{opacity:.6;margin-left:6px;font-size:11px}
+  .srcA{background:#fff}
+  .srcB{background:#fcfff5}
+
+  /* Bigger, easier-to-click checkboxes */
+  input[type="checkbox"]{
+    transform: scale(1.5);
+    margin: 4px;
+    cursor: pointer;
+  }
+  label{ cursor: pointer; }
+</style>
+<script>
+let currentSort = { col: null, dir: 1 };
+function selectAll(){ document.querySelectorAll('input[name="verified[]"]').forEach(cb=>cb.checked=true); }
+function deselectAll(){ document.querySelectorAll('input[name="verified[]"]').forEach(cb=>cb.checked=false); }
+function getCellValue(tr, idx){ const cell=tr.children[idx]; return cell ? (cell.getAttribute('data-sort') ?? cell.textContent) : ''; }
+function isNumeric(val){ return /^-?\d+(\.\d+)?$/.test(val.trim().replace(/,/g,'')); }
+function cmp(a,b){
+  if(isNumeric(a)&&isNumeric(b)){ const na=parseFloat(a.replace(/,/g,'')), nb=parseFloat(b.replace(/,/g,'')); return na<nb?-1:na>nb?1:0; }
+  return a.localeCompare(b, undefined, { sensitivity:'base', numeric:true });
+}
+function sortTableBy(colIdx){
+  const table=document.getElementById('priceTable'), tbody=table.tBodies[0];
+  const rows=Array.from(tbody.querySelectorAll('tr'));
+  if(currentSort.col===colIdx){ currentSort.dir*=-1; } else { currentSort={col:colIdx,dir:1}; }
+  rows.sort((r1,r2)=>{ const a=getCellValue(r1,colIdx), b=getCellValue(r2,colIdx); const res=cmp(a,b); return currentSort.dir===1?res:-res; });
+  rows.forEach(r=>tbody.appendChild(r));
+  document.querySelectorAll('th .sort-ind').forEach(el=>el.textContent='');
+  const th=table.tHead.rows[0].children[colIdx]; if(th) th.querySelector('.sort-ind').textContent=currentSort.dir===1?'▲':'▼';
+}
+</script>
+</head>
+<body>
+<h2>Daily Price Change Alert (Merged)</h2>
+<div class="mono">Source A: ./data/newdata/msku_price_change_log.csv</div>
+<div class="mono">Source B: ./out/daily_wrong_price_alerts.csv</div>
+<div class="mono">Inventory: ./data/newdata/product_inventory.csv</div>
+
+
+<form method="post">
+  <div class="toolbar">
+    <button type="button" class="btn" onclick="selectAll()">Select all</button>
+    <button type="button" class="btn" onclick="deselectAll()">Deselect all</button>
+    <button type="submit" class="btn" name="apply_updates" value="1">Apply Updates</button>
+  </div>
+
+  <table id="priceTable">
+    <thead>
+      <tr>
+        <th onclick="sortTableBy(0)">Verified<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(1)">Source<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(2)">msku<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(3)">sku<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(4)">stock_type<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(5)">current_cost<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(6)">previous_cost<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(7)">%change<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(8)">Δ amount<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(9)">title<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(10)">currentqty<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(11)">oldmsku<span class="sort-ind"></span></th>
+        <th onclick="sortTableBy(12)">msku_changed<span class="sort-ind"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_0"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-1007787" class="mono">ODT-1007787</td>
+          <td data-sort="SYN-7514318" class="mono">SYN-7514318</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="146.78" class="mono">146.78</td>
+          <td data-sort="256.5" class="mono">256.5</td>
+          <td data-sort="-75" class="mono">-75</td>
+          <td data-sort="-109.72" class="mono">-109.72</td>
+          <td data-sort="ANTEC DARK CUBE GAMING CASE C3 ARGB ITX -  M-ATX -  WHITE">ANTEC DARK CUBE GAMING CASE C3 ARGB ITX -  M-ATX …</td>
+          <td data-sort="5" class="mono">5</td>
+          <td data-sort="ODT-1007787" class="mono">ODT-1007787</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_1"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-104701" class="mono">ODT-104701</td>
+          <td data-sort="DH-910005940CDNFS" class="mono">DH-910005940CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="151.02" class="mono">151.02</td>
+          <td data-sort="203.4" class="mono">203.4</td>
+          <td data-sort="-35" class="mono">-35</td>
+          <td data-sort="-52.38" class="mono">-52.38</td>
+          <td data-sort="PRO X SUPERLIGHT WRLS GAMING MSE WHT">PRO X SUPERLIGHT WRLS GAMING MSE WHT</td>
+          <td data-sort="3" class="mono">3</td>
+          <td data-sort="ODT-931790" class="mono">ODT-931790</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_2"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-104975" class="mono">ODT-104975</td>
+          <td data-sort="DH-920010097CDNFS" class="mono">DH-920010097CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="157.42" class="mono">157.42</td>
+          <td data-sort="289.44" class="mono">289.44</td>
+          <td data-sort="-84" class="mono">-84</td>
+          <td data-sort="-132.02" class="mono">-132.02</td>
+          <td data-sort="COMBO TOUCH FOR IPAD PRO 12.9-INCH (5TH GENERATION)">COMBO TOUCH FOR IPAD PRO 12.9-INCH (5TH GENERATIO…</td>
+          <td data-sort="4" class="mono">4</td>
+          <td data-sort="ODT-931801" class="mono">ODT-931801</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_3"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-105274" class="mono">ODT-105274</td>
+          <td data-sort="DH-920010707CDNFS" class="mono">DH-920010707CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="96.38" class="mono">96.38</td>
+          <td data-sort="123.95" class="mono">123.95</td>
+          <td data-sort="-29" class="mono">-29</td>
+          <td data-sort="-27.57" class="mono">-27.57</td>
+          <td data-sort="LOGITECH POP KEYS - BLAST YELLOW">LOGITECH POP KEYS - BLAST YELLOW</td>
+          <td data-sort="2" class="mono">2</td>
+          <td data-sort="ODT-932220" class="mono">ODT-932220</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_4"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-107018" class="mono">ODT-107018</td>
+          <td data-sort="DH-STHA16000800CA" class="mono">DH-STHA16000800CA</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="479.27" class="mono">479.27</td>
+          <td data-sort="673.83" class="mono">673.83</td>
+          <td data-sort="-41" class="mono">-41</td>
+          <td data-sort="-194.56" class="mono">-194.56</td>
+          <td data-sort="LACIE D2 PROFESSIONAL - 16TB - USB-C">LACIE D2 PROFESSIONAL - 16TB - USB-C</td>
+          <td data-sort="3" class="mono">3</td>
+          <td data-sort="ODT-107018" class="mono">ODT-107018</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_5"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-107438" class="mono">ODT-107438</td>
+          <td data-sort="SYN-11841224" class="mono">SYN-11841224</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="274.46" class="mono">274.46</td>
+          <td data-sort="10132.7" class="mono">10132.7</td>
+          <td data-sort="-3592" class="mono">-3592</td>
+          <td data-sort="-9858.24" class="mono">-9858.24</td>
+          <td data-sort="1TB USB3 PADLOCK PRTBL">1TB USB3 PADLOCK PRTBL</td>
+          <td data-sort="4" class="mono">4</td>
+          <td data-sort="SYN-11841224" class="mono">SYN-11841224</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_6"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-108055" class="mono">ODT-108055</td>
+          <td data-sort="DH-950000081CDNFS" class="mono">DH-950000081CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="696.19" class="mono">696.19</td>
+          <td data-sort="1312.22" class="mono">1312.22</td>
+          <td data-sort="-88" class="mono">-88</td>
+          <td data-sort="-616.03" class="mono">-616.03</td>
+          <td data-sort="ROOMMATE">ROOMMATE</td>
+          <td data-sort="1" class="mono">1</td>
+          <td data-sort="ODT-108055" class="mono">ODT-108055</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_7"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-116315" class="mono">ODT-116315</td>
+          <td data-sort="ING-123JJP" class="mono">ING-123JJP</td>
+          <td data-sort="ING">ING</td>
+          <td data-sort="887.43" class="mono">887.43</td>
+          <td data-sort="2767.16" class="mono">2767.16</td>
+          <td data-sort="-212" class="mono">-212</td>
+          <td data-sort="-1879.73" class="mono">-1879.73</td>
+          <td data-sort="960GB SATA MU SFF SC MV SSD PL SI">960GB SATA MU SFF SC MV SSD PL SI</td>
+          <td data-sort="2" class="mono">2</td>
+          <td data-sort="ODT-116315" class="mono">ODT-116315</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_8"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-154059" class="mono">ODT-154059</td>
+          <td data-sort="DH-920009473CDNFS" class="mono">DH-920009473CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="102.3" class="mono">102.3</td>
+          <td data-sort="138.77" class="mono">138.77</td>
+          <td data-sort="-36" class="mono">-36</td>
+          <td data-sort="-36.47" class="mono">-36.47</td>
+          <td data-sort="LOGITECH SLIM FOLIO FOR THE NEW SEVENTHGENERATION IPAD GRAPHITE">LOGITECH SLIM FOLIO FOR THE NEW SEVENTHGENERATION…</td>
+          <td data-sort="17" class="mono">17</td>
+          <td data-sort="ODT-931799" class="mono">ODT-931799</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_9"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-166611" class="mono">ODT-166611</td>
+          <td data-sort="DH-920010116CDNFS" class="mono">DH-920010116CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="91.14" class="mono">91.14</td>
+          <td data-sort="157.84" class="mono">157.84</td>
+          <td data-sort="-73" class="mono">-73</td>
+          <td data-sort="-66.7" class="mono">-66.7</td>
+          <td data-sort="MX KEYS FOR BUSINESS GRAPHITE ">MX KEYS FOR BUSINESS GRAPHITE </td>
+          <td data-sort="544" class="mono">544</td>
+          <td data-sort="ODT-931802" class="mono">ODT-931802</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_10"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-1919152" class="mono">ODT-1919152</td>
+          <td data-sort="DH-910007281CDNFS" class="mono">DH-910007281CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="27.96" class="mono">27.96</td>
+          <td data-sort="40.52" class="mono">40.52</td>
+          <td data-sort="-45" class="mono">-45</td>
+          <td data-sort="-12.56" class="mono">-12.56</td>
+          <td data-sort="M340 MOUSE COLLECTION-SPECKLES">M340 MOUSE COLLECTION-SPECKLES</td>
+          <td data-sort="10" class="mono">10</td>
+          <td data-sort="ODT-931794" class="mono">ODT-931794</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_11"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-1979785" class="mono">ODT-1979785</td>
+          <td data-sort="DH-910007205CDNFS" class="mono">DH-910007205CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="58.98" class="mono">58.98</td>
+          <td data-sort="102.56" class="mono">102.56</td>
+          <td data-sort="-74" class="mono">-74</td>
+          <td data-sort="-43.58" class="mono">-43.58</td>
+          <td data-sort="LOGITECH G309 LIGHTSPEED GAMING MOUSE - WHITE">LOGITECH G309 LIGHTSPEED GAMING MOUSE - WHITE</td>
+          <td data-sort="1" class="mono">1</td>
+          <td data-sort="ODT-931793" class="mono">ODT-931793</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_12"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-210518" class="mono">ODT-210518</td>
+          <td data-sort="SYN-11841221" class="mono">SYN-11841221</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="216.64" class="mono">216.64</td>
+          <td data-sort="10131.8" class="mono">10131.8</td>
+          <td data-sort="-4577" class="mono">-4577</td>
+          <td data-sort="-9915.16" class="mono">-9915.16</td>
+          <td data-sort="500GB USB3 PADLOCK PRTBL-256BIT AES H/W ENCRYPT">500GB USB3 PADLOCK PRTBL-256BIT AES H/W ENCRYPT</td>
+          <td data-sort="16" class="mono">16</td>
+          <td data-sort="SYN-11841221" class="mono">SYN-11841221</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_13"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-259872" class="mono">ODT-259872</td>
+          <td data-sort="SYN-11841269" class="mono">SYN-11841269</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="334.14" class="mono">334.14</td>
+          <td data-sort="10131.8" class="mono">10131.8</td>
+          <td data-sort="-2932" class="mono">-2932</td>
+          <td data-sort="-9797.66" class="mono">-9797.66</td>
+          <td data-sort="2TB PADLOCK PORTBLE USB 3-256-BIT AES HW ENCRYPTION">2TB PADLOCK PORTBLE USB 3-256-BIT AES HW ENCRYPTI…</td>
+          <td data-sort="5" class="mono">5</td>
+          <td data-sort="SYN-11841269" class="mono">SYN-11841269</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_14"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-4034216" class="mono">ODT-4034216</td>
+          <td data-sort="DH-910007328CDNFS" class="mono">DH-910007328CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="165.27" class="mono">165.27</td>
+          <td data-sort="216.84" class="mono">216.84</td>
+          <td data-sort="-31" class="mono">-31</td>
+          <td data-sort="-51.57" class="mono">-51.57</td>
+          <td data-sort="LOGITECH PRO X SUPERLIGHT 2 DEX BLACK">LOGITECH PRO X SUPERLIGHT 2 DEX BLACK</td>
+          <td data-sort="1" class="mono">1</td>
+          <td data-sort="ODT-931795" class="mono">ODT-931795</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_15"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-407660" class="mono">ODT-407660</td>
+          <td data-sort="DH-STLG20000400CA" class="mono">DH-STLG20000400CA</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="805.52" class="mono">805.52</td>
+          <td data-sort="1215.67" class="mono">1215.67</td>
+          <td data-sort="-51" class="mono">-51</td>
+          <td data-sort="-410.15" class="mono">-410.15</td>
+          <td data-sort="20000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT 3 + USB">20000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT…</td>
+          <td data-sort="4" class="mono">4</td>
+          <td data-sort="ODT-407660" class="mono">ODT-407660</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_16"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-407662" class="mono">ODT-407662</td>
+          <td data-sort="DH-STLG32000400CA" class="mono">DH-STLG32000400CA</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="1137.96" class="mono">1137.96</td>
+          <td data-sort="1875.04" class="mono">1875.04</td>
+          <td data-sort="-65" class="mono">-65</td>
+          <td data-sort="-737.08" class="mono">-737.08</td>
+          <td data-sort="32000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT 3 + USB">32000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT…</td>
+          <td data-sort="4" class="mono">4</td>
+          <td data-sort="ODT-407662" class="mono">ODT-407662</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_17"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-407663" class="mono">ODT-407663</td>
+          <td data-sort="DH-STLG36000400CA" class="mono">DH-STLG36000400CA</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="1308.94" class="mono">1308.94</td>
+          <td data-sort="1893.7" class="mono">1893.7</td>
+          <td data-sort="-45" class="mono">-45</td>
+          <td data-sort="-584.76" class="mono">-584.76</td>
+          <td data-sort="36000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT 3 + USB">36000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT…</td>
+          <td data-sort="4" class="mono">4</td>
+          <td data-sort="ODT-407663" class="mono">ODT-407663</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_18"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-407664" class="mono">ODT-407664</td>
+          <td data-sort="DH-STLG40000400CA" class="mono">DH-STLG40000400CA</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="1380.37" class="mono">1380.37</td>
+          <td data-sort="2160.4" class="mono">2160.4</td>
+          <td data-sort="-57" class="mono">-57</td>
+          <td data-sort="-780.03" class="mono">-780.03</td>
+          <td data-sort="40000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT 3 + USB">40000TB LACIE 2BIG DOCK THUNDERBOLT 3 THUNDERBOLT…</td>
+          <td data-sort="2" class="mono">2</td>
+          <td data-sort="ODT-407664" class="mono">ODT-407664</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_19"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-413659" class="mono">ODT-413659</td>
+          <td data-sort="DH-914000070CAFS" class="mono">DH-914000070CAFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="57.87" class="mono">57.87</td>
+          <td data-sort="97.66" class="mono">97.66</td>
+          <td data-sort="-69" class="mono">-69</td>
+          <td data-sort="-39.79" class="mono">-39.79</td>
+          <td data-sort="CRAYON DIGITAL PENCIL FOR IPAD W/USB-C PORTS  SILVER">CRAYON DIGITAL PENCIL FOR IPAD W/USB-C PORTS  SIL…</td>
+          <td data-sort="7" class="mono">7</td>
+          <td data-sort="ODT-931797" class="mono">ODT-931797</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_20"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-440684" class="mono">ODT-440684</td>
+          <td data-sort="DH-920012127CDNFS" class="mono">DH-920012127CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="192.53" class="mono">192.53</td>
+          <td data-sort="256.1" class="mono">256.1</td>
+          <td data-sort="-33" class="mono">-33</td>
+          <td data-sort="-63.57" class="mono">-63.57</td>
+          <td data-sort="PRO X TKL LIGHTSPEED BLACK">PRO X TKL LIGHTSPEED BLACK</td>
+          <td data-sort="2" class="mono">2</td>
+          <td data-sort="ODT-440684" class="mono">ODT-440684</td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_21"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-441422" class="mono">ODT-441422</td>
+          <td data-sort="DH-910007023CDNFS" class="mono">DH-910007023CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="27.07" class="mono">27.07</td>
+          <td data-sort="41.66" class="mono">41.66</td>
+          <td data-sort="-54" class="mono">-54</td>
+          <td data-sort="-14.59" class="mono">-14.59</td>
+          <td data-sort="M350S PEBBLE MOUSE 2 ROSE">M350S PEBBLE MOUSE 2 ROSE</td>
+          <td data-sort="3" class="mono">3</td>
+          <td data-sort="ODT-931792" class="mono">ODT-931792</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcA">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="A_22"></td>
+          <td data-sort="A">A</td>
+          <td data-sort="ODT-664556" class="mono">ODT-664556</td>
+          <td data-sort="DH-914000087CDNFS" class="mono">DH-914000087CDNFS</td>
+          <td data-sort="DH-">DH-</td>
+          <td data-sort="156.12" class="mono">156.12</td>
+          <td data-sort="209.04" class="mono">209.04</td>
+          <td data-sort="-34" class="mono">-34</td>
+          <td data-sort="-52.92" class="mono">-52.92</td>
+          <td data-sort="LOGITECH MX INK COMBO">LOGITECH MX INK COMBO</td>
+          <td data-sort="6" class="mono">6</td>
+          <td data-sort="ODT-931798" class="mono">ODT-931798</td>
+          <td data-sort="YES" class="mono">YES</td>
+        </tr>
+              <tr class="srcB">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="B_0"></td>
+          <td data-sort="B">B</td>
+          <td data-sort="ODT-109359" class="mono">ODT-109359</td>
+          <td data-sort="SYN-6735911" class="mono">SYN-6735911</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="49.38" class="mono">49.38</td>
+          <td data-sort="106.92" class="mono">106.92</td>
+          <td data-sort="54" class="mono">54</td>
+          <td data-sort="57.54" class="mono">57.54</td>
+          <td data-sort="ANTEC VSK 4000E ATX MID TWR BROWN BOX PACKAGE -  SINGLE UNIT 0-761345-92043-8">ANTEC VSK 4000E ATX MID TWR BROWN BOX PACKAGE -  …</td>
+          <td data-sort="12" class="mono">12</td>
+          <td data-sort="" class="mono"></td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcB">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="B_1"></td>
+          <td data-sort="B">B</td>
+          <td data-sort="ODT-181998" class="mono">ODT-181998</td>
+          <td data-sort="ING-402A8Z" class="mono">ING-402A8Z</td>
+          <td data-sort="ING">ING</td>
+          <td data-sort="388.01" class="mono">388.01</td>
+          <td data-sort="1726.41" class="mono">1726.41</td>
+          <td data-sort="78" class="mono">78</td>
+          <td data-sort="1338.4" class="mono">1338.4</td>
+          <td data-sort="HPE 480GB SATA MU SFF BC MV SSD">HPE 480GB SATA MU SFF BC MV SSD</td>
+          <td data-sort="1" class="mono">1</td>
+          <td data-sort="" class="mono"></td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcB">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="B_2"></td>
+          <td data-sort="B">B</td>
+          <td data-sort="ODT-431023" class="mono">ODT-431023</td>
+          <td data-sort="DH-14Z90RNAP52A8CA" class="mono">DH-14Z90RNAP52A8CA</td>
+          <td data-sort="Overstock">Overstock</td>
+          <td data-sort="799.00" class="mono">799.00</td>
+          <td data-sort="1750.00" class="mono">1750.00</td>
+          <td data-sort="55" class="mono">55</td>
+          <td data-sort="951" class="mono">951</td>
+          <td data-sort="GRAM 14U WUXGA IPS I5 /16GB/ 256GB ANTI-GLARE">GRAM 14U WUXGA IPS I5 /16GB/ 256GB ANTI-GLARE</td>
+          <td data-sort="1" class="mono">1</td>
+          <td data-sort="" class="mono"></td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcB">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="B_3"></td>
+          <td data-sort="B">B</td>
+          <td data-sort="ODT-909019" class="mono">ODT-909019</td>
+          <td data-sort="SYN-8221610" class="mono">SYN-8221610</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="528.35" class="mono">528.35</td>
+          <td data-sort="1988.35" class="mono">1988.35</td>
+          <td data-sort="74" class="mono">74</td>
+          <td data-sort="1460" class="mono">1460</td>
+          <td data-sort="WIN SVR 2025 ESSENT ROK 10C">WIN SVR 2025 ESSENT ROK 10C</td>
+          <td data-sort="23" class="mono">23</td>
+          <td data-sort="" class="mono"></td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+              <tr class="srcB">
+          <td class="nowrap"><input type="checkbox" name="verified[]" value="B_4"></td>
+          <td data-sort="B">B</td>
+          <td data-sort="ODT-909319" class="mono">ODT-909319</td>
+          <td data-sort="SYN-7517721" class="mono">SYN-7517721</td>
+          <td data-sort="SYN">SYN</td>
+          <td data-sort="382.44" class="mono">382.44</td>
+          <td data-sort="812.44" class="mono">812.44</td>
+          <td data-sort="53" class="mono">53</td>
+          <td data-sort="430" class="mono">430</td>
+          <td data-sort="2.5 -  MV 960GB RI SATA HS V2">2.5 -  MV 960GB RI SATA HS V2</td>
+          <td data-sort="25" class="mono">25</td>
+          <td data-sort="" class="mono"></td>
+          <td data-sort="" class="mono"></td>
+        </tr>
+          </tbody>
+  </table>
+
+  <div class="toolbar">
+    <button type="button" class="btn" onclick="selectAll()">Select all</button>
+    <button type="button" class="btn" onclick="deselectAll()">Deselect all</button>
+    <button type="submit" class="btn" name="apply_updates" value="1">Apply Updates</button>
+  </div>
+</form>
+
+  <h3>Stock Type Summary</h3>
+  <table>
+    <thead>
+      <tr><th>Stock Type</th><th>SKU Count</th></tr>
+    </thead>
+    <tbody>
+              <tr>
+          <td>SYN</td>
+          <td class="mono">7</td>
+        </tr>
+              <tr>
+          <td>DH-</td>
+          <td class="mono">18</td>
+        </tr>
+              <tr>
+          <td>ING</td>
+          <td class="mono">2</td>
+        </tr>
+              <tr>
+          <td>Overstock</td>
+          <td class="mono">1</td>
+        </tr>
+          </tbody>
+  </table>
+
+</body>
+</html>
