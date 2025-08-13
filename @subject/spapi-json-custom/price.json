@@ -1,0 +1,38 @@
+{
+  "list_price": [
+    {
+      "schedule": [
+        {
+          "value_with_tax": 6.99
+        }
+      ]
+    }
+  ],
+  "maximum_seller_allowed_price": [
+    {
+      "schedule": [
+        {
+          "value_with_tax": 6.99
+        }
+      ]
+    }
+  ],
+  "minimum_seller_allowed_price": [
+    {
+      "schedule": [
+        {
+          "value_with_tax": 1.99
+        }
+      ]
+    }
+  ],
+  "our_price": [
+    {
+      "schedule": [
+        {
+          "value_with_tax": 3.99
+        }
+      ]
+    }
+  ]
+}

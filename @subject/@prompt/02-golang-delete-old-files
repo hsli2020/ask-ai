@@ -1,0 +1,113 @@
+
+╭──────────────────────────────────────────────────────────────╮
+│  > 用golang语言编写一个程序，删除指定目录下非今天创建的文件  │
+╰──────────────────────────────────────────────────────────────╯
+
+✦ 好的，这是一个使用 Go 语言编写的程序，用于删除指定目录下所有非今天创建（修改）的文件。
+
+
+  这个程序会：
+   1. 接收一个命令行参数作为要扫描的目录路径。
+   2. 遍历目录下的所有项目。
+   3. 如果是文件，则检查其最后修改日期。
+   4. 如果最后修改日期在今天之前，就删除该文件。
+   5. 程序会跳过所有子目录，不会删除它们。
+
+  请注意： 文件“创建时间”在不同操作系统上很难以标准方式获取，因此这个脚本使用“最
+  后修改时间”作为判断标准。这在大多数情况下是等效的。
+
+  代码
+
+  您可以将以下代码保存为 main.go 文件。
+
+
+
+  package main
+  
+  import (
+    "fmt"
+    "os"
+    "path/filepath"
+    "time"
+  )
+  
+  func main() {
+    // 1. 检查是否提供了目录路径参数
+    if len(os.Args) < 2 {
+        fmt.Printl"请提供一个目录路径作为参数。")
+        fmt.Printl"用法: go run main.go <你的目录路径>")
+        os.Exi1)
+    }
+    dirPath := os.Args1]
+  
+    // 2. 获取今天的起始时间（午夜 00:00:00）
+    now := time.Now()
+    today := time.Date(now.Year(), now.Month(), now.Day(),0, 0, 0, 0, now.Location())
+  
+    // 3. 读取指定目录下的所有文件和文件夹
+    entries, err := os.ReadDir(dirPath)
+    if err != nil {
+        fmt.Print"错误：无法读取目录 '%s': %v\n", dirPath, err)
+        os.Exi(1)
+    }
+  
+    fmt.Printf"开始扫描目录: %s\n", dirPath)
+    deletedCount :=0
+    keptCount :=0
+  
+    // 4. 遍历目录中的每一个项目
+    for _, entry := range entries {
+        // 如果是目录，则跳过
+        if entry.IsDir() {
+            continue
+        }
+  
+        // 获取文件的完整路径
+        filePath := filepath.Join(dirPath, entry.Name())
+  
+        // 获取文件信息
+        info, err := entry.Info()
+        if err != nil {
+            fmt.Prin"无法获取文件信息 %s: %v\n", filePath, err)
+            continue
+        }
+  
+        // 5. 检查文件的最后修改时间
+        if info.ModTime().Before(today) {
+            // 如果文件修改时间在今天之前，则删除
+            fmt.Printf("正在删除 (修改于 %s): %s\n", info.ModTime().Format("2006-01-02"), filePath)
+            err := os.Remove(filePath)
+            if err != nil {
+                fmt.Pri"错误：删除文件失败 %s: %v\n", filePath, err)
+            } else {
+                deletedCount++
+            }
+            else {
+                // 保留今天的文件
+                fmt.Prin"保留 (今天的文件): %s\n", filePath)
+                keptCount++
+            }
+        }
+  
+        fmt.Println("\n扫描完成。")
+        fmt.Printf("总计: %d 个文件被删除, %d 个文件被保留。\n", deletedCount, keptCount)
+    }
+
+
+  如何使用
+
+
+   1. 保存文件：将上面的代码保存到一个名为 main.go 的文件中。
+   2. 打开终端：打开您的命令行工具（Terminal, PowerShell, CMD 等）。
+   3. 运行程序：使用 go run 命令来执行该程序，并在后面跟上您想要清理的目录的路径。
+
+      例如，要清理 e:\Download\trading-bot\lib 目录，您可以运行：
+         go run main.go e:\Download\trading-bot\lib
+
+      或者在 Linux/macOS 上：
+         go run main.go /path/to/your/directory
+
+
+  > ⚠️ 重要警告：
+  > 这个脚本会永久删除文件，操作无法撤销。在对重要目录运行此脚本之前，请务必在测试目录或备份数据上进行验证。
+

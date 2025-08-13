@@ -1,0 +1,52 @@
+{
+  "header": {
+    "sellerId": "AXXXXXXXXXXXX",
+    "version": "2.0",
+    "issueLocale": "en_US"
+  },
+  "messages": [
+    {
+      "messageId": 1,
+      "sku": "My-SKU-D",
+      "operationType": "PATCH",
+      "productType": "PRODUCT",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/attributes/fulfillment_availability",
+          "value": [
+            {
+              "fulfillment_channel_code": "DEFAULT",
+              "quantity": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "messageId": 2,
+      "sku": "ABC123",
+      "operationType": "PATCH",
+      "productType": "PRODUCT",
+      "patches": [
+         {
+           "op": "replace",
+           "path": "/attributes/purchasable_offer",
+           "value": [
+             {
+               "currency": "USD",
+               "our_price": [
+                 {
+                   "schedule": [
+                     {
+                       "value_with_tax": 90.00
+                     }
+                   ]
+                 }
+               ]
+             }
+           ]
+         }
+      ]
+    }
+}

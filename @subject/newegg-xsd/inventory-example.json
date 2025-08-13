@@ -1,0 +1,45 @@
+{
+  "NeweggEnvelope": {
+    "Header": {
+      "DocumentVersion": "1.0"
+    },
+    "MessageType": "Inventory",
+    "Overwrite": "No",
+    "Message": {
+      "Inventory": {
+        "Item": [
+          {
+            "SellerPartNumber": "SKU-12345",
+            "NeweggItemNumber": "N82E16823107123",
+            "Currency": "USD",
+            "MSRP": 299.99,
+            "MAP": 249.99,
+            "CheckoutMAP": "True",
+            "SellingPrice": 229.99,
+            "Inventory": 100,
+            "LimitQuantity": 5,
+            "FulfillmentOption": "Seller",
+            "Shipping": "default",
+            "ActivationMark": "True",
+            "MinPurchaseQty": 1
+          },
+          {
+            "SellerPartNumber": "SKU-67890",
+            "NeweggItemNumber": "N82E16834152456",
+            "Currency": "USD",
+            "MSRP": 599.99,
+            "MAP": 549.99,
+            "CheckoutMAP": "False",
+            "SellingPrice": 499.99,
+            "Inventory": 50,
+            "LimitQuantity": 3,
+            "FulfillmentOption": "Newegg",
+            "Shipping": "free",
+            "ActivationMark": "False",
+            "MinPurchaseQty": 2
+          }
+        ]
+      }
+    }
+  }
+}

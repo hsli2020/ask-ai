@@ -1,0 +1,36 @@
+> @ShipNotice.xsd  请根据这个文件的标准，生成一个json格式的请求，包含所有字段
+                                                                                                                                      
+{                                                                                                                               
+  "NeweggEnvelope": {                                                                                                           
+    "Header": {                                                                                                                 
+      "DocumentVersion": "1.0"                                                                                                  
+    },                                                                                                                          
+    "MessageType": "ShipNotice",                                                                                                
+    "Message": {                                                                                                                
+      "ShipNotice": {                                                                                                           
+        "Package": [                                                                                                            
+          {                                                                                                                     
+            "OrderNumber": "254897521",                                                                                         
+            "ItemInformation": {                                                                                                
+              "Item": [                                                                                                         
+                {                                                                                                               
+                  "SellerPartNumber": "YourSellerPartNumber1",                                                                  
+                  "ShippedQuantity": 1,                                                                                         
+                  "NeweggItemNumber": "NeweggItemNumber1"                                                                       
+                },                                                                                                              
+                {                                                                                                               
+                  "SellerPartNumber": "YourSellerPartNumber2",                                                                  
+                  "ShippedQuantity": 2,                                                                                         
+                  "NeweggItemNumber": "NeweggItemNumber2"                                                                       
+                }                                                                                                               
+              ]                                                                                                                 
+            },                                                                                                                  
+            "ActualShippingCarrier": "UPS",                                                                                     
+            "ActualShippingMethod": "Ground",                                                                                   
+            "TrackingNumber": "1Z9999W99999999999"                                                                              
+          }                                                                                                                     
+        ]                                                                                                                       
+      }                                                                                                                         
+    }                                                                                                                           
+  }                                                                                                                             
+}                                                                                                                               

@@ -1,0 +1,51 @@
+{
+  "patches": [
+    {
+      "op": "replace",
+      "path": "/attributes/purchasable_offer",
+      "value": [
+        {
+          "currency": "USD",
+          "our_price": [
+            {
+              "schedule": [
+                {
+                  "value_with_tax": 29.99
+                }
+              ]
+            }
+          ],
+          "minimum_seller_allowed_price": [
+            {
+              "schedule": [
+                {
+                  "value_with_tax": 25.00
+                }
+              ]
+            }
+          ],
+          "maximum_seller_allowed_price": [
+            {
+              "schedule": [
+                {
+                  "value_with_tax": 35.00
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "replace", 
+      "path": "/attributes/fulfillment_availability",
+      "value": [
+        {
+          "fulfillment_channel_code": "DEFAULT",
+          "quantity": 100,
+          "lead_time_to_ship_max_days": 2
+        }
+      ]
+    }
+  ]
+}

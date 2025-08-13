@@ -1,0 +1,277 @@
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│  > 用golang语言编写一个程序，从若干个ftp/sftp服务器上下载文件，每个服务器上下载的文件名各不相同，下载后保存在当前目录中，如 │
+│    果下载的文件是zip文件，需要解压缩                                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+✦ 好的，这是一个使用 Go 语言编写的程序，可以满足您的需求。
+
+
+  这个程序会：
+   1. 根据您定义的服务器列表进行遍历。
+   2. 支持 FTP 和 SFTP 两种协议。
+   3. 从每台服务器下载指定的文件。
+   4. 将文件保存在程序运行的当前目录下。
+   5. 如果下载的文件扩展名是 .zip，会自动解压缩到当前目录。
+
+  如何使用
+
+
+   1. 保存代码: 将下面的代码保存为 main.go。
+   2. 安装依赖: 打开终端，运行以下命令来安装所需的第三方库。
+
+
+   1     go get github.com/jlaffaye/ftp
+   2     go get github.com/pkg/sftp
+   3     go get golang.org/x/crypto/ssh
+
+   3. 修改配置: 在代码的 main 函数中，根据您的实际情况修改 servers
+      列表，填入正确的服务器地址、协议、用户名、密码和要下载的远程文件路径。
+   4. 运行程序: 在终端中，进入 main.go 所在的目录，运行以下命令。
+
+   1     go run main.go
+
+
+  ---
+
+
+  代码 (main.go)
+
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to main.go                                                                                    │
+ │                                                                                                                    │
+ │    Error: File path must be absolute: main.go                                                                      │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 抱歉，刚才的文件路径有点问题，现在已经修正。
+
+  这是为您生成的 main.go 文件。请按照之前的说明进行操作：安装依赖、修改配置，然后运行。
+
+
+  代码 (main.go)
+
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to main.go                                                                                    │
+ │                                                                                                                    │
+ │    ... first 43 lines hidden ...                                                                                   │
+ │     44                       Protocol:"sftp",                                                                                         │
+ │     45                       RemotePat"/upload/report.txt",                                                                           │
+ │     46               },                                                                                                        │
+ │     47 // {                                                                                                        │
+ │     48 //    Host:       "another-server.com:21",                                                                    │
+ │     49 //    Username:   "user2",                                                                                    │
+ │     50 //    Password:   "pass2",                                                                                    │
+ │     51 //    Protocol:   "ftp",                                                                                      │
+ │     52 //    RemotePath: "/data/another_file.csv",                                                                   │
+ │     53 // },                                                                                                       │
+ │     54       }                                                                                                          │
+ │     55 // ======================================================                                                   │
+ │     56                                                                                                             │
+ │     57 for _, server := range servers {                                                                            │
+ │     58 log.Printf("开始处理服务器: %s", server.Host)                                                               │
+ │     59               localPath, err :downloadFile(server)                                                                      │
+ │     60 if err != nil {                                                                                             │
+ │     61                       log.Prin"错误: 未能从 %s 下载文件 %s: %v", server.Host, server.RemotePath, err)                          │
+ │     62 continue // 继续处理下一台服务器                                                                            │
+ │     63               }                                                                                                         │
+ │     64                                                                                                             │
+ │     65 log.Printf("成功下载文件到: %s", localPath)                                                                 │
+ │     66                                                                                                             │
+ │     67 // 检查是否是zip文件并解压                                                                                  │
+ │     68 if strings.HasSuffix(strings.ToLower(localPath), ".zip") {                                                  │
+ │     69 log.Printf("检测到ZIP文件，开始解压: %s", localPath)                                                        │
+ │     70                       err unzip(localPath, ".")                                                                                │
+ │     71 if err != nil {                                                                                             │
+ │     72                               log.Pri"错误: 解压文件 %s 失败: %v", localPath, err)
+      │
+ │     73               else {                                                                                                    │
+ │     74 log.Printf("成功解压文件: %s", localPath)                                                                   │
+ │     75                       }                                                                                                        │
+ │     76               }                                                                                                         │
+ │     77       }                                                                                                          │
+ │     78                                                                                                             │
+ │     79 log.Println("所有任务处理完毕。")                                                                           │
+ │     80 }                                                                                                           │
+ │     81                                                                                                             │
+ │     82 // downloadFile 根据协议选择下载方式                                                                        │
+ │     83 func downloadFile(config ServerConfig) (string, error) {                                                    │
+ │     84       localFilename := filepathBase(config.RemotePath)                                                           │
+ │     85 switch strings.ToLower(config.Protocol) {                                                                   │
+ │     86 case "ftp":                                                                                                 │
+ │     87 return localFilename, downloadFTP(config, localFilename)                                                    │
+ │     88 case "sftp":                                                                                                │
+ │     89 return localFilename, downloadSFTP(config, localFilename)                                                   │
+ │     90 default:                                                                                                    │
+ │     91 return "", fmt.Errorf("不支持的协议: %s", config.Protocol)                                                  │
+ │     92       }                                                                                                          │
+ │     93 }                                                                                                           │
+ │     94                                                                                                             │
+ │     95 // downloadFTP 处理FTP下载                                                                                  │
+ │     96 func downloadFTP(config ServerConfig, localPath string) error {                                             │
+ │     97       c, err := ftpDial(config.Host, ftp.DialWithTimeout(5*time.Second))                                         │
+ │     98 if err != nil {                                                                                             │
+ │     99 return fmt.Errorf("FTP连接失败: %w", err)                                                                   │
+ │    100       }                                                                                                          │
+ │    101 defer c.Quit()                                                                                              │
+ │    102                                                                                                             │
+ │    103       err = cLogin(config.Username, config.Password)                                                             │
+ │    104 if err != nil {                                                                                             │
+ │    105 return fmt.Errorf("FTP登录失败: %w", err)                                                                   │
+ │    106       }                                                                                                          │
+ │    107                                                                                                             │
+ │    108 r, err := c.Retr(config.RemotePath)                                                                         │
+ │    109 if err != nil {                                                                                             │
+ │    110 return fmt.Errorf("无法获取远程文件: %w", err)                                                              │
+ │    111       }                                                                                                          │
+ │    112       deferr.Close()                                                                                             │
+ │    113                                                                                                             │
+ │    114       outFile, err := osCreate(localPath)                                                                        │
+ │    115 if err != nil {                                                                                             │
+ │    116 return fmt.Errorf("无法创建本地文件: %w", err)                                                              │
+ │    117       }                                                                                                          │
+ │    118 defer outFile.Close()                                                                                       │
+ │    119                                                                                                             │
+ │    120       _,err = io.Copy(outFile, r)                                                                                │
+ │    121 if err != nil {                                                                                             │
+ │    122 return fmt.Errorf("文件复制失败: %w", err)                                                                  │
+ │    123       }                                                                                                          │
+ │    124                                                                                                             │
+ │    125 return nil                                                                                                  │
+ │    126 }                                                                                                           │
+ │    127                                                                                                             │
+ │    128 // downloadSFTP 处理SFTP下载                                                                                │
+ │    129 func downloadSFTP(config ServerConfig, localPath string) error {                                            │
+ │    130       sshConfig := &ssh.ClientConfig{                                                                            │
+ │    131               User: config.Username,                                                                                    │
+ │    132               Auth: []ssh.AuthMethod{                                                                                   │
+ │    133                       sPassword(config.Password),                                                                              │
+ │    134               },                                                                                                        │
+ │    135 // 注意: 在生产环境中，您应该使用更安全的主机密钥验证策略                                                   │
+ │    136 // ssh.FixedHostKey(hostKey) or your own implementation                                                     │
+ │    137               HostKeyCallback: ssInsecureIgnoreHostKey(),                                                               │
+ │    138               Timeout:       10 * time.Second,                                                                          │
+ │    139       }                                                                                                          │
+ │    140                                                                                                             │
+ │    141       addr := config.Host                                                                                        │
+ │    142 if !strings.Contains(addr, ":") {                                                                           │
+ │    143 addr = addr + ":22" // 默认SFTP端口                                                                         │
+ │    144       }                                                                                                          │
+ │    145                                                                                                             │
+ │    146       conn, err := sshDial("tcp", addr, sshConfig)                                                               │
+ │    147 if err != nil {                                                                                             │
+ │    148 return fmt.Errorf("SSH连接失败: %w", err)                                                                   │
+ │    149       }                                                                                                          │
+ │    150 defer conn.Close()                                                                                          │
+ │    151                                                                                                             │
+ │    152       client, err := sftpNewClient(conn)                                                                         │
+ │    153 if err != nil {                                                                                             │
+ │    154 return fmt.Errorf("创建SFTP客户端失败: %w", err)                                                            │
+ │    155       }                                                                                                          │
+ │    156 defer client.Close()                                                                                        │
+ │    157                                                                                                             │
+ │    158       srcFile, err := clientOpen(config.RemotePath)                                                              │
+ │    159 if err != nil {                                                                                             │
+ │    160 return fmt.Errorf("无法打开远程文件: %w", err)                                                              │
+ │    161       }                                                                                                          │
+ │    162 defer srcFile.Close()                                                                                       │
+ │    163                                                                                                             │
+ │    164       dstFile, err := osCreate(localPath)                                                                        │
+ │    165 if err != nil {                                                                                             │
+ │    166 return fmt.Errorf("无法创建本地文件: %w", err)                                                              │
+ │    167       }                                                                                                          │
+ │    168 defer dstFile.Close()                                                                                       │
+ │    169                                                                                                             │
+ │    170       _,err = io.Copy(dstFile, srcFile)                                                                          │
+ │    171 if err != nil {                                                                                             │
+ │    172 return fmt.Errorf("文件复制失败: %w", err)                                                                  │
+ │    173       }                                                                                                          │
+ │    174                                                                                                             │
+ │    175 return nil                                                                                                  │
+ │    176 }                                                                                                           │
+ │    177                                                                                                             │
+ │    178 // unzip 解压zip文件到指定目录                                                                              │
+ │    179 func unzip(src, dest string) error {                                                                        │
+ │    180 r, err := zip.OpenReader(src)                                                                               │
+ │    181 if err != nil {                                                                                             │
+ │    182 return err                                                                                                  │
+ │    183       }                                                                                                          │
+ │    184       deferr.Close()                                                                                             │
+ │    185                                                                                                             │
+ │    186 for _, f := range r.File {                                                                                  │
+ │    187               fpath := filepatJoin(dest, f.Name)                                                                        │
+ │    188                                                                                                             │
+ │    189 // 检查路径穿越漏洞                                                                                         │
+ │    190               if !strin.HasPrefix(fpath, filepath.Clean(dest)+string(os.PathSeparator)) {                               │
+ │    191 return fmt.Errorf("不安全的zip路径: %s", fpath)                                                             │
+ │    192               }                                                                                                         │
+ │    193                                                                                                             │
+ │    194               if.FileInfo().IsDir() {                                                                                   │
+ │    195 os.MkdirAll(fpath, os.ModePerm)                                                                             │
+ │    196 continue                                                                                                    │
+ │    197               }                                                                                                         │
+ │    198                                                                                                             │
+ │    199               if err := oMkdirAll(filepath.Dir(fpath), os.ModePerm); err != nil {                                       │
+ │    200 return err                                                                                                  │
+ │    201               }                                                                                                         │
+ │    202                                                                                                             │
+ │    203               outFile, err :os.OpenFile(fpath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())                            │
+ │    204 if err != nil {                                                                                             │
+ │    205 return err                                                                                                  │
+ │    206               }                                                                                                         │
+ │    207                                                                                                             │
+ │    208               rc, err := Open()                                                                                         │
+ │    209 if err != nil {                                                                                             │
+ │    210                       outF.Close()                                                                                             │
+ │    211 return err                                                                                                  │
+ │    212               }                                                                                                         │
+ │    213                                                                                                             │
+ │    214               _err = io.Copy(outFile, rc)                                                                               │
+ │    215                                                                                                             │
+ │    216 // 在循环的最后关闭文件                                                                                     │
+ │    217               outFi.Close()                                                                                             │
+ │    218               .Close()                                                                                                  │
+ │    219                                                                                                             │
+ │    220 if err != nil {                                                                                             │
+ │    221 return err                                                                                                  │
+ │    222               }                                                                                                         │
+ │    223       }                                                                                                          │
+ │    224 return nil                                                                                                  │
+ │    225 }                                                                                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 好的，main.go 文件已成功创建。
+
+
+  接下来，请在您的终端（命令行）中执行以下步骤：
+
+
+   1. 安装依赖库 (如果尚未安装):
+
+
+   1     go get github.com/jlaffaye/ftp
+   2     go get github.com/pkg/sftp
+   3     go get golang.org/x/crypto/ssh
+
+
+
+   2. 修改配置文件:
+      打开 E:/Gemini/pricelist/main.go 文件，找到 servers
+  变量，并将其中的服务器信息（地址、用户名、密码等）修改为您自己的配置。
+
+
+   3. 运行程序:
+      在终端中，确保您位于 E:\Gemini\pricelist 目录下，然后运行：
+
+   1     go run main.go
+
+
+
+  程序将会开始执行下载和解压任务。如果您在配置或运行过程中遇到任何问题，随时可以向我提问。
+
+
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ >   Type your message or @path/to/file                                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+E:\Gemini\pricelist                        no sandbox (see /docs)                          gemini-2.5-pro (99% context left)
+
+

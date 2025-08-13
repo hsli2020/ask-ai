@@ -1,0 +1,56 @@
+{
+  "products": [
+    {
+      "sku": "YOUR-SKU-001",
+      "product_id": "B08XXXXX01", 
+      "product_id_type": "ASIN",
+      "price": 29.99,
+      "minimum_seller_allowed_price": 25.00,
+      "maximum_seller_allowed_price": 35.00,
+      "quantity": 100,
+      "handling_time": 2,
+      "business_price": 27.99,
+      "quantity_price_type": "percent",
+      "quantity_discounts": [
+        {
+          "quantity_lower_bound": 10,
+          "quantity_price": 28.99
+        },
+        {
+          "quantity_lower_bound": 50, 
+          "quantity_price": 27.99
+        },
+        {
+          "quantity_lower_bound": 100,
+          "quantity_price": 26.99
+        }
+      ]
+    },
+    {
+      "sku": "YOUR-SKU-002",
+      "product_id": "B08XXXXX02",
+      "product_id_type": "ASIN", 
+      "price": 19.99,
+      "minimum_seller_allowed_price": 15.00,
+      "maximum_seller_allowed_price": 25.00,
+      "quantity": 200,
+      "handling_time": 1,
+      "business_price": 18.99,
+      "quantity_price_type": "fixed",
+      "quantity_discounts": [
+        {
+          "quantity_lower_bound": 20,
+          "quantity_price": 18.99
+        },
+        {
+          "quantity_lower_bound": 100,
+          "quantity_price": 17.99
+        },
+        {
+          "quantity_lower_bound": 200,
+          "quantity_price": 16.99
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│  > @JSON_LISTING_FEED 根据这个文件所描述的标准，生成json格式的请求，包含所有字段  │
+╰───────────────────────────────────────────────────────────────────────────────────╯
+
+  {
+    "header": {
+      "sellerId": "A123456789",
+      "version": "2.0",
+      "issueLocale": "en_US"
+    },
+    "messages": [
+      {
+        "messageId": 1,
+        "sku": "SKU-UPDATE-001",
+        "operationType": "UPDATE",
+        "productType": "LUGGAGE",
+        "requirements": "LISTING",
+        "attributes": {
+          "title": "Example Luggage Title",
+          "brand": "Example Brand",
+          "color": "Blue",
+          "item_dimensions": {
+            "length": {
+              "value": 22,
+              "unit": "inches"
+            },
+            "width": {
+              "value": 14,
+              "unit": "inches"
+            },
+            "height": {
+              "value": 9,
+              "unit": "inches"
+            }
+          }
+        }
+      },
+      {
+        "messageId": 2,
+        "sku": "SKU-PARTIAL-UPDATE-002",
+        "operationType": "PARTIAL_UPDATE",
+        "productType": "SHOES",
+        "attributes": {
+          "color": "Red",
+          "size": "10"
+        }
+      },
+      {
+        "messageId": 3,
+        "sku": "SKU-PATCH-003",
+        "operationType": "PATCH",
+        "productType": "LUGGAGE",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/attributes/color",
+            "value": [
+              {
+                "value": "Green"
+              }
+            ]
+          },
+          {
+            "op": "add",
+            "path": "/attributes/bullet_point",
+            "value": [
+              {
+                "value": "New feature added."
+              }
+            ]
+          },
+          {
+            "op": "delete",
+            "path": "/attributes/item_dimensions"
+          }
+        ]
+      },
+      {
+        "messageId": 4,
+        "sku": "SKU-DELETE-004",
+        "operationType": "DELETE"
+      }
+    ]
+  }
+
+

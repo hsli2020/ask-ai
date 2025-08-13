@@ -1,0 +1,183 @@
+{
+  "header": {
+    "sellerId": "YOUR_SELLER_ID",
+    "version": "2.0",
+    "issueLocale": "en_US"
+  },
+  "messages": [
+    {
+      "messageId": 1,
+      "sku": "YOUR-SKU-001",
+      "operationType": "UPDATE",
+      "productType": "PRODUCT",
+      "requirements": "LISTING",
+      "attributes": {
+        "condition_type": [
+          {
+            "value": "new_new"
+          }
+        ],
+        "purchasable_offer": [
+          {
+            "currency": "USD",
+            "our_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 29.99
+                  }
+                ]
+              }
+            ],
+            "minimum_seller_allowed_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 25.00
+                  }
+                ]
+              }
+            ],
+            "maximum_seller_allowed_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 35.00
+                  }
+                ]
+              }
+            ],
+            "business_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 27.99
+                  }
+                ]
+              }
+            ],
+            "quantity_discount_type": [
+              {
+                "value": "FIXED_AMOUNT"
+              }
+            ],
+            "quantity_discount": [
+              {
+                "quantity_tier": 1,
+                "quantity_discount_type": "FIXED_AMOUNT",
+                "discount_amount": 1.00,
+                "quantity_lower_bound": 10
+              },
+              {
+                "quantity_tier": 2,
+                "quantity_discount_type": "FIXED_AMOUNT", 
+                "discount_amount": 2.00,
+                "quantity_lower_bound": 50
+              },
+              {
+                "quantity_tier": 3,
+                "quantity_discount_type": "FIXED_AMOUNT",
+                "discount_amount": 3.00,
+                "quantity_lower_bound": 100
+              }
+            ]
+          }
+        ],
+        "fulfillment_availability": [
+          {
+            "fulfillment_channel_code": "DEFAULT",
+            "quantity": 100,
+            "lead_time_to_ship_max_days": 2
+          }
+        ]
+      }
+    },
+    {
+      "messageId": 2,
+      "sku": "YOUR-SKU-002",
+      "operationType": "UPDATE",
+      "productType": "PRODUCT",
+      "requirements": "LISTING",
+      "attributes": {
+        "condition_type": [
+          {
+            "value": "new_new"
+          }
+        ],
+        "purchasable_offer": [
+          {
+            "currency": "USD",
+            "our_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 19.99
+                  }
+                ]
+              }
+            ],
+            "minimum_seller_allowed_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 15.00
+                  }
+                ]
+              }
+            ],
+            "maximum_seller_allowed_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 25.00
+                  }
+                ]
+              }
+            ],
+            "business_price": [
+              {
+                "schedule": [
+                  {
+                    "value_with_tax": 18.99
+                  }
+                ]
+              }
+            ],
+            "quantity_discount_type": [
+              {
+                "value": "PERCENT_OFF"
+              }
+            ],
+            "quantity_discount": [
+              {
+                "quantity_tier": 1,
+                "quantity_discount_type": "PERCENT_OFF",
+                "discount_percent": 5.0,
+                "quantity_lower_bound": 20
+              },
+              {
+                "quantity_tier": 2,
+                "quantity_discount_type": "PERCENT_OFF",
+                "discount_percent": 10.0,
+                "quantity_lower_bound": 100
+              },
+              {
+                "quantity_tier": 3,
+                "quantity_discount_type": "PERCENT_OFF",
+                "discount_percent": 15.0,
+                "quantity_lower_bound": 200
+              }
+            ]
+          }
+        ],
+        "fulfillment_availability": [
+          {
+            "fulfillment_channel_code": "DEFAULT",
+            "quantity": 200,
+            "lead_time_to_ship_max_days": 1
+          }
+        ]
+      }
+    }
+  ]
+}

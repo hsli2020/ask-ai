@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>带有下拉菜单的网页</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .dropdown-menu {
+            min-width: 200px;
+        }
+        .content {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">我的网站</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100">
+                    <!-- 菜单项1 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menu1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            菜单1
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu1">
+                            <li><a class="dropdown-item" href="#">子菜单1-1</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单1-2</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单1-3</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- 菜单项2 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menu2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            菜单2
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu2">
+                            <li><a class="dropdown-item" href="#">子菜单2-1</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单2-2</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单2-3</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- 菜单项3 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menu3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            菜单3
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu3">
+                            <li><a class="dropdown-item" href="#">子菜单3-1</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单3-2</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单3-3</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- 菜单项4 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menu4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            菜单4
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu4">
+                            <li><a class="dropdown-item" href="#">子菜单4-1</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单4-2</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单4-3</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- 菜单项5 (向右对齐) -->
+                    <li class="nav-item dropdown ms-auto">
+                        <a class="nav-link dropdown-toggle" href="#" id="menu5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            菜单5
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menu5">
+                            <li><a class="dropdown-item" href="#">子菜单5-1</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单5-2</a></li>
+                            <li><a class="dropdown-item" href="#">子菜单5-3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="container">
+        <div class="content">
+            <h1>欢迎来到我的网站</h1>
+            <p>这是一个带有下拉菜单导航栏的网页示例。</p>
+            <p>点击顶部导航栏中的每个菜单项，都会弹出相应的下拉菜单。</p>
+            <p>最后一个菜单项（菜单5）已设置为向右对齐。</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

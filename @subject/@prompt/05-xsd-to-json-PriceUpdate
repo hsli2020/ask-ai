@@ -1,0 +1,29 @@
+> @PriceUpdate.xsd  请根据这个文件的标准，生成一个json格式的请求，包含所有字段
+                                                                                                                                    
+{                                                                                                                             
+  "NeweggEnvelope": {                                                                                                         
+    "Header": {                                                                                                               
+      "DocumentVersion": "2.0"                                                                                                
+    },                                                                                                                        
+    "MessageType": "Price",                                                                                                   
+    "Message": {                                                                                                              
+      "Price": {                                                                                                              
+        "Item": [                                                                                                             
+          {                                                                                                                   
+            "SellerPartNumber": "YourSellerPartNumber",                                                                       
+            "NeweggItemNumber": "NeweggItemNumber",                                                                           
+            "CountryCode": "USA",                                                                                             
+            "Currency": "USD",                                                                                                
+            "MSRP": 99.99,                                                                                                    
+            "MAP": 89.99,                                                                                                     
+            "CheckoutMAP": "False",                                                                                           
+            "SellingPrice": 95.99,                                                                                            
+            "Shipping": "default",                                                                                            
+            "LimitQuantity": 50,                                                                                              
+            "ActivationMark": "True"                                                                                          
+          }                                                                                                                   
+        ]                                                                                                                     
+      }                                                                                                                       
+    }                                                                                                                         
+  }                                                                                                                           
+}                                                                                                                             

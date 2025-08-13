@@ -1,0 +1,33 @@
+> @Inventory.xsd 请根据这个文件的标准，生成一个json格式的请求，包含所有字段
+
+{
+  "NeweggEnvelope": {
+    "Header": {
+      "DocumentVersion": "1.0"
+    },
+    "MessageType": "Inventory",
+    "Overwrite": "No",
+    "Message": {
+      "Inventory": {
+        "Item": [
+          {
+            "SellerPartNumber": "YourSellerPartNumber",
+            "NeweggItemNumber": "NeweggItemNumber",
+            "Currency": "USD",
+            "MSRP": 150.99,
+            "MAP": 120.50,
+            "CheckoutMAP": "True",
+            "SellingPrice": 130.80,
+            "Inventory": 50,
+            "LimitQuantity": 10,
+            "FulfillmentOption": "Seller",
+            "Shipping": "default",
+            "ActivationMark": "True",
+            "MinPurchaseQty": 1
+          }
+        ]
+      }
+    }
+  }
+}
+

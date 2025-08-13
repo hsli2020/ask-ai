@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据录入表单</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+        .form-title {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+        }
+        .form-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-field label {
+            flex: 0 0 30%;
+            max-width: 30%;
+            padding-right: 15px;
+            text-align: right;
+            font-weight: bold;
+        }
+        .form-field input, .form-field select, .form-field textarea {
+            flex: 0 0 70%;
+            max-width: 70%;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 40px;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 10px 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">数据录入表单</h2>
+            <form>
+                <!-- 20个字段，每行两个 -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field1" class="form-label">字段1:</label>
+                            <input type="text" class="form-control" id="field1">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field2" class="form-label">字段2:</label>
+                            <input type="text" class="form-control" id="field2">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field3" class="form-label">字段3:</label>
+                            <input type="text" class="form-control" id="field3">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field4" class="form-label">字段4:</label>
+                            <input type="text" class="form-control" id="field4">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field5" class="form-label">字段5:</label>
+                            <input type="text" class="form-control" id="field5">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field6" class="form-label">字段6:</label>
+                            <input type="text" class="form-control" id="field6">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field7" class="form-label">字段7:</label>
+                            <input type="text" class="form-control" id="field7">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field8" class="form-label">字段8:</label>
+                            <input type="text" class="form-control" id="field8">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field9" class="form-label">字段9:</label>
+                            <input type="text" class="form-control" id="field9">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field10" class="form-label">字段10:</label>
+                            <input type="text" class="form-control" id="field10">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field11" class="form-label">字段11:</label>
+                            <input type="text" class="form-control" id="field11">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field12" class="form-label">字段12:</label>
+                            <input type="text" class="form-control" id="field12">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field13" class="form-label">字段13:</label>
+                            <input type="text" class="form-control" id="field13">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field14" class="form-label">字段14:</label>
+                            <input type="text" class="form-control" id="field14">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field15" class="form-label">字段15:</label>
+                            <input type="text" class="form-control" id="field15">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field16" class="form-label">字段16:</label>
+                            <input type="text" class="form-control" id="field16">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field17" class="form-label">字段17:</label>
+                            <input type="text" class="form-control" id="field17">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field18" class="form-label">字段18:</label>
+                            <input type="text" class="form-control" id="field18">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field19" class="form-label">字段19:</label>
+                            <input type="text" class="form-control" id="field19">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-field">
+                            <label for="field20" class="form-label">字段20:</label>
+                            <input type="text" class="form-control" id="field20">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

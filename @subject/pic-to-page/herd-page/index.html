@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Herd</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://laravel.com/img/logomark.min.svg" alt="Laravel Logo">
+                <span>Laravel Herd</span>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> General</a></li>
+                    <li><a href="#"><i class="fas fa-globe"></i> Sites</a></li>
+                    <li><a href="#"><i class="fab fa-php"></i> PHP</a></li>
+                    <li><a href="#"><i class="fab fa-node-js"></i> Node</a></li>
+                    <li><a href="#"><i class="fas fa-bullhorn"></i> Expose</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> Shortcuts</a></li>
+                    <li><a href="#"><i class="fas fa-concierge-bell"></i> Services <span class="pro">Pro</span></a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Mail <span class="pro">Pro</span></a></li>
+                    <li><a href="#"><i class="fas fa-database"></i> Dumps <span class="pro">Pro</span></a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> Herd Pro</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Integrations</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header>
+                <h1>Dashboard</h1>
+                <div class="window-controls">
+                    <button class="window-control">-</button>
+                    <button class="window-control">□</button>
+                    <button class="window-control">×</button>
+                </div>
+            </header>
+            <section class="active-services">
+                <div class="section-header">
+                    <h2>Active Services</h2>
+                    <button class="stop-all">Stop all services</button>
+                </div>
+                <ul>
+                    <li><span class="status-dot green"></span> NGINX <i class="fas fa-info-circle"></i></li>
+                    <li><span class="status-dot green"></span> Dumps <i class="fas fa-info-circle"></i></li>
+                    <li><span class="status-dot green"></span> PHP-8.3 <i class="fas fa-info-circle"></i></li>
+                </ul>
+            </section>
+            <section class="global-php">
+                <h2>Global PHP Version</h2>
+                <p>Use the <a href="#">PHP settings</a> to install and manage PHP versions.</p>
+                <div class="php-version-selector">
+                    <select>
+                        <option>PHP 8.3</option>
+                    </select>
+                </div>
+            </section>
+            <section class="herd-pro">
+                <div class="right-sidebar">
+                    <div class="herd-pro-card">
+                        <h2>Herd Pro</h2>
+                        <button>Open Dumps</button>
+                        <button>Open Mail</button>
+                        <button>Open Log Viewer</button>
+                    </div>
+                    <div class="quick-access-card">
+                        <h3>Quick Access</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

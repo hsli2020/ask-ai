@@ -1,0 +1,19 @@
+{
+  "header": {
+    "sellerId": "A123456789",
+    "version": "2.0",
+    "issueLocale": "en_US"
+  },
+  "messages": [
+    {
+      "messageId": 1,
+      "sku": "SKU-DELETE-001",
+      "operationType": "DELETE"
+    },
+    {
+      "messageId": 2,
+      "sku": "SKU-DELETE-002",
+      "operationType": "DELETE"
+    }
+  ]
+}

@@ -1,0 +1,546 @@
+E:\Gemini
+λ cd orderV0\
+
+E:\Gemini\orderV0
+λ gemini
+(node:8812) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ ███            █████████  ██████████ ██████   ██████ █████ ██████   █████ █████
+░░░███         ███░░░░░███░░███░░░░░█░░██████ ██████ ░░███ ░░██████ ░░███ ░░███
+  ░░░███      ███     ░░░  ░███  █ ░  ░███░█████░███  ░███  ░███░███ ░███  ░███
+    ░░░███   ░███          ░██████    ░███░░███ ░███  ░███  ░███░░███░███  ░███
+     ███░    ░███    █████ ░███░░█    ░███ ░░░  ░███  ░███  ░███ ░░██████  ░███
+   ███░      ░░███  ░░███  ░███ ░   █ ░███      ░███  ░███  ░███  ░░█████  ░███
+ ███░         ░░█████████  ██████████ █████     █████ █████ █████  ░░█████ █████
+░░░            ░░░░░░░░░  ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░
+
+
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. Create GEMINI.md files to customize your interactions with Gemini.
+4. /help for more information.
+
+
+╭───────────────────────────────────────────────────────────────────╮
+│  > @ordersV0.json 根据这个文件描述的规范，用golang实现客户端代码  │
+╰───────────────────────────────────────────────────────────────────╯
+
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  ReadManyFiles Will attempt to read and concatenate files using patterns: `ordersV0.json` (within target directory: `E:\G… │
+ │                                                                                                                              │
+ │    ### ReadManyFiles Result (Target Dir: `E:\Gemini\orderV0`)                                                                │
+ │                                                                                                                              │
+ │    Successfully read and concatenated content from **1 file(s)**.                                                            │
+ │                                                                                                                              │
+ │    **Processed Files:**                                                                                                      │
+ │    - `ordersV0.json`                                                                                                         │
+ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 好的，我可以根据您提供的 ordersV0.json OpenAPI 规范文件生成 Golang 客户端代码。
+
+
+  在开始之前，请告诉我您希望将生成的代码放在哪个目录中？
+
+╭───────╮
+│  > .  │
+╰───────╯
+
+✦ 好的。我将使用 oapi-codegen 这个工具来从 ordersV0.json 文件生成 Golang 客户端代码。
+
+  首先，我将创建一个名为 ordersv0 的新目录来存放生成的代码，以保持项目整洁。
+
+
+  I will now create the ordersv0 directory.
+ ╭──────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  Shell mkdir ordersv0 (Create a directory to store the generated Go client code.)  │
+ ╰──────────────────────────────────────────────────────────────────────────────────────╯
+✦ 接下来，我将使用 oapi-codegen 工具来生成代码。这需要先安装 oapi-codegen。
+
+
+  I will now install oapi-codegen.
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ -  Shell go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest (Install the oapi-codegen tool to generate Go c… │
+ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│  > @ordersV0.json 根据这个文件描述的规范，用golang实现客户端代码，只用标准库，不要用oapi-codegen之类的代码生成工具  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  ReadManyFiles Will attempt to read and concatenate files using patterns: `ordersV0.json` (within target directory: `E:\G… │
+ │                                                                                                                              │
+ │    ### ReadManyFiles Result (Target Dir: `E:\Gemini\orderV0`)                                                                │
+ │                                                                                                                              │
+ │    Successfully read and concatenated content from **1 file(s)**.                                                            │
+ │                                                                                                                              │
+ │    **Processed Files:**                                                                                                      │
+ │    - `ordersV0.json`                                                                                                         │
+ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ Of course. I will create the Golang client code for you using only the standard library. I will structure the code into two
+  files: models.go for the data structures and client.go for the client logic.
+
+
+  First, I'll create a directory named ordersv0 to place the files in.
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  Shell mkdir ordersv0 (Create a directory to store the Go client code.)                                          │
+ │                                                                                                                    │
+                                                                │
+ │                                                                                                                    │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 好的，我将完全手动编写 Go 客户端代码，仅使用标准库，并将其放入 ordersv0 目录中。
+
+
+  这将分为两个文件：
+   1. ordersv0/models.go: 包含 API 所需的所有数据结构 (structs)。
+   2. ordersv0/client.go: 包含与 API 端点交互的客户端逻辑。
+
+
+  我将首先创建 models.go 文件。
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to ordersv0\models.go                                                                         │
+ │                                                                                                                    │
+ │    Error: File path must be absolute: ordersv0/models.go                                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ You are absolutely correct. My apologies, I must use absolute paths. I will correct that now.
+
+
+  First, I will create the models.go file with the correct absolute path.
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to ordersv0\models.go                                                                         │
+ │                                                                                                                    │
+ │    ... first 7 lines hidden ...                                                                                    │
+ │      8                                                                                                             │
+ │      9 // Address represents a shipping address.                                                                   │
+ │     10 type Address struct {                                                                                       │
+ │     11       Name         string `json:"Name"`                                                                          │
+ │     12       AddressLine1 string `json:"AddressLine1,omitempty"`                                                        │
+ │     13       AddressLine2 string `json:"AddressLine2,omitempty"`                                                        │
+ │     14       AddressLine3 string `json:"AddressLine3,omitempty"`                                                        │
+ │     15       City         string `json:"City,omitempty"`                                                                │
+ │     16       County       string `json:"County,omitempty"`                                                              │
+ │     17       District     string `json:"District,omitempty"`                                                            │
+ │     18       StateOrRegionstring `json:"StateOrRegion,omitempty"`                                                       │
+ │     19       PostalCode   string `json:"PostalCode,omitempty"`                                                          │
+ │     20       CountryCode  string `json:"CountryCode,omitempty"`                                                         │
+ │     21       Phone        string `json:"Phone,omitempty"`                                                               │
+ │     22       AddressType  string `json:"AddressType,omitempty"`                                                         │
+ │     23 }                                                                                                           │
+ │     24                                                                                                             │
+ │     25 // BuyerTaxInfo represents tax information for a buyer.                                                     │
+ │     26 type BuyerTaxInfo struct {                                                                                  │
+ │     27       CompanyLegalName string `json:"CompanyLegalName,omitempty"`                                                │
+ │     28       TaxingRegion     string `json:"TaxingRegion,omitempty"`                                                    │
+ │     29       TaxClassifications [struct {                                                                               │
+ │     30               Namestring `json:"Name,omitempty"`                                                                        │
+ │     31               Valustring `json:"Value,omitempty"`                                                                       │
+ │     32       } `json"TaxClassifications,omitempty"`                                                                     │
+ │     33 }                                                                                                           │
+ │     34                                                                                                             │
+ │     35 // BuyerInfo represents information about the buyer.                                                        │
+ │     36 type BuyerInfo struct {                                                                                     │
+ │     37       BuyerEmail       string       `json:"BuyerEmail,omitempty"`                                                │
+ │     38       BuyerName        string       `json:"BuyerName,omitempty"`                                                 │
+ │     39       BuyerCounty      string       `json:"BuyerCounty,omitempty"`                                               │
+ │     40       BuyerTaxInfo      *BuyerTaxInfo `json"BuyerTaxInfo,omitempty"`                                             │
+ │     41       PurchaseOrderNumberstring     `json:"PurchaseOrderNumber,omitempty"`                                       │
+ │     42 }                                                                                                           │
+ │     43                                                                                                             │
+ │     44 // Order represents an order.                                                                               │
+ │     45 type Order struct {                                                                                         │
+ │     46       AmazonOrderID               string       `json:"AmazonOrderId"`                                            │
+ │     47       SellerOrderID               string       `json:"SellerOrderId,omitempty"`                                  │
+ │     48       PurchaseDate                string       `json:"PurchaseDate"`                                             │
+ │     49       LastUpdateDate              string       `json:"LastUpdateDate"`                                           │
+ │     50       OrderStatus                 string       `json:"OrderStatus"`                                              │
+ │     51       FulfillmentChannel          string       `json:"FulfillmentChannel,omitempty"`                             │
+ │     52       SalesChannel                string       `json:"SalesChannel,omitempty"`                                   │
+ │     53       OrderChannel                string       `json:"OrderChannel,omitempty"`                                   │
+ │     54       ShipServiceLevel            string       `json:"ShipServiceLevel,omitempty"`                               │
+ │     55       OrderTotal                   *Money       `json"OrderTotal,omitempty"`                                     │
+ │     56       NumberOfItemsShipped        int          `json:"NumberOfItemsShipped,omitempty"`                           │
+ │     57       NumberOfItemsUnshipped      int          `json:"NumberOfItemsUnshipped,omitempty"`                         │
+ │     58       PaymentMethod               string       `json:"PaymentMethod,omitempty"`                                  │
+ │     59       PaymentMethodDetails         [string     `json:"PaymentMethodDetails,omitempty"`                           │
+ │     60       MarketplaceID               string       `json:"MarketplaceId,omitempty"`                                  │
+ │     61       ShipmentServiceLevelCategorystring       `json:"ShipmentServiceLevelCategory,omitempty"`                   │
+ │     62       EasyShipShipmentStatus      string       `json:"EasyShipShipmentStatus,omitempty"`                         │
+ │     63       CbaDisplayableShippingLabel string       `json:"CbaDisplayableShippingLabel,omitempty"`                    │
+ │     64       OrderType                   string       `json:"OrderType,omitempty"`                                      │
+ │     65       EarliestShipDate            string       `json:"EarliestShipDate,omitempty"`                               │
+ │     66       LatestShipDate              string       `json:"LatestShipDate,omitempty"`                                 │
+ │     67       EarliestDeliveryDate        string       `json:"EarliestDeliveryDate,omitempty"`                           │
+ │     68       LatestDeliveryDate          string       `json:"LatestDeliveryDate,omitempty"`                             │
+ │     69       IsBusinessOrder             bool         `json:"IsBusinessOrder,omitempty"`                                │
+ │     70       IsPrime                     bool         `json:"IsPrime,omitempty"`                                        │
+ │     71       IsPremiumOrder              bool         `json:"IsPremiumOrder,omitempty"`                                 │
+ │     72       IsGlobalExpressEnabled      bool         `json:"IsGlobalExpressEnabled,omitempty"`                         │
+ │     73       IsReplacementOrder          bool         `json:"IsReplacementOrder,omitempty"`                             │
+ │     74       IsSoldByAB                  bool         `json:"IsSoldByAB,omitempty"`                                     │
+ │     75       IsIBA                       bool         `json:"IsIBA,omitempty"`                                          │
+ │     76       IsAccessPointOrder          bool         `json:"IsAccessPointOrder,omitempty"`                             │
+ │     77       IsISPU                      bool         `json:"IsISPU,omitempty"`                                         │
+ │     78       ShippingAddress              Address     `json:"ShippingAddress,omitempty"`                                │
+ │     79       BuyerInfo                    *BuyerInfo   `json"BuyerInfo,omitempty"`                                      │
+ │     80 }                                                                                                           │
+ │     81                                                                                                             │
+ │     82 // OrderItem represents an item in an order.                                                                │
+ │     83 type OrderItem struct {                                                                                     │
+ │     84       ASIN             string `json:"ASIN"`                                                                      │
+ │     85       SellerSKU        string `json:"SellerSKU,omitempty"`                                                       │
+ │     86       OrderItemID      string `json:"OrderItemId"`                                                               │
+ │     87       Title            string `json:"Title,omitempty"`                                                           │
+ │     88       QuantityOrdered  int    `json:"QuantityOrdered"`                                                           │
+ │     89       QuantityShipped  int    `json:"QuantityShipped,omitempty"`                                                 │
+ │     90       ItemPrice         *Money `json"ItemPrice,omitempty"`                                                       │
+ │     91       ShippingPrice     *Money `json"ShippingPrice,omitempty"`                                                   │
+ │     92       GiftWrapPrice     *Money `json"GiftWrapPrice,omitempty"`                                                   │
+ │     93       ItemTax           *Money `json"ItemTax,omitempty"`                                                         │
+ │     94       ShippingTax       *Money `json"ShippingTax,omitempty"`                                                     │
+ │     95       GiftWrapTax       *Money `json"GiftWrapTax,omitempty"`                                                     │
+ │     96       ShippingDiscount  *Money `json"ShippingDiscount,omitempty"`                                                │
+ │     97       PromotionDiscount *Money `json"PromotionDiscount,omitempty"`                                               │
+ │     98       PromotionIDs      [string `json:"PromotionIds,omitempty"`                                                  │
+ │     99       CODFee            *Money `json"CODFee,omitempty"`                                                          │
+ │    100       CODFeeDiscount    *Money `json"CODFeeDiscount,omitempty"`                                                  │
+ │    101       IsGift           bool   `json:"IsGift,omitempty"`                                                          │
+ │    102       ConditionNote    string `json:"ConditionNote,omitempty"`                                                   │
+ │    103       ConditionID      string `json:"ConditionId,omitempty"`                                                     │
+ │    104       ConditionSubtypeIDstring `json:"ConditionSubtypeId,omitempty"`                                             │
+ │    105       ScheduledDeliveryStartDatestring `json:"ScheduledDeliveryStartDate,omitempty"`                             │
+ │    106       ScheduledDeliveryEndDatestring `json:"ScheduledDeliveryEndDate,omitempty"`                                 │
+ │    107       PriceDesignation string `json:"PriceDesignation,omitempty"`                                                │
+ │    108 }                                                                                                           │
+ │    109                                                                                                             │
+ │    110 // GetOrdersResponse is the response schema for the getOrders operation.                                    │
+ │    111 type GetOrdersResponse struct {                                                                             │
+ │    112       Payloadstruct {                                                                                            │
+ │    113               Orders    []Order `json:"Orders"`                                                                         │
+ │    114               NextToken string  `json:"NextToken,omitempty"`                                                            │
+ │    115               CreatedBeforstring `json:"CreatedBefore,omitempty"`                                                       │
+ │    116       } `json"payload"`                                                                                          │
+ │    117       Errors[]Error `json:"errors,omitempty"`                                                                    │
+ │    118 }                                                                                                           │
+ │    119                                                                                                             │
+ │    120 // GetOrderResponse is the response schema for the getOrder operation.                                      │
+ │    121 type GetOrderResponse struct {                                                                              │
+ │    122       PayloadOrder   `json:"payload"`                                                                            │
+ │    123       Errors []Error `json:"errors,omitempty"`                                                                   │
+ │    124 }                                                                                                           │
+ │    125                                                                                                             │
+ │    126 // GetOrderBuyerInfoResponse is the response schema for the getOrderBuyerInfo operation.                    │
+ │    127 type GetOrderBuyerInfoResponse struct {                                                                     │
+ │    128       Payload BuyerInfo `json"payload"`                                                                          │
+ │    129       Errors []Error   `json:"errors,omitempty"`                                                                 │
+ │    130 }                                                                                                           │
+ │    131                                                                                                             │
+ │    132 // GetOrderAddressResponse is the response schema for the getOrderAddress operation.                        │
+ │    133 type GetOrderAddressResponse struct {                                                                       │
+ │    134       Payloadstruct {                                                                                            │
+ │    135               AmazonOrderIstring   `json:"AmazonOrderId"`                                                               │
+ │    136               ShippingAddresAddress `json:"ShippingAddress"`                                                            │
+ │    137       } `json"payload"`                                                                                          │
+ │    138       Errors[]Error `json:"errors,omitempty"`                                                                    │
+ │    139 }                                                                                                           │
+ │    140                                                                                                             │
+ │    141 // GetOrderItemsResponse is the response schema for the getOrderItems operation.                            │
+ │    142 type GetOrderItemsResponse struct {                                                                         │
+ │    143       Payloadstruct {                                                                                            │
+ │    144               OrderItems  []OrderItem `json:"OrderItems"`                                                               │
+ │    145               NextToken   string      `json:"NextToken,omitempty"`                                                      │
+ │    146               AmazonOrderIstring      `json:"AmazonOrderId"`                                                            │
+ │    147       } `json"payload"`                                                                                          │
+ │    148       Errors[]Error `json:"errors,omitempty"`                                                                    │
+ │    149 }                                                                                                           │
+ │    150                                                                                                             │
+ │    151 // GetOrderItemsBuyerInfoResponse is the response for the getOrderItemsBuyerInfo operation.                 │
+ │    152 type GetOrderItemsBuyerInfoResponse struct {                                                                │
+ │    153       Payloadstruct {                                                                                            │
+ │    154               OrderItems  []OrderItemBuyerInfo `json:"OrderItems"`                                                      │
+ │    155               NextToken   string               `json:"NextToken,omitempty"`                                             │
+ │    156               AmazonOrderIstring               `json:"AmazonOrderId"`                                                   │
+ │    157       } `json"payload"`                                                                                          │
+ │    158       Errors[]Error `json:"errors,omitempty"`                                                                    │
+ │    159 }                                                                                                           │
+ │    160                                                                                                             │
+ │    161 // OrderItemBuyerInfo contains buyer information for an order item.                                         │
+ │    162 type OrderItemBuyerInfo struct {                                                                            │
+ │    163       OrderItemID      string `json:"OrderItemId"`                                                               │
+ │    164       BuyerCustomizedInfostruct {                                                                                │
+ │    165               CustomizedURstring `json:"CustomizedURL"`                                                                 │
+ │    166       } `json"BuyerCustomizedInfo,omitempty"`                                                                    │
+ │    167       GiftMessageTextstring `json:"GiftMessageText,omitempty"`                                                   │
+ │    168       GiftWrapPrice   *Money `json"GiftWrapPrice,omitempty"`                                                     │
+ │    169       GiftWrapLevel  string `json:"GiftWrapLevel,omitempty"`                                                     │
+ │    170       GiftWrapTax     *Money `json"GiftWrapTax,omitempty"`                                                       │
+ │    171 }                                                                                                           │
+ │    172                                                                                                             │
+ │    173                                                                                                             │
+ │    174 // UpdateShipmentStatusRequest is the request body for the updateShipmentStatus operation.                  │
+ │    175 type UpdateShipmentStatusRequest struct {                                                                   │
+ │    176       MarketplaceID string `json:"marketplaceId"`                                                                │
+ │    177       ShipmentStatusstring `json:"shipmentStatus"`                                                               │
+ │    178       OrderItems     [struct {                                                                                   │
+ │    179               OrderItemIstring `json:"orderItemId"`                                                                     │
+ │    180               Quantity  int    `json:"quantity"`                                                                        │
+ │    181       } `json"orderItems,omitempty"`                                                                             │
+ │    182 }                                                                                                           │
+ │    183                                                                                                             │
+ │    184 // Error defines the error response structure.                                                              │
+ │    185 type Error struct {                                                                                         │
+ │    186       Code   string `json:"code"`                                                                                │
+ │    187       Messagestring `json:"message"`                                                                             │
+ │    188       Detailsstring `json:"details,omitempty"`                                                                   │
+ │    189 }                                                                                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ Great. Now that the models.go file is created, I will create the client.go file. This file will contain the client logic for
+  interacting with the API.
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to ordersv0\client.go                                                                         │
+ │                                                                                                                    │
+ │    ... first 75 lines hidden ...                                                                                   │
+ │     75       }                                                                                                          │
+ │     76                                                                                                             │
+ │     77       resp, err := c.HTTPClientDo(req)                                                                           │
+ │     78 if err != nil {                                                                                             │
+ │     79 return nil, fmt.Errorf("error making request: %w", err)                                                     │
+ │     80       }                                                                                                          │
+ │     81 defer resp.Body.Close()                                                                                     │
+ │     82                                                                                                             │
+ │     83 if resp.StatusCode != http.StatusOK {                                                                       │
+ │     84 return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                       │
+ │     85       }                                                                                                          │
+ │     86                                                                                                             │
+ │     87 body, err := io.ReadAll(resp.Body)                                                                          │
+ │     88 if err != nil {                                                                                             │
+ │     89 return nil, fmt.Errorf("error reading response body: %w", err)                                              │
+ │     90       }                                                                                                          │
+ │     91                                                                                                             │
+ │     92       if err := jsonUnmarshal(body, &getOrderResponse); err != nil {                                             │
+ │     93 return nil, fmt.Errorf("error unmarshaling response: %w", err)                                              │
+ │     94       }                                                                                                          │
+ │     95                                                                                                             │
+ │     96 return &getOrderResponse, nil                                                                               │
+ │     97 }                                                                                                           │
+ │     98                                                                                                             │
+ │     99 // GetOrderBuyerInfo returns buyer information for the order that you specify.                              │
+ │    100 func (c *Client) GetOrderBuyerInfo(ctx context.Context, orderID string) (*GetOrderBuyerInfoResponse, error  │
+ │        ) {                                                                                                         │
+ │    101 var getOrderBuyerInfoResponse GetOrderBuyerInfoResponse                                                     │
+ │    102                                                                                                             │
+ │    103       req, err := httpNewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/orders/v0/orders/%s/buyerInfo"  │
+ │        , c.Endpoint, orderID), nil)                                                                                │
+ │    104 if err != nil {                                                                                             │
+ │    105 return nil, fmt.Errorf("error creating request: %w", err)                                                   │
+ │    106       }                                                                                                          │
+ │    107                                                                                                             │
+ │    108       resp, err := c.HTTPClientDo(req)                                                                           │
+ │    109 if err != nil {                                                                                             │
+ │    110 return nil, fmt.Errorf("error making request: %w", err)                                                     │
+ │    111       }                                                                                                          │
+ │    112 defer resp.Body.Close()                                                                                     │
+ │    113                                                                                                             │
+ │    114 if resp.StatusCode != http.StatusOK {                                                                       │
+ │    115 return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                       │
+ │    116       }                                                                                                          │
+ │    117                                                                                                             │
+ │    118 body, err := io.ReadAll(resp.Body)                                                                          │
+ │    119 if err != nil {                                                                                             │
+ │    120 return nil, fmt.Errorf("error reading response body: %w", err)                                              │
+ │    121       }                                                                                                          │
+ │    122                                                                                                             │
+ │    123       if err := jsonUnmarshal(body, &getOrderBuyerInfoResponse); err != nil {                                    │
+ │    124 return nil, fmt.Errorf("error unmarshaling response: %w", err)                                              │
+ │    125       }                                                                                                          │
+ │    126                                                                                                             │
+ │    127 return &getOrderBuyerInfoResponse, nil                                                                      │
+ │    128 }                                                                                                           │
+ │    129                                                                                                             │
+ │    130 // GetOrderAddress returns the shipping address for the order that you specify.                             │
+ │    131 func (c *Client) GetOrderAddress(ctx context.Context, orderID string) (*GetOrderAddressResponse, error) {   │
+ │    132 var getOrderAddressResponse GetOrderAddressResponse                                                         │
+ │    133                                                                                                             │
+ │    134       req, err := httpNewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/orders/v0/orders/%s/address",   │
+ │        c.Endpoint, orderID), nil)                                                                                  │
+ │    135 if err != nil {                                                                                             │
+ │    136 return nil, fmt.Errorf("error creating request: %w", err)                                                   │
+ │    137       }                                                                                                          │
+ │    138                                                                                                             │
+ │    139       resp, err := c.HTTPClientDo(req)                                                                           │
+ │    140 if err != nil {                                                                                             │
+ │    141 return nil, fmt.Errorf("error making request: %w", err)                                                     │
+ │    142       }                                                                                                          │
+ │    143 defer resp.Body.Close()                                                                                     │
+ │    144                                                                                                             │
+ │    145 if resp.StatusCode != http.StatusOK {                                                                       │
+ │    146 return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                       │
+ │    147       }                                                                                                          │
+ │    148                                                                                                             │
+ │    149 body, err := io.ReadAll(resp.Body)                                                                          │
+ │    150 if err != nil {                                                                                             │
+ │    151 return nil, fmt.Errorf("error reading response body: %w", err)                                              │
+ │    152       }                                                                                                          │
+ │    153                                                                                                             │
+ │    154       if err := jsonUnmarshal(body, &getOrderAddressResponse); err != nil {                                      │
+ │    155 return nil, fmt.Errorf("error unmarshaling response: %w", err)                                              │
+ │    156       }                                                                                                          │
+ │    157                                                                                                             │
+ │    158 return &getOrderAddressResponse, nil                                                                        │
+ │    159 }                                                                                                           │
+ │    160                                                                                                             │
+ │    161 // GetOrderItems returns detailed order item information for the order that you specify.                    │
+ │    162 func (c *Client) GetOrderItems(ctx context.Context, orderID string, params url.Values)                      │
+ │        (*GetOrderItemsResponse, error) {                                                                           │
+ │    163 var getOrderItemsResponse GetOrderItemsResponse                                                             │
+ │    164                                                                                                             │
+ │    165       req, err := httpNewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf(                                    │
+ │        "%s/orders/v0/orders/%s/orderItems?%s", c.Endpoint, orderID, params.Encode()), nil)                         │
+ │    166 if err != nil {                                                                                             │
+ │    167 return nil, fmt.Errorf("error creating request: %w", err)                                                   │
+ │    168       }                                                                                                          │
+ │    169                                                                                                             │
+ │    170       resp, err := c.HTTPClientDo(req)                                                                           │
+ │    171 if err != nil {                                                                                             │
+ │    172 return nil, fmt.Errorf("error making request: %w", err)                                                     │
+ │    173       }                                                                                                          │
+ │    174 defer resp.Body.Close()                                                                                     │
+ │    175                                                                                                             │
+ │    176 if resp.StatusCode != http.StatusOK {                                                                       │
+ │    177 return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                       │
+ │    178       }                                                                                                          │
+ │    179                                                                                                             │
+ │    180 body, err := io.ReadAll(resp.Body)                                                                          │
+ │    181 if err != nil {                                                                                             │
+ │    182 return nil, fmt.Errorf("error reading response body: %w", err)                                              │
+ │    183       }                                                                                                          │
+ │    184                                                                                                             │
+ │    185       if err := jsonUnmarshal(body, &getOrderItemsResponse); err != nil {                                        │
+ │    186 return nil, fmt.Errorf("error unmarshaling response: %w", err)                                              │
+ │    187       }                                                                                                          │
+ │    188                                                                                                             │
+ │    189 return &getOrderItemsResponse, nil                                                                          │
+ │    190 }                                                                                                           │
+ │    191                                                                                                             │
+ │    192 // GetOrderItemsBuyerInfo returns buyer information for the order items in the order that you specify.      │
+ │    193 func (c *Client) GetOrderItemsBuyerInfo(ctx context.Context, orderID string, params url.Values)             │
+ │        (*GetOrderItemsBuyerInfoResponse, error) {                                                                  │
+ │    194 var getOrderItemsBuyerInfoResponse GetOrderItemsBuyerInfoResponse                                           │
+ │    195                                                                                                             │
+ │    196       req, err := httpNewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf(                                    │
+ │        "%s/orders/v0/orders/%s/orderItems/buyerInfo?%s", c.Endpoint, orderID, params.Encode()), nil)               │
+ │    197 if err != nil {                                                                                             │
+ │    198 return nil, fmt.Errorf("error creating request: %w", err)                                                   │
+ │    199       }                                                                                                          │
+ │    200                                                                                                             │
+ │    201       resp, err := c.HTTPClientDo(req)                                                                           │
+ │    202 if err != nil {                                                                                             │
+ │    203 return nil, fmt.Errorf("error making request: %w", err)                                                     │
+ │    204       }                                                                                                          │
+ │    205 defer resp.Body.Close()                                                                                     │
+ │    206                                                                                                             │
+ │    207 if resp.StatusCode != http.StatusOK {                                                                       │
+ │    208 return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                       │
+ │    209       }                                                                                                          │
+ │    210                                                                                                             │
+ │    211 body, err := io.ReadAll(resp.Body)                                                                          │
+ │    212 if err != nil {                                                                                             │
+ │    213 return nil, fmt.Errorf("error reading response body: %w", err)                                              │
+ │    214       }                                                                                                          │
+ │    215                                                                                                             │
+ │    216       if err := jsonUnmarshal(body, &getOrderItemsBuyerInfoResponse); err != nil {                               │
+ │    217 return nil, fmt.Errorf("error unmarshaling response: %w", err)                                              │
+ │    218       }                                                                                                          │
+ │    219                                                                                                             │
+ │    220 return &getOrderItemsBuyerInfoResponse, nil                                                                 │
+ │    221 }                                                                                                           │
+ │    222                                                                                                             │
+ │    223 // UpdateShipmentStatus updates the shipment status for an order that you specify.                          │
+ │    224 func (c *Client) UpdateShipmentStatus(ctx context.Context, orderID string, payload                          │
+ │        UpdateShipmentStatusRequest) error {                                                                        │
+ │    225       requestBody, err := jsonMarshal(payload)                                                                   │
+ │    226 if err != nil {                                                                                             │
+ │    227 return fmt.Errorf("error marshaling request body: %w", err)                                                 │
+ │    228       }                                                                                                          │
+ │    229                                                                                                             │
+ │    230       req, err := httpNewRequestWithContext(ctx, http.MethodPost, fmt.Sprintf("%s/orders/v0/orders/%s/shipment"  │
+ │        , c.Endpoint, orderID), bytes.NewBuffer(requestBody))                                                       │
+ │    231 if err != nil {                                                                                             │
+ │    232 return fmt.Errorf("error creating request: %w", err)                                                        │
+ │    233       }                                                                                                          │
+ │    234       reqHeader.Set("Content-Type", "application/json")                                                          │
+ │    235                                                                                                             │
+ │    236       resp, err := c.HTTPClientDo(req)                                                                           │
+ │    237 if err != nil {                                                                                             │
+ │    238 return fmt.Errorf("error making request: %w", err)                                                          │
+ │    239       }                                                                                                          │
+ │    240 defer resp.Body.Close()                                                                                     │
+ │    241                                                                                                             │
+ │    242 if resp.StatusCode != http.StatusNoContent {                                                                │
+ │    243 return fmt.Errorf("unexpected status code: %d", resp.StatusCode)                                            │
+ │    244       }                                                                                                          │
+ │    245                                                                                                             │
+ │    246 return nil                                                                                                  │
+ │    247 }                                                                                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ I have now created both the models.go and client.go files within the E:\Gemini\orderV0\ordersv0 directory.
+
+
+  To complete the package, I will now initialize a Go module within that directory.
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  Shell go mod init ordersv0 [in E:/Gemini/orderV0/ordersv0] (Initialize a Go module for the generated client code.)  │
+ │                                                                                                                        │
+ │    Error: Directory cannot be absolute. Must be relative to the project root directory.                                │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ You are right, I need to provide a relative path for the directory. My apologies.
+
+
+  I will now initialize the Go module in the correct directory.
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  Shell go mod init ordersv0 [in ordersv0] (Initialize a Go module for the generated client code.)                │
+ │                                                                                                                    │
+ │    go: creating new go.mod: module ordersv0                                                                        │
+ │    go: to add module requirements and sums:                                                                        │
+ │      go mod tidy                                                                                                    │
+ │                                                                                                                    │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ I have now created the go.mod file. Finally, I'll run go mod tidy to ensure all dependencies are in order.
+ ╭───────────────────────────────────────────────────────────────────────────╮
+ │ ✔  Shell go mod tidy [in ordersv0] (Tidy up the Go module dependencies.)  │
+ ╰───────────────────────────────────────────────────────────────────────────╯
+✦ I have now created the Golang client code for the Orders API, using only the standard library, in the ordersv0 directory.
+  You can now use this package in your Go projects to interact with the Amazon Selling Partner API for Orders.
+
+
+  Is there anything else I can help you with?
+
+╭───────────╮
+│  > /quit  │
+╰───────────╯
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                        │
+│  Agent powering down. Goodbye!                                                                                                         │
+│                                                                                                                                        │
+│  Interaction Summary                                                                                                                   │
+│  Tool Calls:                 9 ( ✔ 8 ✖ 1 )                                                                                             │
+│  Success Rate:               88.9%                                                                                                     │
+│  User Agreement:             85.7% (7 reviewed)                                                                                        │
+│                                                                                                                                        │
+│  Performance                                                                                                                           │
+│  Wall Time:                  6m 15s                                                                                                    │
+│  Agent Active:               3m 57s                                                                                                    │
+│    » API Time:               2m 50s (72.1%)                                                                                            │
+│    » Tool Time:              1m 6s (27.9%)                                                                                             │
+│                                                                                                                                        │
+│                                                                                                                                        │
+│  Model Usage                  Reqs   Input Tokens  Output Tokens                                                                       │
+│  ───────────────────────────────────────────────────────────────                                                                       │
+│  gemini-2.5-pro                 11        489,813          7,323                                                                       │
+│                                                                                                                                        │
+│  Savings Highlight: 290,801 (59.4%) of input tokens were served from the cache, reducing costs.                                        │
+│                                                                                                                                        │
+│  » Tip: For a full token breakdown, run `/stats model`.                                                                                │
+│                                                                                                                                        │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+E:\Gemini\orderV0

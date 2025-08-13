@@ -1,0 +1,10 @@
+{
+  "feedType": "JSON_LISTINGS_FEED",
+  "marketplaceIds": [
+    "ATVPDKIKX0DER"
+  ],
+  "inputFeedDocument": {
+    "feedDocumentId": "amzn1.tortuga.3.ed4cd0d8-447b-4c22-8a82-6b9b6b1234567",
+    "url": "https://tortuga-prod-na.s3.amazonaws.com/..."
+  }
+}

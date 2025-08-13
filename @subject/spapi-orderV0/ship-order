@@ -1,0 +1,52 @@
+"ConfirmShipmentRequest": {
+    "marketplaceId": "",
+    "packageDetail": {
+        "packageReferenceId": "",
+        "carrierCode": "",
+        "carrierName": "",
+        "trackingNumber": "",
+        "shippingMethod": "",
+        "shipFromSupplySourceId": "",
+        "shipDate": "",
+        "orderItems": [
+            {
+                "orderItemId": "",
+                "quantity": "",
+                "transparencyCodes": [
+                    "",
+                    ""
+                ]
+            }
+        ]
+    }
+}
+
+      "required": [
+        "packageReferenceId",
+        "carrierCode",
+        "trackingNumber",
+        "shipDate",
+        "orderItems"
+      ],
+
+type ConfirmShipmentRequest struct {
+	MarketplaceID string `json:"marketplaceId"`
+	PackageDetail PackageDetail `json:"packageDetail"`
+}
+
+type PackageDetail struct {
+    PackageReferenceID     string `json:"packageReferenceId"`
+    CarrierCode            string `json:"carrierCode"`
+//  CarrierName            string `json:"carrierName"`
+    TrackingNumber         string `json:"trackingNumber"`
+//  ShippingMethod         string `json:"shippingMethod"`
+//  ShipFromSupplySourceID string `json:"shipFromSupplySourceId"`
+    ShipDate               string `json:"shipDate"`
+    OrderItems             []OrderItem `json:"orderItems"`
+}
+
+type OrderItem struct {
+    OrderItemID       string   `json:"orderItemId"`
+    Quantity          string   `json:"quantity"`
+    TransparencyCodes []string `json:"transparencyCodes"`
+}

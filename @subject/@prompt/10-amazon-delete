@@ -1,0 +1,143 @@
+╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│  > 用go语言编写一个程序，程序从csv文件中读入数据，第一个字段是sku, 生成一个格式类似 @request.json 的json数据  │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ │ ✔  ReadManyFiles Will attempt to read and concatenate files using patterns: `request.json` (within target directory: `E:\Ge…
+ │
+ │    ### ReadManyFiles Result (Target Dir: `E:\Gemini\amazon-delete`)
+ │
+ │    Successfully read and concatenated content from **1 file(s)**.
+ │
+ │    **Processed Files:**
+ │    - `request.json`
+ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+✦ 好的，我将为您编写一个 Go 程序，该程序从名为 skus.csv 的 CSV 文件中读取 SKU，并生成一个与 request.json 格式类似的 JSON
+  文件。
+
+
+  首先，我将创建 main.go 文件。
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ?  WriteFile Writing to main.go ←                                                                                        │
+ │                                                                                                                          │
+ ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ?  WriteFile Writing to main.go ←                                                                                        │
+ │                                                                                                                          │
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to main.go                                                                                    │
+ │                                                                                                                    │
+ │     1                                                                                                              │
+ │     2 package main                                                                                                 │
+ │     3                                                                                                              │
+ │     4 import (                                                                                                     │
+ │     5 "encoding/csv"                                                                                               │
+ │     6 "encoding/json"                                                                                              │
+ │     7 "fmt"                                                                                                        │
+ │     8 "io"                                                                                                         │
+ │     9 "os"                                                                                                         │
+ │    10 )                                                                                                            │
+ │    11                                                                                                              │
+ │    12 // Request represents the top-level JSON structure.                                                          │
+ │    13 type Request struct {                                                                                        │
+ │    14 Header   Header    `json:"header"`                                                                           │
+ │    15        Messages[]Message `json:"messages"`                                                                         │
+ │    16 }                                                                                                            │
+ │    17                                                                                                              │
+ │    18 // Header represents the header part of the JSON.                                                            │
+ │    19 type Header struct {                                                                                         │
+ │    20        SellerID   string `json:"sellerId"`                                                                         │
+ │    21        Version    string `json:"version"`                                                                          │
+ │    22        IssueLocalestring `json:"issueLocale"`                                                                      │
+ │    23 }                                                                                                            │
+ │    24                                                                                                              │
+ │    25 // Message represents a single message in the messages array.                                                │
+ │    26 type Message struct {                                                                                        │
+ │    27        MessageID    int    `json:"messageId"`                                                                      │
+ │    28        SKU          string `json:"sku"`                                                                            │
+ │    29        OperationTypestring `json:"operationType"`                                                                  │
+ │    30 }                                                                                                            │
+ │    31                                                                                                              │
+ │    32 func main() {                                                                                                │
+ │    33 // Open the CSV file                                                                                         │
+ │    34 file, err := os.Open("skus.csv")                                                                             │
+ │    35 if err != nil {                                                                                              │
+ │    36                fmPrintln("Error opening CSV file:", err)
+ │    37 return                                                                                                       │
+ │    38        }                                                                                                           │
+ │    39        deferfile.Close()                                                                                           │
+ │    40                                                                                                              │
+ │    41        reader := csv.NewReaderfile)                                                                                │
+ │    42 var messages []Message                                                                                       │
+ │    43        messageID :=1                                                                                               │
+ │    44                                                                                                              │
+ │    45 // Read the CSV records                                                                                      │
+ │    46        for {                                                                                                       │
+ │    47 record, err := reader.Read()                                                                                 │
+ │    48                ierr == io.EOF {
+ │    49 break                                                                                                        │
+ │    50                }
+ │    51 if err != nil {                                                                                              │
+ │    52                        fPrintln("Error reading CSV record:", err)
+│
+ │    53 continue                                                                                                     │
+ │    54                }
+ │    55                                                                                                              │
+ │    56 if len(record) > 0 {                                                                                         │
+ │    57                        sku record[0]
+│
+ │    58 messages = append(messages, Message{                                                                         │
+ │    59 MessageID:     messageID,                                                                                    │
+ │    60 SKU:           sku,                                                                                          │
+ │    61                                OperationTy"DELETE",
+       │
+ │    62                        })
+│
+ │    63                        messageID++
+│
+ │    64                }
+ │    65        }                                                                                                           │
+ │    66                                                                                                              │
+ │    67 // Create the final request structure                                                                        │
+ │    68        requestData := Request{                                                                                     │
+ │    69 Header: Header{                                                                                              │
+ │    70                        SellerID: "A123456789",
+│
+ │    71                        Version:  "2.0",
+│
+ │    72                        IssueLocal"en_US",
+│
+ │    73                },
+ │    74 Messages: messages,                                                                                          │
+ │    75        }                                                                                                           │
+ │    76                                                                                                              │
+ │    77 // Marshal the data to JSON                                                                                  │
+ │    78        jsonData, err := jsonMarshalIndent(requestData, "", "  ")                                                   │
+ │    79 if err != nil {                                                                                              │
+ │    80                fmPrintln("Error marshalling JSON:", err)
+ │    81 return                                                                                                       │
+ │    82        }                                                                                                           │
+ │    83                                                                                                              │
+ │    84        // Write the JSONto a file                                                                                  │
+ │    85 err = os.WriteFile("output.json", jsonData, 0644)                                                            │
+ │    86 if err != nil {                                                                                              │
+ │    87                fmPrintln("Error writing JSON file:", err)
+ │    88 return                                                                                                       │
+ │    89        }                                                                                                           │
+ │    90                                                                                                              │
+ │    91        fmtPrintln("Successfully generated output.json")                                                            │
+ │    92 }                                                                                                            │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 现在，我将创建 skus.csv 文件，其中包含一些示例 SKU 数据。
+ ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ✔  WriteFile Writing to skus.csv                                                                                   │
+ │                                                                                                                    │
+ │    1 SKU-DELETE-001                                                                                                │
+ │    2 SKU-DELETE-002                                                                                                │
+ │    3 SKU-DELETE-003                                                                                                │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+✦ 现在，您可以运行 go run main.go 来生成 output.json 文件。
+ ╭─────────────────────────────────────────────────────────────────────────╮
+ │ -  Shell go run main.go (run the go program to generate the json file)  │
+ ╰─────────────────────────────────────────────────────────────────────────╯
+
+

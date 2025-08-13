@@ -1,0 +1,113 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Feed struct {
+	Header   Header    `json:"header"`
+	Messages []Message `json:"messages"`
+}
+
+type Header struct {
+	SellerID    string `json:"sellerId"`
+	Version     string `json:"version"`
+	IssueLocale string `json:"issueLocale"`
+}
+
+type Message struct {
+	MessageID     int     `json:"messageId"`
+	Sku           string  `json:"sku"`
+	OperationType string  `json:"operationType"`
+	ProductType   string  `json:"productType"`
+	Patches       []Patch `json:"patches"`
+}
+
+type Patch struct {
+	Op    string      `json:"op"`
+	Path  string      `json:"path"`
+	Value interface{} `json:"value"`
+}
+
+type FulfillmentAvailability struct {
+	FulfillmentChannelCode string `json:"fulfillment_channel_code"`
+	Quantity               int    `json:"quantity"`
+}
+
+type PurchasableOffer struct {
+	Currency string     `json:"currency"`
+	OurPrice []OurPrice `json:"our_price"`
+}
+
+type OurPrice struct {
+	Schedule []Schedule `json:"schedule"`
+}
+
+type Schedule struct {
+	ValueWithTax float64 `json:"value_with_tax"`
+}
+
+func main() {
+	feed := Feed{
+		Header: Header{
+			SellerID:    "AXXXXXXXXXXXX",
+			Version:     "2.0",
+			IssueLocale: "en_US",
+		},
+		Messages: []Message{
+			{
+				MessageID:     1,
+				Sku:           "My-SKU-D",
+				OperationType: "PATCH",
+				ProductType:   "PRODUCT",
+				Patches: []Patch{
+					{
+						Op:   "replace",
+						Path: "/attributes/fulfillment_availability",
+						Value: []FulfillmentAvailability{
+							{
+								FulfillmentChannelCode: "DEFAULT",
+								Quantity:               10,
+							},
+						},
+					},
+				},
+			},
+			{
+				MessageID:     2,
+				Sku:           "ABC123",
+				OperationType: "PATCH",
+				ProductType:   "PRODUCT",
+				Patches: []Patch{
+					{
+						Op:   "replace",
+						Path: "/attributes/purchasable_offer",
+						Value: []PurchasableOffer{
+							{
+								Currency: "USD",
+								OurPrice: []OurPrice{
+									{
+										Schedule: []Schedule{
+											{
+												ValueWithTax: 90.00,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	jsonBytes, err := json.MarshalIndent(feed, "", "  ")
+	if err != nil {
+		fmt.Println("Error marshalling to JSON:", err)
+		return
+	}
+
+	fmt.Println(string(jsonBytes))
+}

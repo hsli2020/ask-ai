@@ -1,0 +1,42 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 0;
+    border: 1px solid #dee2e6;
+}
+
+.card-header {
+    background-color: #009688;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 !important;
+}
+
+.form-control-plaintext {
+    background-color: #e9ecef;
+    padding-left: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.btn-delete, .btn-save {
+    background-color: #009688;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover, .btn-save:hover {
+    background-color: #00796b;
+    color: white;
+}
+
+.col-form-label {
+    font-weight: bold;
+}

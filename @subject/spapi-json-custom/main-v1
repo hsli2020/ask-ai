@@ -1,0 +1,97 @@
+// Gemini generated
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type SellingPrice float64
+
+func (sp SellingPrice) MarshalJSON() ([]byte, error) {
+	// ValueWithTax represents the innermost JSON object with the price.
+	type ValueWithTax struct {
+		Value float64 `json:"value_with_tax"`
+	}
+
+	// PriceSchedule represents the schedule containing a list of values.
+	type PriceSchedule struct {
+		Schedule []ValueWithTax `json:"schedule"`
+	}
+
+	// Create the nested structure
+	data := []PriceSchedule{
+		{
+			Schedule: []ValueWithTax{
+				{
+					Value: float64(sp),
+				},
+			},
+		},
+	}
+	return json.Marshal(data)
+}
+
+type Offer struct {
+	ListPrice SellingPrice `json:"list_price"`
+	MaxPrice  SellingPrice `json:"maximum_seller_allowed_price"`
+	MinPrice  SellingPrice `json:"minimum_seller_allowed_price"`
+	OurPrice  SellingPrice `json:"our_price"`
+}
+
+func main() {
+	var offer Offer
+
+	offer.ListPrice = 6.99
+	offer.MaxPrice = 6.99
+	offer.MinPrice = 1.99
+	offer.OurPrice = 3.99
+
+	jsonBytes, err := json.MarshalIndent(offer, "", "  ")
+	if err != nil {
+		fmt.Println("Error marshalling JSON:", err)
+		return
+	}
+	fmt.Println(string(jsonBytes))
+}
+
+/* expected json format
+{
+	"list_price": [
+		{
+			"schedule": [
+				{
+					"value_with_tax": 6.99
+				}
+			]
+		}
+	],
+	"maximum_seller_allowed_price": [
+		{
+			"schedule": [
+				{
+					"value_with_tax": 6.99
+				}
+			]
+		}
+	],
+	"minimum_seller_allowed_price": [
+		{
+			"schedule": [
+				{
+					"value_with_tax": 1.99
+				}
+			]
+		}
+	],
+	"our_price": [
+		{
+			"schedule": [
+				{
+					"value_with_tax": 3.99
+				}
+			]
+		}
+	]
+}
+*/
