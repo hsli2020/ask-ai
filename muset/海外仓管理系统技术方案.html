@@ -1,0 +1,398 @@
+<!doctype html><html><head><style>input[type='checkbox'] {display: none;}label:before {background: rgb(30, 150, 235);border-radius: 3px;height: 16px;width: 16px;display: inline-block;cursor: pointer;}input[type='checkbox'] + label:before {content: '';background: rgb(30, 150, 235);color: #fff;font-size: 16px;line-height: 16px;text-align: center;}input[type='checkbox']:checked + label:before {content: '✓';}</style></head><body><div style="width: 70vw; margin: 60px auto;"><h1>海外仓管理系统技术方案</h1><div class="affine-paragraph-block-container"><h2>项目概述</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>1.1 项目背景</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p>随着跨境电商业务的快速发展，海外仓已成为提升物流时效、降低运输成本的重要基础设施。海外仓管理系统旨在为跨境电商企业提供一站式的海外仓储管理解决方案，覆盖从入库、存储、出库到物流配送的全流程管理。</p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>1.2 系统目标</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">实现多仓库、多SKU的统一管理</li><li class="affine-list-block-container">提供与主流电商平台的无缝对接</li><li class="affine-list-block-container">支持多租户架构，满足不同客户需求</li><li class="affine-list-block-container">提供实时库存可视化和智能预警</li><li class="affine-list-block-container">优化仓储作业流程，提升作业效率</li><li class="affine-list-block-container">支持多币种、多语言的国际化需求</li></ul><div class="affine-paragraph-block-container"><h3>1.3 适用场景</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">跨境电商企业自建海外仓管理</li><li class="affine-list-block-container">第三方海外仓服务商运营管理</li><li class="affine-list-block-container">物流公司海外仓业务拓展</li></ul><hr><div class="affine-paragraph-block-container"><h2>技术架构设计</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>2.1 总体架构</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p>采用<strong>微服务架构</strong>，实现系统的高可用、高扩展和模块化管理。</p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>架构分层：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>接入层</strong>：API Gateway（Kong / Spring Cloud Gateway）</li><li class="affine-list-block-container"><strong>应用层</strong>：微服务集群（订单服务、库存服务、仓储服务等）</li><li class="affine-list-block-container"><strong>数据层</strong>：关系型数据库 + NoSQL + 缓存</li><li class="affine-list-block-container"><strong>基础设施层</strong>：消息队列、搜索引擎、对象存储</li></ol><pre><code class="code-text">[客户端] → [CDN] → [负载均衡] → [API Gateway]
+                                        ↓
+        ┌──────────────────────────────┼──────────────────────────────┐
+        ↓                              ↓                              ↓
+   [用户服务]                      [订单服务]                      [库存服务]
+        ↓                              ↓                              ↓
+   [仓储服务]                      [物流服务]                      [财务服务]
+        ↓                              ↓                              ↓
+        └──────────────────────────────┼──────────────────────────────┘
+                                       ↓
+        ┌──────────────────────────────┼──────────────────────────────┐
+        ↓              ↓               ↓              ↓                ↓
+   [PostgreSQL]   [Redis]      [Elasticsearch]  [RabbitMQ]        [S3/OSS]</code></pre><div class="affine-paragraph-block-container"><h3>2.2 技术栈选型</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>前端技术栈</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">技术</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">选型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">理由</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">框架</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">React 18 + TypeScript</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">生态成熟，类型安全</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">状态管理</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Redux Toolkit / Zustand</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">统一状态管理</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">UI组件库</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Ant Design / Material-UI</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">企业级组件丰富</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">构建工具</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Vite</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">开发体验好，构建快</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">移动端</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">React Native / Flutter</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">跨平台，适配PDA设备</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h4>后端技术栈</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">技术</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">选型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">理由</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">开发语言</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Java 17 / Go 1.21</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">性能稳定，生态成熟</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">框架</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Spring Boot 3.x / Gin</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">微服务支持完善</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">服务治理</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Spring Cloud Alibaba / Go-Micro</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">服务注册、配置管理</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">API网关</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Kong / Spring Cloud Gateway</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">统一入口，流量控制</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">认证授权</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">OAuth 2.0 + JWT</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">标准协议，安全可靠</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h4>数据存储</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">类型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">选型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">用途</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">关系型数据库</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">PostgreSQL 15</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">核心业务数据</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">缓存</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Redis 7.x</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">热点数据缓存，分布式锁</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">文档数据库</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">MongoDB 6.x</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">日志、单据附件</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">搜索引擎</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Elasticsearch 8.x</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">全文检索、日志分析</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">时序数据库</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">InfluxDB</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">监控数据、统计报表</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h4>中间件</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">类型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">选型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">用途</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">消息队列</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">RabbitMQ / Kafka</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">异步任务、系统解耦</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">任务调度</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">XXL-Job / Quartz</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">定时任务管理</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">对象存储</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">MinIO / AWS S3</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">文件、图片存储</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">分布式追踪</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Jaeger / Zipkin</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">链路追踪</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h3>2.3 部署架构</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>容器化部署方案：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container"><strong>容器技术</strong>：Docker</li><li class="affine-list-block-container"><strong>编排工具</strong>：Kubernetes（K8s）</li><li class="affine-list-block-container"><strong>服务网格</strong>：Istio（可选）</li><li class="affine-list-block-container"><strong>CI/CD</strong>：GitLab CI / Jenkins + ArgoCD</li><li class="affine-list-block-container"><strong>监控告警</strong>：Prometheus + Grafana + AlertManager</li><li class="affine-list-block-container"><strong>日志收集</strong>：ELK Stack（Elasticsearch + Logstash + Kibana）</li></ul><div class="affine-paragraph-block-container"><p><strong>多区域部署：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">美国仓（us-west-1, us-east-1）</li><li class="affine-list-block-container">欧洲仓（eu-central-1）</li><li class="affine-list-block-container">亚太仓（ap-southeast-1）</li><li class="affine-list-block-container">中心管控（国内）</li></ul><hr><div class="affine-paragraph-block-container"><h2>数据库设计</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>3.1 核心数据表</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>仓库表（warehouses）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE warehouses (
+    id BIGSERIAL PRIMARY KEY,
+    warehouse_code VARCHAR(50) UNIQUE NOT NULL,
+    warehouse_name VARCHAR(200) NOT NULL,
+    country VARCHAR(50),
+    region VARCHAR(100),
+    address TEXT,
+    contact_person VARCHAR(100),
+    contact_phone VARCHAR(50),
+    timezone VARCHAR(50),
+    status SMALLINT DEFAULT 1, -- 1:启用 0:禁用
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_warehouse_code ON warehouses(warehouse_code);
+CREATE INDEX idx_warehouse_status ON warehouses(status);</code></pre><div class="affine-paragraph-block-container"><h4>库位表（storage_locations）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE storage_locations (
+    id BIGSERIAL PRIMARY KEY,
+    warehouse_id BIGINT NOT NULL REFERENCES warehouses(id),
+    location_code VARCHAR(50) NOT NULL,
+    zone VARCHAR(50), -- 存储区域（如：A区、B区）
+    aisle VARCHAR(20), -- 通道号
+    rack VARCHAR(20), -- 货架号
+    level VARCHAR(20), -- 层数
+    location_type SMALLINT, -- 1:标准位 2:超大位 3:冷藏位
+    capacity_cbm DECIMAL(10,2), -- 容积（立方米）
+    max_weight DECIMAL(10,2), -- 最大承重（kg）
+    status SMALLINT DEFAULT 1, -- 1:空闲 2:占用 3:锁定 4:禁用
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(warehouse_id, location_code)
+);
+
+CREATE INDEX idx_location_warehouse ON storage_locations(warehouse_id);
+CREATE INDEX idx_location_status ON storage_locations(status);</code></pre><div class="affine-paragraph-block-container"><h4>商品主数据表（products）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE products (
+    id BIGSERIAL PRIMARY KEY,
+    tenant_id BIGINT NOT NULL, -- 租户ID（多租户）
+    sku VARCHAR(100) NOT NULL,
+    product_name VARCHAR(500),
+    barcode VARCHAR(100),
+    category VARCHAR(100),
+    brand VARCHAR(100),
+    length DECIMAL(10,2), -- cm
+    width DECIMAL(10,2),
+    height DECIMAL(10,2),
+    weight DECIMAL(10,2), -- kg
+    volume DECIMAL(10,2), -- cbm
+    is_fragile BOOLEAN DEFAULT FALSE,
+    is_liquid BOOLEAN DEFAULT FALSE,
+    has_battery BOOLEAN DEFAULT FALSE,
+    shelf_life_days INT, -- 保质期（天）
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(tenant_id, sku)
+);
+
+CREATE INDEX idx_product_tenant_sku ON products(tenant_id, sku);
+CREATE INDEX idx_product_barcode ON products(barcode);</code></pre><div class="affine-paragraph-block-container"><h4>库存表（inventory）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE inventory (
+    id BIGSERIAL PRIMARY KEY,
+    warehouse_id BIGINT NOT NULL REFERENCES warehouses(id),
+    product_id BIGINT NOT NULL REFERENCES products(id),
+    location_id BIGINT REFERENCES storage_locations(id),
+    batch_no VARCHAR(100), -- 批次号
+    quantity INT NOT NULL DEFAULT 0,
+    available_quantity INT NOT NULL DEFAULT 0, -- 可用库存
+    locked_quantity INT NOT NULL DEFAULT 0, -- 锁定库存（已分配未出库）
+    production_date DATE, -- 生产日期
+    expiry_date DATE, -- 过期日期
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_inventory_warehouse_product ON inventory(warehouse_id, product_id);
+CREATE INDEX idx_inventory_location ON inventory(location_id);
+CREATE INDEX idx_inventory_expiry ON inventory(expiry_date);</code></pre><div class="affine-paragraph-block-container"><h4>入库单表（inbound_orders）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE inbound_orders (
+    id BIGSERIAL PRIMARY KEY,
+    order_no VARCHAR(100) UNIQUE NOT NULL,
+    tenant_id BIGINT NOT NULL,
+    warehouse_id BIGINT NOT NULL REFERENCES warehouses(id),
+    inbound_type SMALLINT, -- 1:采购入库 2:退货入库 3:调拨入库
+    expected_arrival_time TIMESTAMP, -- 预计到货时间
+    actual_arrival_time TIMESTAMP, -- 实际到货时间
+    supplier_name VARCHAR(200),
+    tracking_no VARCHAR(200),
+    total_quantity INT,
+    received_quantity INT DEFAULT 0,
+    status SMALLINT DEFAULT 1, -- 1:待收货 2:收货中 3:已完成 4:已取消
+    remark TEXT,
+    created_by BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_inbound_order_no ON inbound_orders(order_no);
+CREATE INDEX idx_inbound_tenant ON inbound_orders(tenant_id);
+CREATE INDEX idx_inbound_status ON inbound_orders(status);</code></pre><div class="affine-paragraph-block-container"><h4>入库单明细表（inbound_order_items）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE inbound_order_items (
+    id BIGSERIAL PRIMARY KEY,
+    inbound_order_id BIGINT NOT NULL REFERENCES inbound_orders(id),
+    product_id BIGINT NOT NULL REFERENCES products(id),
+    expected_quantity INT NOT NULL,
+    received_quantity INT DEFAULT 0,
+    qualified_quantity INT DEFAULT 0, -- 合格数量
+    damaged_quantity INT DEFAULT 0, -- 损坏数量
+    batch_no VARCHAR(100),
+    production_date DATE,
+    expiry_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_inbound_item_order ON inbound_order_items(inbound_order_id);</code></pre><div class="affine-paragraph-block-container"><h4>出库单表（outbound_orders）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE outbound_orders (
+    id BIGSERIAL PRIMARY KEY,
+    order_no VARCHAR(100) UNIQUE NOT NULL,
+    tenant_id BIGINT NOT NULL,
+    warehouse_id BIGINT NOT NULL REFERENCES warehouses(id),
+    platform_order_no VARCHAR(200), -- 电商平台订单号
+    platform VARCHAR(50), -- Amazon, eBay, Shopify等
+    outbound_type SMALLINT, -- 1:销售出库 2:调拨出库 3:退供出库
+    customer_name VARCHAR(200),
+    shipping_country VARCHAR(50),
+    shipping_address TEXT,
+    shipping_phone VARCHAR(50),
+    carrier VARCHAR(100), -- 物流商
+    tracking_no VARCHAR(200),
+    shipping_method VARCHAR(100),
+    total_quantity INT,
+    picked_quantity INT DEFAULT 0,
+    packed_quantity INT DEFAULT 0,
+    status SMALLINT DEFAULT 1, -- 1:待拣货 2:拣货中 3:待打包 4:已发货 5:已取消
+    priority SMALLINT DEFAULT 0, -- 优先级：0普通 1加急
+    wave_no VARCHAR(100), -- 波次号
+    shipped_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_outbound_order_no ON outbound_orders(order_no);
+CREATE INDEX idx_outbound_platform_order ON outbound_orders(platform_order_no);
+CREATE INDEX idx_outbound_status ON outbound_orders(status);
+CREATE INDEX idx_outbound_wave ON outbound_orders(wave_no);</code></pre><div class="affine-paragraph-block-container"><h4>出库单明细表（outbound_order_items）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE outbound_order_items (
+    id BIGSERIAL PRIMARY KEY,
+    outbound_order_id BIGINT NOT NULL REFERENCES outbound_orders(id),
+    product_id BIGINT NOT NULL REFERENCES products(id),
+    required_quantity INT NOT NULL,
+    picked_quantity INT DEFAULT 0,
+    location_id BIGINT REFERENCES storage_locations(id),
+    batch_no VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_outbound_item_order ON outbound_order_items(outbound_order_id);</code></pre><div class="affine-paragraph-block-container"><h4>库存流水表（inventory_transactions）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-sql">CREATE TABLE inventory_transactions (
+    id BIGSERIAL PRIMARY KEY,
+    warehouse_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    transaction_type SMALLINT NOT NULL, -- 1:入库 2:出库 3:盘点 4:调拨 5:锁定 6:解锁
+    quantity INT NOT NULL, -- 正数为增加，负数为减少
+    before_quantity INT,
+    after_quantity INT,
+    reference_no VARCHAR(100), -- 关联单据号
+    location_id BIGINT,
+    batch_no VARCHAR(100),
+    operator_id BIGINT,
+    remark TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_transaction_warehouse_product ON inventory_transactions(warehouse_id, product_id);
+CREATE INDEX idx_transaction_reference ON inventory_transactions(reference_no);
+CREATE INDEX idx_transaction_time ON inventory_transactions(created_at);</code></pre><div class="affine-paragraph-block-container"><h3>3.2 数据库优化策略</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>分库分表</strong>：按租户ID和时间维度进行分表（订单、流水类数据）</li><li class="affine-list-block-container"><strong>读写分离</strong>：主库写，从库读，使用中间件（如ShardingSphere）</li><li class="affine-list-block-container"><strong>索引优化</strong>：为高频查询字段建立合适索引，避免全表扫描</li><li class="affine-list-block-container"><strong>冷热数据分离</strong>：历史订单数据归档到历史库</li><li class="affine-list-block-container"><strong>分区表</strong>：按月份对流水表进行分区</li></ol><hr><div class="affine-paragraph-block-container"><h2>功能模块详细设计</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>4.1 库存管理模块</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>4.1.1 实时库存查询</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">支持多维度查询（仓库、SKU、批次、库位）</li><li class="affine-list-block-container">实时展示可用库存、锁定库存、在途库存</li><li class="affine-list-block-container">库存汇总统计（按仓库、按商品、按批次）</li></ul><div class="affine-paragraph-block-container"><p><strong>技术实现：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">使用Redis缓存热点SKU库存数据（TTL: 5分钟）</li><li class="affine-list-block-container">Elasticsearch支持复杂查询和聚合统计</li><li class="affine-list-block-container">数据库层面使用物化视图加速汇总查询</li></ul><div class="affine-paragraph-block-container"><p><strong>API接口：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">GET /api/v1/inventory/query
+Query Parameters:
+  - warehouse_id: 仓库ID
+  - sku: 商品SKU
+  - batch_no: 批次号
+  - page: 页码
+  - page_size: 每页数量
+
+Response:
+{
+  "code": 200,
+  "data": {
+    "total": 1250,
+    "items": [
+      {
+        "warehouse_name": "US-West-1",
+        "sku": "SKU001",
+        "product_name": "Product A",
+        "total_quantity": 500,
+        "available_quantity": 450,
+        "locked_quantity": 50,
+        "location_code": "A-01-02-03"
+      }
+    ]
+  }
+}</code></pre><div class="affine-paragraph-block-container"><h4>4.1.2 库存预警</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">安全库存预警（低于阈值自动提醒）</li><li class="affine-list-block-container">滞销库存预警（长时间无出库记录）</li><li class="affine-list-block-container">过期预警（临近保质期）</li><li class="affine-list-block-container">库存差异预警（账实不符）</li></ul><div class="affine-paragraph-block-container"><p><strong>技术实现：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">定时任务（每小时）扫描库存状态</li><li class="affine-list-block-container">规则引擎判断预警条件（Drools / 自定义规则）</li><li class="affine-list-block-container">消息推送（邮件、短信、站内信）</li></ul><div class="affine-paragraph-block-container"><p><strong>预警规则配置示例：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-json">{
+  "rule_name": "安全库存预警",
+  "rule_type": "safety_stock",
+  "conditions": {
+    "available_quantity": {"operator": "&#x3C;", "value": "safety_stock_threshold"},
+    "status": "enabled"
+  },
+  "actions": [
+    {"type": "email", "recipients": ["buyer@company.com"]},
+    {"type": "notification", "level": "warning"}
+  ]
+}</code></pre><div class="affine-paragraph-block-container"><h4>4.1.3 库存盘点</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">创建盘点任务（全盘、抽盘、循环盘）</li><li class="affine-list-block-container">移动端扫码盘点</li><li class="affine-list-block-container">差异处理（盈亏调整）</li><li class="affine-list-block-container">盘点报告生成</li></ul><div class="affine-paragraph-block-container"><p><strong>工作流程：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container">创建盘点计划 → 2. 冻结库存 → 3. 执行盘点 → 4. 差异确认 → 5. 库存调整 → 6. 解冻库存</li></ol><div class="affine-paragraph-block-container"><h3>4.2 入库管理模块</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>4.2.1 入库预报（ASN）</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">创建入库预报单</li><li class="affine-list-block-container">上传装箱清单</li><li class="affine-list-block-container">预约收货时间段</li><li class="affine-list-block-container">打印入库标签</li></ul><div class="affine-paragraph-block-container"><p><strong>API接口：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">POST /api/v1/inbound/asn
+Request Body:
+{
+  "warehouse_id": 1,
+  "inbound_type": 1,
+  "expected_arrival_time": "2025-11-10 14:00:00",
+  "supplier_name": "Supplier A",
+  "tracking_no": "TRACK123456",
+  "items": [
+    {
+      "sku": "SKU001",
+      "expected_quantity": 100,
+      "batch_no": "BATCH20251104",
+      "production_date": "2025-11-01",
+      "expiry_date": "2026-11-01"
+    }
+  ]
+}
+
+Response:
+{
+  "code": 200,
+  "message": "入库单创建成功",
+  "data": {
+    "order_no": "IN20251104001",
+    "id": 12345
+  }
+}</code></pre><div class="affine-paragraph-block-container"><h4>4.2.2 收货验收</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">扫描入库单号/物流单号</li><li class="affine-list-block-container">逐件扫码验收</li><li class="affine-list-block-container">数量核对、质量检查</li><li class="affine-list-block-container">异常登记（破损、短缺、溢收）</li></ul><div class="affine-paragraph-block-container"><p><strong>移动端交互流程：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container">扫描入库单条码 → 2. 显示预期商品清单 → 3. 扫描商品条码 → 4. 输入实收数量 → 5. 标记异常（如有）→ 6. 完成验收</li></ol><div class="affine-paragraph-block-container"><h4>4.2.3 上架管理</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">智能推荐库位（基于商品属性、库位状态）</li><li class="affine-list-block-container">批量上架任务</li><li class="affine-list-block-container">上架路径优化</li></ul><div class="affine-paragraph-block-container"><p><strong>库位推荐算法：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">优先级规则：
+1. 空闲库位 > 部分占用库位
+2. 同类商品集中存放（便于拣货）
+3. 高周转商品靠近出口
+4. 重货在底层、轻货在高层
+5. 危险品/特殊品隔离存放</code></pre><div class="affine-paragraph-block-container"><h3>4.3 出库管理模块</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>4.3.1 订单接收</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">对接电商平台API（Amazon MWS、eBay Trading API、Shopify API等）</li><li class="affine-list-block-container">自动拉取订单（轮询/Webhook）</li><li class="affine-list-block-container">订单数据标准化处理</li><li class="affine-list-block-container">地址验证和清洗</li></ul><div class="affine-paragraph-block-container"><p><strong>电商平台集成：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">平台</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">API类型</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">认证方式</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">推送频率</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Amazon</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">MWS / SP-API</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">OAuth 2.0</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">实时</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">eBay</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Trading API</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">OAuth 2.0</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">5分钟</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Shopify</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">REST API</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">API Key</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Webhook</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Walmart</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Marketplace API</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">OAuth 2.0</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">实时</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h4>4.3.2 波次拣货</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">订单自动分组（按仓库、时效、区域）</li><li class="affine-list-block-container">生成波次拣货任务</li><li class="affine-list-block-container">拣货路径优化</li><li class="affine-list-block-container">播种式/摘果式拣货支持</li></ul><div class="affine-paragraph-block-container"><p><strong>波次策略：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">按时间窗口（每2小时一个波次）</li><li class="affine-list-block-container">按订单数量（累计50单生成波次）</li><li class="affine-list-block-container">按优先级（加急订单独立波次）</li><li class="affine-list-block-container">按存储区域（相同区域合并拣货）</li></ul><div class="affine-paragraph-block-container"><p><strong>拣货路径算法：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">使用遗传算法/蚁群算法优化拣货顺序</li><li class="affine-list-block-container">最小化行走距离</li><li class="affine-list-block-container">考虑库位布局和通道限制</li></ul><div class="affine-paragraph-block-container"><h4>4.3.3 打包发货</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">智能推荐包装材料（基于商品体积重量）</li><li class="affine-list-block-container">自动选择物流商（基于目的地、时效、成本）</li><li class="affine-list-block-container">批量打印物流面单</li><li class="affine-list-block-container">扫描发货确认</li></ul><div class="affine-paragraph-block-container"><p><strong>物流商选择策略：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-python">def select_carrier(order):
+    destination = order.shipping_country
+    weight = order.total_weight
+    service_level = order.shipping_method
+    
+    # 获取可用物流商报价
+    quotes = get_carrier_quotes(destination, weight)
+    
+    # 过滤符合时效要求的物流商
+    qualified = [q for q in quotes if q.delivery_days &#x3C;= service_level]
+    
+    # 选择成本最优的物流商
+    return min(qualified, key=lambda x: x.price)</code></pre><div class="affine-paragraph-block-container"><h3>4.4 物流管理模块</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>4.4.1 物流商集成</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>支持物流商：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">UPS、FedEx、DHL、USPS（美国）</li><li class="affine-list-block-container">Royal Mail、DPD（欧洲）</li><li class="affine-list-block-container">Yamato、Sagawa（日本）</li></ul><div class="affine-paragraph-block-container"><p><strong>集成功能：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">实时运费计算API</li><li class="affine-list-block-container">物流标签打印API</li><li class="affine-list-block-container">物流轨迹查询API</li><li class="affine-list-block-container">签收状态推送</li></ul><div class="affine-paragraph-block-container"><p><strong>API对接示例（UPS）：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-python">import requests
+
+def get_ups_rate(origin, destination, package):
+    url = "https://onlinetools.ups.com/api/rating/v1/Rate"
+    headers = {
+        "Authorization": f"Bearer {ups_access_token}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "RateRequest": {
+            "Shipment": {
+                "Shipper": {"Address": origin},
+                "ShipTo": {"Address": destination},
+                "Package": {
+                    "PackagingType": {"Code": "02"},
+                    "Dimensions": package.dimensions,
+                    "PackageWeight": {"Weight": package.weight}
+                }
+            }
+        }
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    return response.json()</code></pre><div class="affine-paragraph-block-container"><h4>4.4.2 物流追踪</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">自动抓取物流轨迹（定时任务）</li><li class="affine-list-block-container">异常件提醒（超时未妥投、退回）</li><li class="affine-list-block-container">签收状态回传订单系统</li></ul><div class="affine-paragraph-block-container"><p><strong>技术实现：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">使用17Track、AfterShip等第三方聚合API</li><li class="affine-list-block-container">或直接对接各物流商官方API</li><li class="affine-list-block-container">使用消息队列异步处理轨迹更新</li><li class="affine-list-block-container">Redis缓存最新状态，减少API调用</li></ul><div class="affine-paragraph-block-container"><h3>4.5 财务管理模块</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>4.5.1 费用计算</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>收费项目：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">仓储费：按体积/重量 × 天数</li><li class="affine-list-block-container">入库费：按件/托盘</li><li class="affine-list-block-container">出库费：按订单/件</li><li class="affine-list-block-container">增值服务费：贴标、换包装等</li><li class="affine-list-block-container">物流费：实际发生费用</li></ul><div class="affine-paragraph-block-container"><p><strong>计费规则配置：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-json">{
+  "tenant_id": 1001,
+  "warehouse_id": 1,
+  "pricing_rules": {
+    "storage_fee": {
+      "billing_unit": "cbm_per_day",
+      "unit_price": 0.5,
+      "free_storage_days": 30
+    },
+    "inbound_fee": {
+      "billing_unit": "per_piece",
+      "unit_price": 0.3
+    },
+    "outbound_fee": {
+      "billing_unit": "per_order",
+      "base_price": 2.0,
+      "per_piece_price": 0.5
+    }
+  }
+}</code></pre><div class="affine-paragraph-block-container"><h4>4.5.2 对账管理</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>功能描述：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">自动生成月度账单</li><li class="affine-list-block-container">费用明细查询</li><li class="affine-list-block-container">差异核对工具</li><li class="affine-list-block-container">发票管理</li></ul><div class="affine-paragraph-block-container"><p><strong>账单生成流程：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container">每月1日自动生成上月账单</li><li class="affine-list-block-container">汇总各类费用明细</li><li class="affine-list-block-container">应用折扣/优惠政策</li><li class="affine-list-block-container">发送账单给客户</li><li class="affine-list-block-container">跟踪付款状态</li></ol><hr><div class="affine-paragraph-block-container"><h2>API接口设计</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>5.1 RESTful API规范</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>URL设计原则：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">/api/{version}/{module}/{resource}/{action}
+
+示例：
+GET    /api/v1/inventory/products          # 获取商品列表
+GET    /api/v1/inventory/products/{id}     # 获取商品详情
+POST   /api/v1/inventory/products          # 创建商品
+PUT    /api/v1/inventory/products/{id}     # 更新商品
+DELETE /api/v1/inventory/products/{id}     # 删除商品</code></pre><div class="affine-paragraph-block-container"><p><strong>统一响应格式：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-json">{
+  "code": 200,
+  "message": "success",
+  "data": {},
+  "timestamp": 1699084800000,
+  "request_id": "req-123456"
+}</code></pre><div class="affine-paragraph-block-container"><p><strong>错误码规范：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">错误码</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">说明</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">示例场景</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">200</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">成功</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">正常请求</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">400</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">参数错误</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">缺少必填字段</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">401</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">未授权</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">Token失效</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">403</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">无权限</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">访问其他租户数据</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">404</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">资源不存在</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">订单号不存在</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">409</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">冲突</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">库存不足</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">500</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">服务器错误</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">系统异常</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><h3>5.2 核心API接口列表</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h4>库存相关</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">GET    /api/v1/inventory/query               # 查询库存
+POST   /api/v1/inventory/lock                # 锁定库存
+POST   /api/v1/inventory/unlock              # 解锁库存
+POST   /api/v1/inventory/adjust              # 库存调整
+GET    /api/v1/inventory/transactions        # 库存流水查询
+POST   /api/v1/inventory/stocktaking         # 创建盘点任务</code></pre><div class="affine-paragraph-block-container"><h4>入库相关</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">POST   /api/v1/inbound/asn                   # 创建入库预报
+GET    /api/v1/inbound/orders                # 入库单列表
+GET    /api/v1/inbound/orders/{id}           # 入库单详情
+POST   /api/v1/inbound/receive               # 收货
+POST   /api/v1/inbound/putaway               # 上架</code></pre><div class="affine-paragraph-block-container"><h4>出库相关</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">POST   /api/v1/outbound/orders               # 创建出库单
+GET    /api/v1/outbound/orders               # 出库单列表
+POST   /api/v1/outbound/allocate             # 库存分配
+POST   /api/v1/outbound/pick                 # 拣货
+POST   /api/v1/outbound/pack                 # 打包
+POST   /api/v1/outbound/ship                 # 发货
+POST   /api/v1/outbound/wave/create          # 创建波次</code></pre><div class="affine-paragraph-block-container"><h4>物流相关</h4><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text">POST   /api/v1/logistics/rate                # 运费计算
+POST   /api/v1/logistics/label               # 生成面单
+GET    /api/v1/logistics/tracking/{no}       # 物流追踪
+GET    /api/v1/logistics/carriers            # 物流商列表</code></pre><div class="affine-paragraph-block-container"><h3>5.3 认证授权机制</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>OAuth 2.0 + JWT：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>客户端凭证流程</strong>（系统间调用）：</li></ol><pre><code class="code-text">POST /api/v1/oauth/token
+Request:
+{
+  "grant_type": "client_credentials",
+  "client_id": "xxx",
+  "client_secret": "xxx"
+}
+
+Response:
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 7200
+}</code></pre><ol class="numbered-list"><li class="affine-list-block-container"><strong>用户登录流程</strong>：</li></ol><pre><code class="code-text">POST /api/v1/auth/login
+Request:
+{
+  "username": "user@example.com",
+  "password": "encrypted_password"
+}
+
+Response:
+{
+  "access_token": "...",
+  "refresh_token": "...",
+  "expires_in": 7200,
+  "user_info": {
+    "id": 1,
+    "username": "user@example.com",
+    "tenant_id": 1001,
+    "roles": ["warehouse_manager"]
+  }
+}</code></pre><ol class="numbered-list"><li class="affine-list-block-container"><strong>API请求携带Token</strong>：</li></ol><pre><code class="code-text">GET /api/v1/inventory/query
+Headers:
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre><div class="affine-paragraph-block-container"><p><strong>权限控制（RBAC）：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">角色定义：超级管理员、租户管理员、仓库管理员、操作员、查看员</li><li class="affine-list-block-container">权限粒度：模块级、功能级、数据级（多租户隔离）</li><li class="affine-list-block-container">实现方式：基于注解+拦截器/中间件</li></ul><hr><div class="affine-paragraph-block-container"><h2>安全方案</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>6.1 数据安全</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>传输安全</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">全站HTTPS（TLS 1.3）</li><li class="affine-list-block-container">API接口签名验证（防篡改）</li><li class="affine-list-block-container">敏感字段加密传输</li></ul></li><li class="affine-list-block-container"><strong>存储安全</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">数据库字段加密（AES-256）：密码、API密钥</li><li class="affine-list-block-container">定期备份（每日全量+实时增量）</li><li class="affine-list-block-container">异地容灾备份</li></ul></li><li class="affine-list-block-container"><strong>访问控制</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">IP白名单（API调用）</li><li class="affine-list-block-container">多租户数据隔离（Row-Level Security）</li><li class="affine-list-block-container">最小权限原则</li></ul></li></ol><div class="affine-paragraph-block-container"><h3>6.2 系统安全</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>防护措施</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">API限流（令牌桶算法）：100次/分钟/IP</li><li class="affine-list-block-container">SQL注入防护（参数化查询）</li><li class="affine-list-block-container">XSS防护（输入过滤+输出转义）</li><li class="affine-list-block-container">CSRF防护（Token验证）</li></ul></li><li class="affine-list-block-container"><strong>监控审计</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">操作日志记录（谁、何时、做了什么）</li><li class="affine-list-block-container">异常登录检测（异地登录、暴力破解）</li><li class="affine-list-block-container">实时告警（Prometheus AlertManager）</li></ul></li></ol><div class="affine-paragraph-block-container"><h3>6.3 业务安全</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>库存安全</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">库存变动需授权审批（超大额调整）</li><li class="affine-list-block-container">盘点差异需多人确认</li><li class="affine-list-block-container">关键操作双因素认证（2FA）</li></ul></li><li class="affine-list-block-container"><strong>订单安全</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">订单金额异常检测</li><li class="affine-list-block-container">高价值订单人工复核</li><li class="affine-list-block-container">发货地址黑名单</li></ul></li></ol><hr><div class="affine-paragraph-block-container"><h2>性能优化方案</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>7.1 缓存策略</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>多级缓存架构：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>浏览器缓存</strong>：静态资源（CSS/JS/图片）</li><li class="affine-list-block-container"><strong>CDN缓存</strong>：全球加速</li><li class="affine-list-block-container"><strong>应用缓存</strong>：热点数据（Redis）</li><li class="affine-list-block-container"><strong>数据库缓存</strong>：查询结果集</li></ol><div class="affine-paragraph-block-container"><p><strong>Redis缓存设计：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-text"># 商品信息（TTL: 1小时）
+Key: product:{product_id}
+Value: {product_json}
+
+# 库存数据（TTL: 5分钟）
+Key: inventory:{warehouse_id}:{sku}
+Value: {quantity, available, locked}
+
+# 用户Session（TTL: 2小时）
+Key: session:{user_id}
+Value: {user_info, permissions}</code></pre><div class="affine-paragraph-block-container"><p><strong>缓存更新策略：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">Cache Aside模式：读缓存miss则查数据库并回填</li><li class="affine-list-block-container">Write Through模式：写操作同时更新缓存和数据库</li><li class="affine-list-block-container">使用MQ异步刷新缓存（库存变动、订单状态更新）</li></ul><div class="affine-paragraph-block-container"><h3>7.2 数据库优化</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>查询优化</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">索引优化（覆盖索引、联合索引）</li><li class="affine-list-block-container">避免SELECT *，只查询需要的字段</li><li class="affine-list-block-container">分页查询使用游标而非OFFSET（大数据集）</li></ul></li><li class="affine-list-block-container"><strong>连接池优化</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">HikariCP（最大连接数：50，最小空闲：10）</li><li class="affine-list-block-container">连接超时：30秒</li><li class="affine-list-block-container">慢查询监控（>500ms告警）</li></ul></li><li class="affine-list-block-container"><strong>读写分离</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">主库：写操作</li><li class="affine-list-block-container">从库：读操作（延迟&#x3C;1秒）</li><li class="affine-list-block-container">关键业务查询主库（避免数据不一致）</li></ul></li></ol><div class="affine-paragraph-block-container"><h3>7.3 异步处理</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>使用场景：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">订单创建后的库存分配</li><li class="affine-list-block-container">发货后的物流轨迹更新</li><li class="affine-list-block-container">报表统计任务</li><li class="affine-list-block-container">邮件/短信通知</li></ul><div class="affine-paragraph-block-container"><p><strong>实现方案：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-java">// 使用RabbitMQ异步处理
+@RabbitListener(queues = "order.created")
+public void handleOrderCreated(OrderCreatedEvent event) {
+    // 1. 分配库存
+    inventoryService.allocate(event.getOrderId());
+    
+    // 2. 生成拣货任务
+    pickingService.createTask(event.getOrderId());
+    
+    // 3. 发送通知
+    notificationService.sendOrderConfirmation(event.getCustomerId());
+}</code></pre><hr><div class="affine-paragraph-block-container"><h2>监控与运维</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>8.1 监控体系</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>监控层级：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>基础设施监控</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">服务器：CPU、内存、磁盘、网络（Prometheus + Node Exporter）</li><li class="affine-list-block-container">数据库：连接数、QPS、慢查询（Prometheus + Postgres Exporter）</li><li class="affine-list-block-container">中间件：消息堆积、Redis内存（专用Exporter）</li></ul></li><li class="affine-list-block-container"><strong>应用监控</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">接口性能：响应时间、吞吐量、错误率（Spring Boot Actuator + Micrometer）</li><li class="affine-list-block-container">业务指标：订单量、库存周转率、拣货效率（自定义Metrics）</li><li class="affine-list-block-container">JVM监控：堆内存、GC频率（JMX）</li></ul></li><li class="affine-list-block-container"><strong>链路追踪</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">分布式追踪（Jaeger / Zipkin）</li><li class="affine-list-block-container">请求全链路可视化</li><li class="affine-list-block-container">性能瓶颈定位</li></ul></li></ol><div class="affine-paragraph-block-container"><p><strong>Grafana Dashboard示例：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">系统概览：QPS、错误率、响应时间</li><li class="affine-list-block-container">库存监控：总库存、可用库存、锁定库存</li><li class="affine-list-block-container">订单监控：待处理订单、超时订单、异常订单</li><li class="affine-list-block-container">仓库效率：拣货时效、出库时效、准确率</li></ul><div class="affine-paragraph-block-container"><h3>8.2 日志管理</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>ELK Stack：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ol class="numbered-list"><li class="affine-list-block-container"><strong>日志采集（Filebeat）</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">应用日志：/var/log/app/*.log</li><li class="affine-list-block-container">访问日志：Nginx access.log</li><li class="affine-list-block-container">错误日志：error.log</li></ul></li><li class="affine-list-block-container"><strong>日志处理（Logstash）</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">日志解析（Grok）</li><li class="affine-list-block-container">字段提取</li><li class="affine-list-block-container">数据清洗</li></ul></li><li class="affine-list-block-container"><strong>日志存储（Elasticsearch）</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">索引策略：按日期创建索引（logs-2025-11-04）</li><li class="affine-list-block-container">保留策略：30天内热数据，之后归档到S3</li></ul></li><li class="affine-list-block-container"><strong>日志查询（Kibana）</strong>：<ul class="bulleted-list"><li class="affine-list-block-container">全文检索</li><li class="affine-list-block-container">可视化分析</li><li class="affine-list-block-container">告警配置</li></ul></li></ol><div class="affine-paragraph-block-container"><p><strong>日志格式规范：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><pre><code class="code-json">{
+  "timestamp": "2025-11-04T10:30:00.123Z",
+  "level": "INFO",
+  "service": "order-service",
+  "trace_id": "abc123",
+  "user_id": 1001,
+  "action": "create_order",
+  "message": "Order created successfully",
+  "details": {
+    "order_no": "OUT20251104001",
+    "warehouse_id": 1,
+    "items_count": 3
+  }
+}</code></pre><div class="affine-paragraph-block-container"><h3>8.3 告警策略</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>告警规则：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><table border style="border-collapse: collapse;border-spacing: 0;"><tbody><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">指标</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">阈值</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">级别</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">通知渠道</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">API错误率</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">>5%</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">P1</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">电话+短信+邮件</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">响应时间</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">>3秒</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">P2</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">短信+邮件</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">库存差异</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">>100件</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">P2</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">邮件+钉钉</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">数据库连接数</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">>80%</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">P1</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">短信+邮件</div></td></tr><tr><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">消息队列堆积</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">>10000</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">P2</div></td><td><div style="min-height: 22px;min-width:120px;padding: 8px 12px;">邮件</div></td></tr></tbody></table><div class="affine-paragraph-block-container"><p><strong>告警收敛：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">同一告警5分钟内只发送一次</li><li class="affine-list-block-container">夜间告警升级策略（P2→P1）</li></ul><hr><div class="affine-paragraph-block-container"><h2>开发计划</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>9.1 项目里程碑</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>Phase 1: MVP（3-6个月）</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>目标</strong>：核心功能上线，支持单仓运营</p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">Month 1-2：基础架构搭建<ul class="bulleted-list"><li class="affine-list-block-container">开发环境搭建</li><li class="affine-list-block-container">微服务框架搭建</li><li class="affine-list-block-container">数据库设计与初始化</li><li class="affine-list-block-container">用户认证授权模块</li></ul></li><li class="affine-list-block-container">Month 3-4：核心业务开发<ul class="bulleted-list"><li class="affine-list-block-container">库存管理（查询、调整、流水）</li><li class="affine-list-block-container">入库管理（ASN、收货、上架）</li><li class="affine-list-block-container">出库管理（订单创建、拣货、发货）</li><li class="affine-list-block-container">基础报表</li></ul></li><li class="affine-list-block-container">Month 5-6：测试与上线<ul class="bulleted-list"><li class="affine-list-block-container">功能测试、集成测试</li><li class="affine-list-block-container">性能测试（压测）</li><li class="affine-list-block-container">用户验收测试（UAT）</li><li class="affine-list-block-container">试运营+Bug修复</li></ul></li></ul><div class="affine-paragraph-block-container"><p><strong>Phase 2: 功能完善（6-12个月）</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">物流集成（主流物流商API对接）</li><li class="affine-list-block-container">电商平台对接（Amazon、eBay、Shopify）</li><li class="affine-list-block-container">财务模块（费用计算、账单生成）</li><li class="affine-list-block-container">移动端应用（PDA拣货、移动盘点）</li><li class="affine-list-block-container">高级报表（数据分析、可视化）</li><li class="affine-list-block-container">多仓库支持</li></ul><div class="affine-paragraph-block-container"><p><strong>Phase 3: 智能化升级（12-18个月）</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">智能库位推荐（机器学习）</li><li class="affine-list-block-container">需求预测（销量预测模型）</li><li class="affine-list-block-container">智能补货建议</li><li class="affine-list-block-container">语音拣货（语音识别）</li><li class="affine-list-block-container">自动化设备对接（AGV、分拣机）</li></ul><div class="affine-paragraph-block-container"><h3>9.2 团队配置</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>开发团队（15-20人）：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">项目经理：1人</li><li class="affine-list-block-container">产品经理：1人</li><li class="affine-list-block-container">架构师：1人</li><li class="affine-list-block-container">后端开发：6-8人（Java/Go）</li><li class="affine-list-block-container">前端开发：3-4人（React）</li><li class="affine-list-block-container">移动端开发：2人（React Native）</li><li class="affine-list-block-container">测试工程师：3人</li><li class="affine-list-block-container">运维工程师：2人</li></ul><div class="affine-paragraph-block-container"><p><strong>外部资源：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">UI/UX设计师：外包</li><li class="affine-list-block-container">硬件集成（PDA、打印机）：供应商支持</li></ul><div class="affine-paragraph-block-container"><h3>9.3 风险评估</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p><strong>技术风险：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">微服务架构复杂度高 → 采用成熟框架，循序渐进</li><li class="affine-list-block-container">电商平台API变更 → 抽象适配层，降低耦合</li><li class="affine-list-block-container">高并发场景性能 → 提前压测，优化瓶颈</li></ul><div class="affine-paragraph-block-container"><p><strong>业务风险：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">需求变更频繁 → 敏捷开发，快速迭代</li><li class="affine-list-block-container">数据迁移困难 → 提供数据导入工具和迁移服务</li><li class="affine-list-block-container">用户接受度低 → 提供培训和操作手册</li></ul><div class="affine-paragraph-block-container"><p><strong>项目风险：</strong></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container">开发周期延误 → 设置里程碑，定期Review</li><li class="affine-list-block-container">人员流动 → 代码规范、文档完善、知识库建设</li></ul><hr><div class="affine-paragraph-block-container"><h2>附录</h2><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><h3>A. 技术名词解释</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container"><strong>ASN</strong>（Advanced Shipping Notice）：入库预报单</li><li class="affine-list-block-container"><strong>SKU</strong>（Stock Keeping Unit）：库存量单位</li><li class="affine-list-block-container"><strong>WMS</strong>（Warehouse Management System）：仓库管理系统</li><li class="affine-list-block-container"><strong>PDA</strong>（Personal Digital Assistant）：手持终端</li><li class="affine-list-block-container"><strong>波次拣货</strong>：将多个订单合并成一个批次进行拣货</li><li class="affine-list-block-container"><strong>播种式拣货</strong>：先集中拣货再分配到各订单</li><li class="affine-list-block-container"><strong>摘果式拣货</strong>：按订单逐个拣货</li></ul><div class="affine-paragraph-block-container"><h3>B. 参考资料</h3><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><ul class="bulleted-list"><li class="affine-list-block-container"><a href="https://spring.io/projects/spring-cloud">Spring Cloud官方文档</a></li><li class="affine-list-block-container"><a href="https://www.postgresql.org/docs/">PostgreSQL性能优化指南</a></li><li class="affine-list-block-container"><a href="https://developer.amazonservices.com/">Amazon MWS API文档</a></li><li class="affine-list-block-container"><a href="https://microservices.io/patterns/">微服务架构设计模式</a></li></ul><hr><div class="affine-paragraph-block-container"><p><strong>文档版本</strong>：v1.0<strong>最后更新</strong>：2025-11-04<strong>编写人</strong>：技术规划团队</p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div><div class="affine-paragraph-block-container"><p></p><div class="affine-block-children-container" style="padding-left: 26px;"></div></div></div></body></html>
