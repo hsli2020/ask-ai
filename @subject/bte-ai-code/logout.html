@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Logged out</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{font-family:Inter,system-ui,Arial,sans-serif;background:#f5f7fb;margin:0;display:grid;place-items:center;min-height:100vh;color:#0f172a}
+  .card{background:#fff;border:1px solid #e3e8f0;border-radius:14px;box-shadow:0 10px 24px rgba(2,6,23,.06);padding:24px;max-width:460px}
+  h1{margin:0 0 8px;font-size:22px}
+  p{margin:8px 0 0;font-size:15px;color:#334155}
+  .btn{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(90deg,#2563eb,#06b6d4);color:#fff;font-weight:800;font-size:16px;text-decoration:none}
+  .muted{color:#64748b;font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>You’re logged out</h1>
+  <p>If a new window with the sign-in page didn’t appear, click below:</p>
+  <p><a class="btn" href="/dataexchange/login.php?next=%2Fdataexchange%2Fwarehouse.php" target="_blank" rel="noopener">Open Login</a></p>
+  <p class="muted">You can safely close this tab.</p>
+</div>
+
+<!-- We intentionally DO NOT auto-open the login here to avoid popup blockers.
+     The new login tab was already opened from the click event in the header link. -->
+</body>
+</html>
